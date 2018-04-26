@@ -1,0 +1,4 @@
+ get the user logged in username
+
+ //  NuvolaUserDetails user = (NuvolaUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //  String username = user.getUsername(); //get logged in username
