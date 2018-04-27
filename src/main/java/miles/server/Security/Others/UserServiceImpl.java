@@ -1,7 +1,7 @@
 package miles.server.Security.Others;
 
 import miles.server.MongoDB.User.User;
-import miles.server.MongoDB.User.UserUtills;
+import miles.server.MongoDB.User.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByUsername(String email) {
-        User DBUser = UserUtills.getUserByEmail(email);
+        User DBUser = UserDAO.getUserByEmail(email);
         if (DBUser != null) {
             return DBUser;
         }

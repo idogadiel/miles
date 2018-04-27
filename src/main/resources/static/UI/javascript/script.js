@@ -2,7 +2,6 @@ var scotchApp = angular.module('scotchApp', ['ngRoute']);
 
 scotchApp.config(function ($routeProvider) {
     $routeProvider
-
         .when('/', {
             templateUrl: 'home.html',
             controller: 'mainController'
@@ -13,9 +12,15 @@ scotchApp.config(function ($routeProvider) {
             controller: 'forgotpasswordController'
         })
 
-        .when('/secretpage', {
-            templateUrl: 'secretpage.html',
+        .when('/desired', {
+            templateUrl: 'desired.html',
+            controller: 'desiredController'
         })
+
+         .when('/visited', {
+             templateUrl: 'visited.html',
+             controller: 'visitedController'
+         })
 
         .when('/signin', {
             templateUrl: 'signin.html',
@@ -33,9 +38,7 @@ scotchApp.config(function ($routeProvider) {
         });
 });
 
-scotchApp.run(function ($rootScope) {
-});
-
+scotchApp.run(function ($rootScope) {});
 
 scotchApp.controller('mainController', function ($scope, $rootScope, $http) {
     $http({
@@ -50,7 +53,6 @@ scotchApp.controller('mainController', function ($scope, $rootScope, $http) {
     });
 });
 
-
 scotchApp.controller('signoutController', function ($scope, $rootScope, $http) {
     $http({
         method: 'GET',
@@ -63,7 +65,6 @@ scotchApp.controller('signoutController', function ($scope, $rootScope, $http) {
         $scope.message = "Error";
     });
 });
-
 
 scotchApp.controller('forgotpasswordController', function ($scope, $rootScope, $http) {
     $scope.changePassword = function () {
@@ -88,7 +89,6 @@ scotchApp.controller('forgotpasswordController', function ($scope, $rootScope, $
         });
     }
 });
-
 
 scotchApp.controller('signinController', function ($scope, $http) {
     $scope.showForgotPassowrdLink = false;
@@ -125,7 +125,7 @@ scotchApp.controller('signinController', function ($scope, $http) {
     }
 
     $scope.sendForgotPasswordLink = function () {
-        if (!validateEmail($scope.username)) {
+        if (!isValidEmail($scope.username)) {
             $scope.message = "Please add valid email address";
             return;
         }
@@ -146,20 +146,88 @@ scotchApp.controller('signinController', function ($scope, $http) {
         });
     }
 
-    function validateEmail(email) {
-        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(email);
-    }
+});
 
+scotchApp.controller('desiredController', function ($scope, $rootScope, $http) {
+    // get all destinations
+    $http({
+        method: 'GET',
+        withCredentials: true,
+        url: 'http://127.0.0.1:8080/destination/getAllDesiredDestinations'
+    }).then(function successCallback(response) {
+            $scope.allDesiredDestinations = response.data;
+    }, function errorCallback(response) {
+            $scope.allDesiredDestinations = "error";
+    });
+
+    // add destination func :
+    $scope.addDestination = function () {
+            $scope.message = "";
+            var jsonObj =
+            {
+                "to": $scope.to,
+                "from": $scope.from,
+                "seatType": $scope.seatType
+            };
+            $http({
+                url: "http://127.0.0.1:8080/destination/addDesiredDestination/",
+                method: "POST",
+                withCredentials: true,
+                data: jsonObj
+            }).success(function (data, status, headers, config) {
+                $scope.showLoader = false;
+            }).error(function (data, status, headers, config) {
+               // alert("c");
+            });
+        };
+});
+
+scotchApp.controller('visitedController', function ($scope, $rootScope, $http) {
+    // get all destinations
+    $http({
+        method: 'GET',
+        withCredentials: true,
+        url: 'http://127.0.0.1:8080/destination/getAllVisitedDestinations'
+    }).then(function successCallback(response) {
+            $scope.allVisitedDestinations = response.data;
+    }, function errorCallback(response) {
+            $scope.allVisitedDestinations = "error";
+    });
+
+    // add destination func :
+    $scope.addDestination = function () {
+            $scope.message = "";
+            var jsonObj =
+            {
+                "to": $scope.to,
+                "from": $scope.from,
+                "seatType": $scope.seatType
+            };
+            $http({
+                url: "http://127.0.0.1:8080/destination/addVisitedDestination/",
+                method: "POST",
+                withCredentials: true,
+                data: jsonObj
+            }).success(function (data, status, headers, config) {
+                $scope.showLoader = false;
+            }).error(function (data, status, headers, config) {
+               // alert("c");
+            });
+
+        };
 });
 
 
 
 
-
 scotchApp.controller('signupController', function ($scope, $http) {
+
     $scope.showLoader = false;
     $scope.login = function () {
+         if (!isValidEmail($scope.username)) {
+                    $scope.message = "Please add valid email address";
+                    return;
+          }
         $scope.message = "";
         $scope.showLoader = true;
         var jsonObj =
@@ -167,7 +235,6 @@ scotchApp.controller('signupController', function ($scope, $http) {
             "email": $scope.username,
             "password": $scope.password,
             "birthdate": "1.1.2001"
-
         };
         $http({
             url: "http://127.0.0.1:8080/user/signup/",
@@ -187,11 +254,16 @@ scotchApp.controller('signupController', function ($scope, $http) {
             $scope.showLoader = false;
             $scope.message = "Error. something went wrong.";
         });
+
     };
 });
-
 
 function setHeaderUsername(response) {
     var answer = angular.fromJson(response.data);
     return answer.username;
+}
+
+function isValidEmail(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
 }

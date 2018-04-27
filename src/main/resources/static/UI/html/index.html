@@ -13,12 +13,13 @@
     <nav class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/">Miles's Simple System </a>
+                <a class="navbar-brand" href="/">Miles Simple System </a>
             </div>
 
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><i class="glyphicon glyphicon-home"></i> Home</a></li>
-                <li ng-show="loggedin"><a href="#secretpage"><i class="fa fa-shield"></i> Secret Page</a></li>
+                <li ng-show="loggedin"><a href="#desired"><i class="glyphicon glyphicon-road"></i> Desired Destinations</a></li>
+                <li ng-show="loggedin"><a href="#visited"><i class="glyphicon glyphicon-bookmark"></i> visited Destinations</a></li>
                 <li ng-hide="loggedin"><a href="#signin"><i class="glyphicon glyphicon-log-in"></i> Sign-in</a></li>
                 <li ng-hide="loggedin"><a href="#signup"><i class="	glyphicon glyphicon-pencil"></i> Sign-up</a></li>
                 <li ng-show="loggedin"><a href="#signout"><i class="glyphicon glyphicon-log-out"></i> Sign-out</a></li>

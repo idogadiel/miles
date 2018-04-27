@@ -14,7 +14,7 @@ import miles.server.Security.Utills.Utills;
 /**
  * Created by gadiel on 12/10/2016.
  */
-public class UserUtills {
+public class UserDAO {
 
     public static User getUserByEmail(String email) {
         ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringMongoConfig.class);
@@ -99,7 +99,7 @@ public class UserUtills {
 //    ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringMongoConfig.class);
 //    MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
 //    Query searchUserQuery = new Query(Criteria.where("username").is(username));
-//    User savedUser = mongoOperation.findOne(searchUserQuery, User.class);
+//    VisitedDestination savedUser = mongoOperation.findOne(searchUserQuery, VisitedDestination.class);
 //    if(savedUser!= null && savedUser.getPassword().equals(password)){
 //        return true;
 //    }
@@ -109,7 +109,7 @@ public class UserUtills {
 //    public static void insertUserByStrings(String username, String password, String email, Date birthday){
 //        ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringMongoConfig.class);
 //        MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
-//        User user = new User(password,email,birthday);
+//        VisitedDestination user = new VisitedDestination(password,email,birthday);
 //        mongoOperation.save(user);
 //    }
 }

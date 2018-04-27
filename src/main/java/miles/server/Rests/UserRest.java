@@ -3,7 +3,7 @@ package miles.server.Rests;
 import miles.server.MongoDB.User.AdminUser;
 import miles.server.MongoDB.User.SimpleUser;
 import miles.server.MongoDB.User.User;
-import miles.server.MongoDB.User.UserUtills;
+import miles.server.MongoDB.User.UserDAO;
 import miles.server.Security.Others.NuvolaUserDetails;
 import miles.server.Utills.EmailUtills;
 import miles.server.Utills.JSONUtills;
@@ -20,8 +20,8 @@ public class UserRest {
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signUp(@RequestBody String userString) {
         SimpleUser user = new SimpleUser(userString);
-        if (!UserUtills.isEmailExist(user.getEmail())) {
-            UserUtills.insertUserByEntity(user);
+        if (!UserDAO.isEmailExist(user.getEmail())) {
+            UserDAO.insertUserByEntity(user);
             EmailUtills.sendConfirmationEmail(user);
             return JSONUtills.getSuccessJSON();
         }
@@ -31,8 +31,8 @@ public class UserRest {
     @RequestMapping(value = "/signupForAdmin", method = RequestMethod.POST)
     public String signupForAdmin(@RequestBody String userString) {
         AdminUser user = new AdminUser(userString);
-        if (!UserUtills.isEmailExist(user.getEmail())) {
-            UserUtills.insertUserByEntity(user);
+        if (!UserDAO.isEmailExist(user.getEmail())) {
+            UserDAO.insertUserByEntity(user);
             EmailUtills.sendConfirmationEmail(user);
             return JSONUtills.getSuccessJSON();
         }
@@ -41,7 +41,7 @@ public class UserRest {
 
     @RequestMapping(value = "activateAccount/{code}", method = RequestMethod.GET)
     String activateUser(@PathVariable String code) {
-        if (UserUtills.activateUser(code)) {
+        if (UserDAO.activateUser(code)) {
             return JSONUtills.getSuccessJSON();
         }
         return JSONUtills.getFailedJSON();
@@ -49,7 +49,7 @@ public class UserRest {
 
     @RequestMapping(value = "forgotPassword/{email:.+}", method = RequestMethod.GET)
     String forgotPassword(@PathVariable String email) {
-        User user = UserUtills.changeActivationKey(email);
+        User user = UserDAO.changeActivationKey(email);
         if (user != null) {
             EmailUtills.sendForgotPasswordEmail(user);
             return JSONUtills.getSuccessJSON();
@@ -59,7 +59,7 @@ public class UserRest {
 
     @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
     public String changePassword(@RequestBody String body) {
-        if (UserUtills.changeUserPassword(body)) {
+        if (UserDAO.changeUserPassword(body)) {
             return JSONUtills.getSuccessJSON();
         }
         return JSONUtills.getFailedJSON();

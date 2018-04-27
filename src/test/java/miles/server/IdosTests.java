@@ -5,7 +5,7 @@ import miles.server.MongoDB.SpringMongoConfig;
 import miles.server.MongoDB.User.AdminUser;
 import miles.server.MongoDB.User.SimpleUser;
 import miles.server.MongoDB.User.User;
-import miles.server.MongoDB.User.UserUtills;
+import miles.server.MongoDB.User.UserDAO;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -26,9 +26,9 @@ public class IdosTests {
         MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
         mongoOperation.save(adminUser);
         mongoOperation.save(simpleUser);
-        User u1 = UserUtills.getUserByEmail("admin-user3");
+        User u1 = UserDAO.getUserByEmail("admin-user3");
         System.out.println(u1.getEmail()+":"+u1.getRole());
-        User u2 = UserUtills.getUserByEmail("simple-user3");
+        User u2 = UserDAO.getUserByEmail("simple-user3");
         System.out.println(u2.getEmail()+":"+u2.getRole());
     }
 }

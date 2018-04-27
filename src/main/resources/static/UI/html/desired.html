@@ -1,0 +1,38 @@
+<!-- home.html -->
+<div class="jumbotron text-center">
+
+    <h2>Desired Destinations: </h2>
+
+    <p ng-repeat="x in allDesiredDestinations">  From: {{x.from}}, To: {{x.to}}, Seat Type: {{x.seatType}}</p>
+
+<br>Add more desired Destinations:
+    <form role="form">
+        <div class="form-group">
+            <label for="fromCities">From:</label>
+            <select ng-model="from" name="fromCities" id="fromCities">
+                <option value="ny">NY</option>
+                <option value="tlv">TLV</option>
+                <option value="nz">NZ</option>
+                <option value="london">London</option>
+            </select>
+
+            <label for="toCities">To:</label>
+            <select ng-model="to" name="toCities" id="toCities">
+                <option value="ny">NY</option>
+                <option value="tlv">TLV</option>
+                <option value="nz">NZ</option>
+                <option value="london">London</option>
+            </select>
+
+            <label for="seatTypes">seatType:</label>
+            <select ng-model="seatType" name="seatTypes" id="seatTypes">
+                <option value=1>Eco</option>
+                <option value=2>Business</option>
+            </select>
+            <button type="submit" class="btn btn-default" ng-click="addDestination()">Add</button>
+        </div>
+    </form>
+
+
+
+</div>
