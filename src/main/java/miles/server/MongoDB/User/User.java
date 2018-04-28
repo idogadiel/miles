@@ -13,7 +13,7 @@ import miles.server.Security.Utills.Utills;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@Document(collection = "users")
+@Document(collection = "Users")
 public abstract class User {
     @Id
     private String id;

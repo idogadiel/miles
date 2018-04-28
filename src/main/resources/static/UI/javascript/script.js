@@ -244,7 +244,6 @@ scotchApp.controller('signupController', function ($scope, $http) {
             $scope.showLoader = false;
             if (data.result) {
                 $scope.message = "Signed up successfully";
-                $scope.$parent.loggedin = true;
                 $scope.$parent.headerUsername = data.username;
             }
             else {

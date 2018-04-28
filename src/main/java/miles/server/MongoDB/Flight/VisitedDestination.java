@@ -6,7 +6,7 @@ package miles.server.MongoDB.Flight;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "users")
+@Document(collection = "VisitedDestination")
 public class VisitedDestination extends Destination {
 
     boolean redeemed;
