@@ -1,4 +1,4 @@
-package miles.server.MongoDB.User;
+package miles.server.Entities.User;
 
 import miles.server.Utills.Params;
 

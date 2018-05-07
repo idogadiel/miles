@@ -1,9 +1,5 @@
-package miles.server.Rests;
+package miles.server.Entities.User;
 
-import miles.server.MongoDB.User.AdminUser;
-import miles.server.MongoDB.User.SimpleUser;
-import miles.server.MongoDB.User.User;
-import miles.server.MongoDB.User.UserDAO;
 import miles.server.Security.Others.NuvolaUserDetails;
 import miles.server.Utills.EmailUtills;
 import miles.server.Utills.JSONUtills;

@@ -1,6 +1,6 @@
 package miles.server.Utills;
 
-import miles.server.MongoDB.User.User;
+import miles.server.Entities.User.User;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.io.ClassPathResource;

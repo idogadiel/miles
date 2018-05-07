@@ -1,6 +1,6 @@
 package miles.server.Security.Others;
 
-import miles.server.MongoDB.User.User;
+import miles.server.Entities.User.User;
 import miles.server.Security.Parameters.ResourcePaths;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

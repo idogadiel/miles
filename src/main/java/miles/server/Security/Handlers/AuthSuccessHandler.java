@@ -1,7 +1,7 @@
 package miles.server.Security.Handlers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import miles.server.MongoDB.User.User;
+import miles.server.Entities.User.User;
 import miles.server.Utills.JSONUtills;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

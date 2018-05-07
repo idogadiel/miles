@@ -1,6 +1,6 @@
 package miles.server.Security.Others;
 
-import miles.server.MongoDB.User.User;
+import miles.server.Entities.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

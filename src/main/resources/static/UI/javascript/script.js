@@ -153,7 +153,7 @@ scotchApp.controller('desiredController', function ($scope, $rootScope, $http) {
     $http({
         method: 'GET',
         withCredentials: true,
-        url: 'http://127.0.0.1:8080/destination/getAllDesiredDestinations'
+        url: 'http://127.0.0.1:8080/goal/getAllGoals'
     }).then(function successCallback(response) {
             $scope.allDesiredDestinations = response.data;
     }, function errorCallback(response) {
@@ -170,7 +170,7 @@ scotchApp.controller('desiredController', function ($scope, $rootScope, $http) {
                 "seatType": $scope.seatType
             };
             $http({
-                url: "http://127.0.0.1:8080/destination/addDesiredDestination/",
+                url: "http://127.0.0.1:8080/goal/addGoal/",
                 method: "POST",
                 withCredentials: true,
                 data: jsonObj
@@ -187,11 +187,11 @@ scotchApp.controller('visitedController', function ($scope, $rootScope, $http) {
     $http({
         method: 'GET',
         withCredentials: true,
-        url: 'http://127.0.0.1:8080/destination/getAllVisitedDestinations'
+        url: 'http://127.0.0.1:8080/takenflight/getAllTakenFlights'
     }).then(function successCallback(response) {
-            $scope.allVisitedDestinations = response.data;
+            $scope.allTakenFlights = response.data;
     }, function errorCallback(response) {
-            $scope.allVisitedDestinations = "error";
+            $scope.allTakenFlights = "error";
     });
 
     // add destination func :
@@ -199,12 +199,14 @@ scotchApp.controller('visitedController', function ($scope, $rootScope, $http) {
             $scope.message = "";
             var jsonObj =
             {
-                "to": $scope.to,
-                "from": $scope.from,
-                "seatType": $scope.seatType
+                "flightNumber": $scope.flightNumber,
+                "ticketNumber": $scope.ticketNumber,
+                "nameOnTicket": $scope.nameOnTicket,
+                "dateOfFlight": $scope.dateOfFlight
+
             };
             $http({
-                url: "http://127.0.0.1:8080/destination/addVisitedDestination/",
+                url: "http://127.0.0.1:8080/takenflight/addTakenFlight/",
                 method: "POST",
                 withCredentials: true,
                 data: jsonObj

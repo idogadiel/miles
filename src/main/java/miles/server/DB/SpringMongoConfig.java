@@ -1,4 +1,4 @@
-package miles.server.MongoDB;
+package miles.server.DB;
 
 /**
  * Created by gadiel on 12/10/2016.

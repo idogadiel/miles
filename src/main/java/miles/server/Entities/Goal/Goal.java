@@ -1,44 +1,47 @@
-package miles.server.MongoDB.Flight;
+package miles.server.Entities.Goal;
+
+/**
+ * Created by gadiel on 12/10/2016.
+ */
 
 import org.json.JSONObject;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
-
-public abstract class Destination {
+@Document(collection = "Goals")
+public class Goal {
 
     @Id
     private String id;
     String to;
     String from;
-    String flightNum;  // probably unnecessary
     int seatType;
     String userId;
-    Date date;
 
-    public Destination(){}
 
-    public Destination(String to, String from, int seatType, String flightNum) {
+    @Override
+    public String toString(){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("to",to);
+        jsonObject.put("from",from);
+        jsonObject.put("seatType", seatType);
+        return jsonObject.toString();
+    }
+
+    public Goal() {
+    }
+
+    public Goal(String to, String from, int seatType) {
         this.to = to;
         this.from = from;
         this.seatType = seatType;
     }
 
-    public Destination(String jsonUser) {
+    public Goal(String jsonUser) {
         JSONObject jsonObject = new JSONObject(jsonUser);
         this.to = (String) jsonObject.get("to");
         this.from = (String) jsonObject.get("from");
         this.seatType = Integer.valueOf((String)jsonObject.get("seatType"));
-    }
-
-
-    public String getFlightNum() {
-        return flightNum;
-    }
-
-    public void setFlightNum(String flightNum) {
-        this.flightNum = flightNum;
     }
 
     public int getSeatType() {
@@ -57,13 +60,7 @@ public abstract class Destination {
         this.userId = userId;
     }
 
-    public Date getDate() {
-        return date;
-    }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
 
     public String getTo() {
         return to;
@@ -81,12 +78,6 @@ public abstract class Destination {
         this.from = from;
     }
 
-    @Override
-    public String toString() {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("to", to);
-        jsonObject.put("from", from);
-        jsonObject.put("seatType", seatType);
-        return jsonObject.toString();
-    }
+
+
 }

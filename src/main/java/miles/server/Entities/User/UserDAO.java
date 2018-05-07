@@ -1,4 +1,4 @@
-package miles.server.MongoDB.User;
+package miles.server.Entities.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
-import miles.server.MongoDB.SpringMongoConfig;
+import miles.server.DB.SpringMongoConfig;
 import miles.server.Security.Utills.Utills;
 
 /**
@@ -99,7 +99,7 @@ public class UserDAO {
 //    ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringMongoConfig.class);
 //    MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
 //    Query searchUserQuery = new Query(Criteria.where("username").is(username));
-//    VisitedDestination savedUser = mongoOperation.findOne(searchUserQuery, VisitedDestination.class);
+//    TakenFlight savedUser = mongoOperation.findOne(searchUserQuery, TakenFlight.class);
 //    if(savedUser!= null && savedUser.getPassword().equals(password)){
 //        return true;
 //    }
@@ -109,7 +109,7 @@ public class UserDAO {
 //    public static void insertUserByStrings(String username, String password, String email, Date birthday){
 //        ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringMongoConfig.class);
 //        MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
-//        VisitedDestination user = new VisitedDestination(password,email,birthday);
+//        TakenFlight user = new TakenFlight(password,email,birthday);
 //        mongoOperation.save(user);
 //    }
 }

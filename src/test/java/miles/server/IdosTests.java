@@ -1,11 +1,11 @@
 package miles.server;
 
 
-import miles.server.MongoDB.SpringMongoConfig;
-import miles.server.MongoDB.User.AdminUser;
-import miles.server.MongoDB.User.SimpleUser;
-import miles.server.MongoDB.User.User;
-import miles.server.MongoDB.User.UserDAO;
+import miles.server.DB.SpringMongoConfig;
+import miles.server.Entities.User.AdminUser;
+import miles.server.Entities.User.SimpleUser;
+import miles.server.Entities.User.User;
+import miles.server.Entities.User.UserDAO;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.data.mongodb.core.MongoOperations;

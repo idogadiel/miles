@@ -1,4 +1,4 @@
-package miles.server.MongoDB.User;
+package miles.server.Entities.User;
 
 /**
  * Created by gadiel on 12/10/2016.
