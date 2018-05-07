@@ -1,9 +1,13 @@
 package miles.server.Entities.Airline;
 
 import miles.server.Entities.TakenFlight.TakenFlight;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 
-// example
+@Component
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class Delta extends Airline  {
 
     public Delta(){
@@ -17,6 +21,10 @@ public class Delta extends Airline  {
 
     @Override
     public void redeemDo(TakenFlight takenFlight) {
+    }
 
+    // kastach
+    public int compareTo(Object  o){
+    return 1;
     }
 }

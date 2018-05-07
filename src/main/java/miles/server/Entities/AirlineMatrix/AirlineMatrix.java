@@ -1,19 +1,24 @@
 package miles.server.Entities.AirlineMatrix;
 
 
+import com.google.common.collect.RowSortedTable;
+import com.google.common.collect.TreeBasedTable;
 import miles.server.Entities.Airline.Airline;
+import miles.server.Entities.Airline.Delta;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.util.List;
-// singleton
+import java.util.Map;
 
 public class AirlineMatrix {
 
-    private static int DIMENSION = 10;
-    private static Long[][] matrix = new Long[DIMENSION][DIMENSION];
-    public static AirlineMatrix airlineMatrix;
+    private static RowSortedTable<Airline, Airline, AirlinesRelation> matrix;
+    private static AirlineMatrix airlineMatrix;
+    private static AnnotationConfigApplicationContext context;
 
     private AirlineMatrix() {
-        // schedule new thread => call updateMatrix() => sleep for 12 hours
+        context = new AnnotationConfigApplicationContext(AirlineConfig.class);
+        matrix = TreeBasedTable.create();
+        updateMatrix();
     }
 
     public AirlineMatrix getInstance() {
@@ -23,12 +28,14 @@ public class AirlineMatrix {
         return airlineMatrix;
     }
 
-    private void updateMatrix(){
-        // go and do the actual update for the matrix
+    private void updateMatrix() {
+        matrix.put(context.getBean(Delta.class), context.getBean(Delta.class), new AirlinesRelation(4));
+        matrix.put(context.getBean(Delta.class), context.getBean(Delta.class), new AirlinesRelation(220));
+        matrix.put(context.getBean(Delta.class), context.getBean(Delta.class), new AirlinesRelation(20));
     }
 
-    private List<Airline> getMembers(Long companyId){
-        return null;
+    private Map<Airline, AirlinesRelation> getMembers(Airline airline) {
+        return matrix.row(airline);
     }
 
 

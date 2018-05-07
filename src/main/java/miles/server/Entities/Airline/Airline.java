@@ -5,11 +5,11 @@ import org.json.JSONObject;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-public abstract class Airline {
+public abstract class Airline implements Comparable {
 
-    private Long id;
-    private String airlineName;
-    private String websiteAddress;
+    protected Long id;
+    protected String airlineName;
+    protected String websiteAddress;
 
 
     public Airline(Long id, String airlineName, String websiteAddress) {
