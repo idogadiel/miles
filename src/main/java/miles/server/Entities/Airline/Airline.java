@@ -42,10 +42,4 @@ public abstract class Airline implements Comparable {
         this.websiteAddress = websiteAddress;
     }
 
-    // here can be some method like open http request etc ...
-
-    public abstract String redeemSuggest(TakenFlight takenFlight);
-
-    public abstract void redeemDo(TakenFlight takenFlight);
-
 }
