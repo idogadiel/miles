@@ -14,14 +14,7 @@ public class Delta extends Airline  {
         super(1L,"Delta" , "http://www.delta.com/redeem_api");
     }
 
-    @Override
-    public String redeemSuggest(TakenFlight takenFlight) {
-        return null;
-    }
 
-    @Override
-    public void redeemDo(TakenFlight takenFlight) {
-    }
 
     // kastach
     public int compareTo(Object  o){
