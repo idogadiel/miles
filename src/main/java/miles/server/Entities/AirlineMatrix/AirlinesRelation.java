@@ -2,9 +2,9 @@ package miles.server.Entities.AirlineMatrix;
 
 public class AirlinesRelation {
 
-    public AirlinesRelation(int ratio){
-        this.ratio= ratio;
+    public AirlinesRelation(String data){
+        this.data= data;
     }
 
-    public int ratio;
+    public String data;
 }
