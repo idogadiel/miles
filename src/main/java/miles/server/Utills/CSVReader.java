@@ -2,6 +2,8 @@ package miles.server.Utills;
 
 import com.google.common.collect.RowSortedTable;
 import com.google.common.collect.TreeBasedTable;
+import miles.server.Entities.Airline.Airline;
+import miles.server.Entities.Airline.AirlineFactory;
 import miles.server.Entities.AirlineMatrix.AirlinesRelation;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -15,7 +17,7 @@ import java.util.List;
 
 public class CSVReader {
 
-    public static RowSortedTable<String, String, AirlinesRelation> getMatrixFromCSV() {
+    public static RowSortedTable<Airline, Airline, AirlinesRelation> getMatrixFromCSV() {
 
         Resource resource = new ClassPathResource("matrixCSV.csv");
         BufferedReader br = null;
@@ -25,7 +27,7 @@ public class CSVReader {
 
         List<String> airlines = null;
 
-        RowSortedTable<String, String, AirlinesRelation> matrix = TreeBasedTable.create();
+        RowSortedTable<Airline, Airline, AirlinesRelation> matrix = TreeBasedTable.create();
 
         try {
             br = new BufferedReader(new FileReader(resource.getFile()));
@@ -38,7 +40,12 @@ public class CSVReader {
                 } else {
                     List<String> data = Arrays.asList(line.split(cvsSplitBy));
                     for (int i = 1; i < data.size(); i++) {
-                        matrix.put(data.get(0), airlines.get(i), new AirlinesRelation(data.get(i)));
+
+                        Airline rowAirline = AirlineFactory.getInstance().getAirline(data.get(0));
+                        Airline colAirline = AirlineFactory.getInstance().getAirline(airlines.get(i));
+                        AirlinesRelation relation = new AirlinesRelation(data.get(i));
+
+                        matrix.put(rowAirline, colAirline, relation);
 
                     }
                 }

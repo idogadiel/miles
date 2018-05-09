@@ -1,21 +1,28 @@
 package miles.server.Entities.Airline;
 
-import miles.server.Entities.TakenFlight.TakenFlight;
-import org.json.JSONObject;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-public abstract class Airline implements Comparable {
+public class Airline implements Comparable {
 
     protected Long id;
     protected String airlineName;
     protected String websiteAddress;
+
+    private static Long idCounter = 0L;
 
 
     public Airline(Long id, String airlineName, String websiteAddress) {
         this.id = id;
         this.airlineName = airlineName;
         this.websiteAddress = websiteAddress;
+    }
+
+    public Airline(String airlineName) {
+        this.id = getIncrementId();
+        this.airlineName = airlineName;
+    }
+
+    private Long getIncrementId() {
+        idCounter++;
+        return idCounter;
     }
 
     public Long getId() {
@@ -40,6 +47,15 @@ public abstract class Airline implements Comparable {
 
     public void setWebsiteAddress(String websiteAddress) {
         this.websiteAddress = websiteAddress;
+    }
+
+    public int compareTo(Object o) {
+        return 1;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return this.airlineName.equals(((Airline) other).airlineName);
     }
 
 }

@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class AirlineMatrix {
 
-    private static RowSortedTable<String, String, AirlinesRelation> matrix;
+    private static RowSortedTable<Airline, Airline, AirlinesRelation> matrix;
     private static AirlineMatrix airlineMatrix;
     private static AnnotationConfigApplicationContext context;
 
@@ -19,8 +19,8 @@ public class AirlineMatrix {
         matrix = CSVReader.getMatrixFromCSV();
     }
 
-    private Map<String, AirlinesRelation> getMembers(Airline airline) {
-        return matrix.row(airline.getAirlineName());
+    private Map<Airline, AirlinesRelation> getMembers(Airline airline) {
+        return matrix.row(airline);
     }
 
     public AirlineMatrix getInstance() {
