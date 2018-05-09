@@ -8,13 +8,6 @@ public class Airline implements Comparable {
 
     private static Long idCounter = 0L;
 
-
-    public Airline(Long id, String airlineName, String websiteAddress) {
-        this.id = id;
-        this.airlineName = airlineName;
-        this.websiteAddress = websiteAddress;
-    }
-
     public Airline(String airlineName) {
         this.id = getIncrementId();
         this.airlineName = airlineName;

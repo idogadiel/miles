@@ -104,6 +104,7 @@ public class TakenFlight {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
     @Override
     public String toString() {
         JSONObject jsonObject = new JSONObject();

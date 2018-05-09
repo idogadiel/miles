@@ -8,6 +8,8 @@ import org.json.JSONObject;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Document(collection = "Goals")
 public class Goal {
 
@@ -17,6 +19,7 @@ public class Goal {
     String from;
     int seatType;
     String userId;
+
 
 
     @Override
@@ -60,8 +63,6 @@ public class Goal {
         this.userId = userId;
     }
 
-
-
     public String getTo() {
         return to;
     }
@@ -76,6 +77,10 @@ public class Goal {
 
     public void setFrom(String from) {
         this.from = from;
+    }
+
+    public List<Goal> getGoalsByGoal(){
+        return null;
     }
 
 

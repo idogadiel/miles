@@ -6,10 +6,10 @@ import java.util.Map;
 public class AirlineFactory {
 
     private Map<String, Airline> map;
-    private  static AirlineFactory instance;
+    private static AirlineFactory instance;
 
-    public static AirlineFactory getInstance(){
-        if(instance == null){
+    public static AirlineFactory getInstance() {
+        if (instance == null) {
             instance = new AirlineFactory();
         }
         return instance;
