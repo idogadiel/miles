@@ -1,4 +1,3 @@
-
 <div class="jumbotron text-center">
     <h1>Sign-in Page</h1>
 
@@ -14,7 +13,8 @@
             </div>
             <button type="submit" class="btn btn-default" ng-click="login()">Submit</button>
         </form>
-        {{ message }}
+        <div ng-if="user.loggedin">You are now signed in.</div>
+        <div ng-if="!user.loggedin && login_tries">Wrong username and/or password.</div>
         <br>
 
         <a style="cursor:pointer;"  ng-show="showForgotPassowrdLink" ng-click="sendForgotPasswordLink()">Forgot your password?</a><br>

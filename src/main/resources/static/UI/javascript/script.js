@@ -41,27 +41,31 @@ scotchApp.config(function ($routeProvider) {
 scotchApp.run(function ($rootScope) {});
 
 scotchApp.controller('mainController', function ($scope, $rootScope, $http) {
+    $rootScope.user = {}
     $http({
         method: 'GET',
         withCredentials: true,
         url: 'http://127.0.0.1:8080/user/isloggedin'
     }).then(function successCallback(response) {
+//        console.log(response);
         var answer = angular.fromJson(response.data);
-        $scope.$parent.loggedin = answer.result;
+        $rootScope.user.loggedin = answer.result;
     }, function errorCallback(response) {
-        $scope.loggedin = false;
+        $rootScope.user.loggedin = false;
     });
 });
 
 scotchApp.controller('signoutController', function ($scope, $rootScope, $http) {
+    $rootScope.user = {};
     $http({
         method: 'GET',
         withCredentials: true,
         url: 'http://127.0.0.1:8080/user/logout'
     }).then(function successCallback(response) {
         $scope.message = "Logged out Successfully";
-        $scope.$parent.loggedin = false;
+//        $rootScope.user.loggedin = false;
     }, function errorCallback(response) {
+//        $rootScope.user.loggedin = false;
         $scope.message = "Error";
     });
 });
@@ -90,11 +94,12 @@ scotchApp.controller('forgotpasswordController', function ($scope, $rootScope, $
     }
 });
 
-scotchApp.controller('signinController', function ($scope, $http) {
-    $scope.showForgotPassowrdLink = false;
+scotchApp.controller('signinController', function ($rootScope, $scope, $http) {
+    $scope.login_tries = 0
+
     $scope.login = function () {
         $scope.showLoader = true;
-        $scope.message = "";
+        $scope.login_tries += 1
         var jsonObj = "username=" + $scope.username + "&password=" + $scope.password;
         $http({
             url: "http://127.0.0.1:8080/user/login",
@@ -105,24 +110,15 @@ scotchApp.controller('signinController', function ($scope, $http) {
             },
             data: jsonObj
         }).success(function (data, status, headers, config) {
-            finishedVerify(true);
+            $scope.showLoader = false;
+            $rootScope.user.loggedin = true;
+            console.log($rootScope)
 
         }).error(function (data, status, headers, config) {
-            finishedVerify(false);
+            $scope.showLoader = false;
+            $rootScope.user.loggedin = false;
         });
     };
-    function finishedVerify(connected) {
-        $scope.showLoader = false;
-        if (connected) {
-            $scope.message = "You are now signed in.";
-            $scope.$parent.loggedin = true;
-            $scope.showForgotPassowrdLink = false;
-        }
-        else {
-            $scope.message = "Wrong username and/or password";
-            $scope.showForgotPassowrdLink = true;
-        }
-    }
 
     $scope.sendForgotPasswordLink = function () {
         if (!isValidEmail($scope.username)) {
@@ -138,7 +134,7 @@ scotchApp.controller('signinController', function ($scope, $http) {
             $scope.showForgotPassowrdLink = true;
             $scope.message = "Check your email for instructions";
             $scope.showLoader = false;
-            $scope.$parent.loggedin = false;
+            $rootScope.user.loggedin = false;
         }, function errorCallback(response) {
             $scope.message = "Error";
             $scope.showLoader = true;
@@ -222,9 +218,9 @@ scotchApp.controller('visitedController', function ($scope, $rootScope, $http) {
 
 
 
-scotchApp.controller('signupController', function ($scope, $http) {
+scotchApp.controller('signupController', function ($rootScope, $cope, $http) {
 
-    $scope.showLoader = false;
+    $rootScope.showLoader = false;
     $scope.login = function () {
          if (!isValidEmail($scope.username)) {
                     $scope.message = "Please add valid email address";
