@@ -1,4 +1,4 @@
-package miles.server.Utills;
+package miles.server.Entities.TakenFlightMatrix;
 
 import com.google.common.collect.RowSortedTable;
 import com.google.common.collect.TreeBasedTable;
