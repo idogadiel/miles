@@ -51,9 +51,9 @@
 							<div ng-show="!user.loggedin" class="user_box_login user_box_link"><a href="#signin"><i class="glyphicon glyphicon-log-in"> signin</i></a></div>
 							<div ng-show="!user.loggedin" class="user_box_register user_box_link"><a href="#signup"><i class="glyphicon glyphicon-pencil"></i>signup</a></div>
 
-                            <div ng-show="user.loggedin" class="user_box_login user_box_link"><a href="#desired"><i class="glyphicon glyphicon-road"></i> Desired Destinations</a></div>
-                            <div ng-show="user.loggedin" class="user_box_login user_box_link"><a href="#visited"><i class="glyphicon glyphicon-bookmark"></i> visited Destinations</a></div>
-                            <div ng-show="user.loggedin" class="user_box_register user_box_link"><a href="#signout"><i class="glyphicon glyphicon-log-out"></i> Sign-out {{ headerUsername }}</a></div>
+                            <!--<div ng-show="user.loggedin" class="user_box_login user_box_link"><a href="#desired"><i class="glyphicon glyphicon-road"></i> Desired Destinations</a></div>-->
+                            <!--<div ng-show="user.loggedin" class="user_box_login user_box_link"><a href="#visited"><i class="glyphicon glyphicon-bookmark"></i> visited Destinations</a></div>-->
+                            <div ng-show="user.loggedin" class="user_box_register user_box_link"><a href="#signout"><i class="glyphicon glyphicon-log-out"></i> Sign-out {{ user.username }}</a></div>
 
 						</div>
 					</div>
@@ -72,11 +72,11 @@
                         </div>
                         <div class="main_nav_container ml-auto">
                             <ul class="main_nav_list">
-                                <li class="main_nav_item"><a href="index.html">home</a></li>
-                                <li class="main_nav_item"><a href="about.html">about us</a></li>
-                                <li class="main_nav_item"><a href="offers.html">offers</a></li>
-                                <li class="main_nav_item"><a href="blog.html">news</a></li>
-                                <li class="main_nav_item"><a href="#">contact</a></li>
+                                <li class="main_nav_item"><a href="#">home</a></li>
+                                <li ng-show="user.loggedin" class="main_nav_item"><a href="#desired">Desired Destinations</a></li>
+                                <li ng-show="user.loggedin" class="main_nav_item"><a href="#visited">visited Destinations</a></li>
+                                <!--<li class="main_nav_item"><a href="blog.html">news</a></li>-->
+                                <!--<li class="main_nav_item"><a href="#">contact</a></li>-->
                             </ul>
                         </div>
                         <div class="content_search ml-lg-0 ml-auto">

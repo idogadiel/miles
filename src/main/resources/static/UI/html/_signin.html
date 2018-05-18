@@ -17,8 +17,8 @@
         <div ng-if="!user.loggedin && login_tries">Wrong username and/or password.</div>
         <br>
 
-        <a style="cursor:pointer;"  ng-show="showForgotPassowrdLink" ng-click="sendForgotPasswordLink()">Forgot your password?</a><br>
-        <img src="../resources/loading_spinner.gif" ng-show="showLoader">
+        <a style="cursor:pointer;"  ng-show="!user.loggedin && login_tries" ng-click="sendForgotPasswordLink()">Forgot your password?</a><br>
+        <img src="../images/loading_spinner.gif" ng-show="showLoader">
     </div>
 
 

@@ -8,17 +8,17 @@ scotchApp.config(function ($routeProvider) {
         })
 
         .when('/forgotpassword', {
-            templateUrl: 'forgotpassword.html',
+            templateUrl: '_forgotpassword.html',
             controller: 'forgotpasswordController'
         })
 
         .when('/desired', {
-            templateUrl: 'desired.html',
+            templateUrl: '_desired.html',
             controller: 'desiredController'
         })
 
          .when('/visited', {
-             templateUrl: 'visited.html',
+             templateUrl: '_visited.html',
              controller: 'visitedController'
          })
 
@@ -28,12 +28,12 @@ scotchApp.config(function ($routeProvider) {
         })
 
         .when('/signout', {
-            templateUrl: 'signout.html',
+            templateUrl: '_signout.html',
             controller: 'signoutController'
         })
 
         .when('/signup', {
-            templateUrl: 'signup.html',
+            templateUrl: '_signup.html',
             controller: 'signupController'
         });
 });
@@ -41,15 +41,20 @@ scotchApp.config(function ($routeProvider) {
 scotchApp.run(function ($rootScope) {});
 
 scotchApp.controller('mainController', function ($scope, $rootScope, $http) {
-    $rootScope.user = {}
     $http({
         method: 'GET',
         withCredentials: true,
         url: 'http://127.0.0.1:8080/user/isloggedin'
     }).then(function successCallback(response) {
-//        console.log(response);
+        console.log(response.data);
         var answer = angular.fromJson(response.data);
-        $rootScope.user.loggedin = answer.result;
+        if (answer.result){
+            if (!$rootScope.user){
+                $rootScope.user = {};
+                $rootScope.user.loggedin = true;
+            }
+            $rootScope.user.username = answer.reason;
+        }
     }, function errorCallback(response) {
         $rootScope.user.loggedin = false;
     });
@@ -94,12 +99,11 @@ scotchApp.controller('forgotpasswordController', function ($scope, $rootScope, $
     }
 });
 
-scotchApp.controller('signinController', function ($rootScope, $scope, $http) {
+scotchApp.controller('signinController', function ($rootScope, $scope, $http, $location) {
     $scope.login_tries = 0
 
     $scope.login = function () {
         $scope.showLoader = true;
-        $scope.login_tries += 1
         var jsonObj = "username=" + $scope.username + "&password=" + $scope.password;
         $http({
             url: "http://127.0.0.1:8080/user/login",
@@ -111,11 +115,16 @@ scotchApp.controller('signinController', function ($rootScope, $scope, $http) {
             data: jsonObj
         }).success(function (data, status, headers, config) {
             $scope.showLoader = false;
+            $rootScope.user = {}
             $rootScope.user.loggedin = true;
+            console.log(data)
             console.log($rootScope)
+            alert("SuccessFully Logged in")
+            $location.path("");
 
         }).error(function (data, status, headers, config) {
             $scope.showLoader = false;
+            $scope.login_tries += 1
             $rootScope.user.loggedin = false;
         });
     };
@@ -221,13 +230,17 @@ scotchApp.controller('visitedController', function ($scope, $rootScope, $http) {
 scotchApp.controller('signupController', function ($rootScope, $cope, $http) {
 
     $rootScope.showLoader = false;
+    $scope.message = "";
+    console.log($rootScope.showLoader);
     $scope.login = function () {
          if (!isValidEmail($scope.username)) {
                     $scope.message = "Please add valid email address";
                     return;
           }
+
         $scope.message = "";
-        $scope.showLoader = true;
+        $rootScope.showLoader = true;
+        console.log($rootScope.showLoader);
         var jsonObj =
         {
             "email": $scope.username,
@@ -241,15 +254,15 @@ scotchApp.controller('signupController', function ($rootScope, $cope, $http) {
         }).success(function (data, status, headers, config) {
             $scope.showLoader = false;
             if (data.result) {
-                $scope.message = "Signed up successfully";
-                $scope.$parent.headerUsername = data.username;
+                $rootScope.user = {}
+                $rootScope.user.loggedin = true;
+                $rootScope.user.username = data.username;
             }
             else {
                 $scope.message = data.result;
             }
         }).error(function (data, status, headers, config) {
             $scope.showLoader = false;
-            $scope.message = "Error. something went wrong.";
         });
 
     };
