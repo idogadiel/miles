@@ -38,14 +38,11 @@ public class GoalCSVReader {
 
                 } else {
                     List<String> data = Arrays.asList(line.split(cvsSplitBy));
+                    Airline rowAirline = AirlineFactory.getInstance().getAirline(data.get(0));
                     for (int i = 1; i < data.size(); i++) {
-
-                        Airline rowAirline = AirlineFactory.getInstance().getAirline(data.get(0));
                         Airline colAirline = AirlineFactory.getInstance().getAirline(airlines.get(i));
                         GoalsRelation relation = new GoalsRelation(data.get(i));
-
                         matrix.put(rowAirline, colAirline, relation);
-
                     }
                 }
 

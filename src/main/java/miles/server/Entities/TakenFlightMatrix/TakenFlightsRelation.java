@@ -3,8 +3,8 @@ package miles.server.Entities.TakenFlightMatrix;
 public class TakenFlightsRelation {
 
     public TakenFlightsRelation(String data){
-        this.data= data;
+        this.rawData = data;
     }
 
-    public String data;
+    public String rawData;
 }
