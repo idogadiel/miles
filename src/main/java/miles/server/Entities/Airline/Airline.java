@@ -43,12 +43,8 @@ public class Airline implements Comparable {
     }
 
     public int compareTo(Object o) {
-        return 1;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return this.airlineName.equals(((Airline) other).airlineName);
+        //return ((Airline)o).airlineName == this.airlineName ? 0  : 1 ;
+        return this.airlineName.compareTo(((Airline)o).airlineName);
     }
 
 }

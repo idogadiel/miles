@@ -12,23 +12,21 @@ public class TakenFlightMatrix {
     // represent the excel Guy did
 
     private static RowSortedTable<Airline, Airline, TakenFlightsRelation> matrix;
-    private static TakenFlightMatrix airlineMatrix;
-    private static AnnotationConfigApplicationContext context;
+    private static TakenFlightMatrix takenFlightMatrix; // singleton object
 
     private TakenFlightMatrix() {
-     //   context = new AnnotationConfigApplicationContext(AirlineConfig.class);
         matrix = TakenFlightCSVReader.getMatrixFromCSV();
     }
 
-    private Map<Airline, TakenFlightsRelation> getMembers(Airline airline) {
+    public Map<Airline, TakenFlightsRelation> getMembers(Airline airline) {
         return matrix.row(airline);
     }
 
-    public TakenFlightMatrix getInstance() {
-        if (airlineMatrix == null) {
-            airlineMatrix = new TakenFlightMatrix();
+    public static TakenFlightMatrix getInstance() {
+        if (takenFlightMatrix == null) {
+            takenFlightMatrix = new TakenFlightMatrix();
         }
-        return airlineMatrix;
+        return takenFlightMatrix;
     }
 
 }

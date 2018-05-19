@@ -19,7 +19,8 @@ public class AirlineFactory {
         map = new HashMap();
     }
 
-    public Airline getAirline(String airline) {
+    public Airline getAirline(String rawAirlineString) {
+        String airline = rawAirlineString.toLowerCase();
         if (!map.containsKey(airline)) {
             map.put(airline, new Airline(airline));
         }
