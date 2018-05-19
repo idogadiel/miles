@@ -4,8 +4,6 @@ public class Airline implements Comparable {
 
     protected Long id;
     protected String airlineName;
-    protected String websiteAddress;
-
     private static Long idCounter = 0L;
 
      protected Airline(String airlineName) {
@@ -34,16 +32,7 @@ public class Airline implements Comparable {
         this.airlineName = airlineName;
     }
 
-    public String getWebsiteAddress() {
-        return websiteAddress;
-    }
-
-    public void setWebsiteAddress(String websiteAddress) {
-        this.websiteAddress = websiteAddress;
-    }
-
     public int compareTo(Object o) {
-        //return ((Airline)o).airlineName == this.airlineName ? 0  : 1 ;
         return this.airlineName.compareTo(((Airline)o).airlineName);
     }
 
