@@ -1,8 +1,10 @@
 package miles.server.Entities.GoalCrawler;
 
-import org.json.JSONObject;
+import miles.server.Entities.Airline.Airline;
+
+import java.util.List;
 
 public interface Crawl {
 
-    JSONObject getData(String from, String to);
+    List<Airline> getData(String from, String to);
 }

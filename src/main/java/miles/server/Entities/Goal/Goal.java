@@ -4,12 +4,9 @@ package miles.server.Entities.Goal;
  * Created by gadiel on 12/10/2016.
  */
 
-import miles.server.Entities.GoalCrawler.SabreCrawler;
 import org.json.JSONObject;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.util.List;
 
 @Document(collection = "Goals")
 public class Goal {
@@ -22,10 +19,10 @@ public class Goal {
     String userId;
 
     @Override
-    public String toString(){
+    public String toString() {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("to",to);
-        jsonObject.put("from",from);
+        jsonObject.put("to", to);
+        jsonObject.put("from", from);
         jsonObject.put("seatType", seatType);
         return jsonObject.toString();
     }
@@ -33,7 +30,7 @@ public class Goal {
     public Goal() {
     }
 
-    public Goal(String to, String from, int seatType) {
+    public Goal(String from, String to, int seatType) {
         this.to = to;
         this.from = from;
         this.seatType = seatType;
@@ -43,7 +40,7 @@ public class Goal {
         JSONObject jsonObject = new JSONObject(jsonUser);
         this.to = (String) jsonObject.get("to");
         this.from = (String) jsonObject.get("from");
-        this.seatType = Integer.valueOf((String)jsonObject.get("seatType"));
+        this.seatType = Integer.valueOf((String) jsonObject.get("seatType"));
     }
 
     public int getSeatType() {

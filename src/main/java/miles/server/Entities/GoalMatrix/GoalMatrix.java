@@ -19,7 +19,11 @@ public class GoalMatrix {
     }
 
     public GoalsRelation getGaolRelation(Airline airline, Destination from, Destination to) {
-        return matrixMap.get(airline).get(from, to);
+        try {
+            return matrixMap.get(airline).get(from, to);
+        } catch (NullPointerException ex) {
+            return null;
+        }
     }
 
     public static GoalMatrix getInstance() {

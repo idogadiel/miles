@@ -46,11 +46,11 @@ public class Recommender {
                             .filter(tf -> friendsOfAirlineThatFlyTheGoal.keySet().contains(tf.getAirline()))
                             // map each one of the taken flights to the points/miles they are earning
                             .mapToDouble(tf -> {
-                                if (friendsOfAirlineThatFlyTheGoal.get(tf).getRelationType() == TakenFlightsRelation.RelationType.By_Miles) {
-                                    Double multiplierByMiles = friendsOfAirlineThatFlyTheGoal.get(tf).getMilesByClass("A");
+                                if (friendsOfAirlineThatFlyTheGoal.get(tf.getAirline()).getRelationType() == TakenFlightsRelation.RelationType.By_Miles) {
+                                    Double multiplierByMiles = friendsOfAirlineThatFlyTheGoal.get(tf.getAirline()).getMilesByClass("A");
                                     return tf.getMiles() * multiplierByMiles;
                                 } else {
-                                    Double multiplierByCost = friendsOfAirlineThatFlyTheGoal.get(tf).getMultiplier();
+                                    Double multiplierByCost = friendsOfAirlineThatFlyTheGoal.get(tf.getAirline()).getMultiplier();
                                     return tf.getCost() * multiplierByCost;
                                 }
                             })
@@ -81,7 +81,9 @@ public class Recommender {
             Destination toDestination = DestinationFactory.getInstance().getDestination("north america");
 
             GoalsRelation gaolRelation = GoalMatrix.getInstance().getGaolRelation(airline, fromDestination, toDestination);
-            map.put(airline, gaolRelation);
+            if (gaolRelation != null) {
+                map.put(airline, gaolRelation);
+            }
         });
 
 

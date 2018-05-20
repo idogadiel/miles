@@ -1,21 +1,25 @@
 package miles.server.Entities.GoalCrawler;
 
-
+import miles.server.Entities.Airline.Airline;
+import miles.server.Entities.Airline.AirlineFactory;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 public class SabreCrawler implements Crawl {
 
     private final String USER_AGENT = "Mozilla/5.0";
-    private final String authorization = "Bearer T1RLAQKBnivT7ZljR7VUOF2qifcZrfM2MBCzRPZxwIEvJlfWMqJKBklEAADAzrx3c31Ocnp7R0opUzYIjjLx+7yOIuszbqONC5xyCIzi4WaI/81AP8srsvUBmu4HSH0cuLDJZ68+ZRql6l5u7+GP2pkc8Jpd5ZUsJWJIqwAIi/7HJZ2i4brk5shZCx+lPdx5FIUCAC9opMEr4Gg1UQp3lzEwji7RBfl1Vw+Q8KaaCL0J7VnkxdfexelJPsvHQRAEtKbs4D6i/uyM+3QKVPHCTPpkU8pp2v836MoZwBmz2RgdmTpfdMTySZVpk5lC";
+    private final String authorization = "Bearer T1RLAQI4L+MWVj9erXXQTu5oOmSs6AMQVhAtas9Lfm6njO82LD2OLblWAADAhRUp/v8vpYk0O1OasDDi445ersnT1kV2VtTXMNgXRT/jcxn7lPQvZpBp0h+/RputJpqUcjimX4y9C61orQwW84+kSnEspwUnUCAMe+qxL4RoDdK/0U3DzcO13RPVtZCmQbQxzBfb2xlgdSr4VLEjkCqBrSqs9qoJxBLP3mrgoE0c6LMPZjaMMh5FUh6z//QehwGS9HWxI0ratBXPwV1rDRsOUdIzqrQzqPCiKVysZcRz7Jo8cKqIbK6uxYyZsfKV";
 
-
-
-    public JSONObject getData(String from, String to) {
+    public List<Airline> getData(String from, String to) {
         try {
             String url = "https://api-crt.cert.havail.sabre.com/v2/shop/flights/fares?origin=" + from + "&destination=" + to + "&lengthofstay=5&pointofsalecountry=US";
 
@@ -42,11 +46,30 @@ public class SabreCrawler implements Crawl {
             in.close();
 
             JSONObject json = new JSONObject(response.toString());
-            return json;
+            Set<Airline> result = new HashSet<>();
+            JSONArray fareInfo = json.getJSONArray("FareInfo");
+            int index = 0;
+
+            while (result.size() <= 10) {
+                try {
+                    JSONObject currentFare = (JSONObject) fareInfo.get(index);
+                    JSONObject lowestRare = (JSONObject) currentFare.get("LowestFare");
+                    JSONArray arr = (JSONArray) lowestRare.get("AirlineCodes");
+                    String airlineAcro = (String) arr.get(0);
+                    Airline currentAirline = AirlineFactory.getInstance().getAirline(airlineAcro);
+                    result.add(currentAirline);
+                    index++;
+                } catch (Exception e) {
+                    return new LinkedList<>(result);
+                }
+            }
+
+            return new LinkedList<>(result);
 
         } catch (Exception e) {
-            return null;
+            System.out.println(e); // some logger
         }
+        return new LinkedList<>();
     }
 
 

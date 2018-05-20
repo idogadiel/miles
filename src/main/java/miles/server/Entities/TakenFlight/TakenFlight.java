@@ -35,14 +35,14 @@ public class TakenFlight {
     public TakenFlight() {
     }
 
-    public TakenFlight(String to, String from, int seatType, String flightNumber, String ticketNumber, String nameOnTicket, Long date, Double cost) {
+    public TakenFlight(String to, String from, int seatType, String flightNumber, String ticketNumber, String nameOnTicket, Long date, Double cost, String airline, Double miles) {
         setFlightNumber(flightNumber);
         setNameOnTicket(nameOnTicket);
         setTicketNumber(ticketNumber);
         setDateOfFlight(date);
         setCost(cost);
-        setMiles(1000D); // todo: get miles somehow -> user? crawler?
-        setAirline(AirlineFactory.getInstance().getAirline("delta"));   // todo: -> add a class translating ticket# to airline. maybe add it to airlineFactory
+        setMiles(miles); // todo: get miles somehow -> user? crawler?
+        setAirline(AirlineFactory.getInstance().getAirline(airline));   // todo: -> add a class translating ticket# to airline. maybe add it to airlineFactory
     }
 
     public TakenFlight(String jsonUser) {
