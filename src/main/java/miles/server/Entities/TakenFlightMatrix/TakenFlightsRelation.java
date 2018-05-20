@@ -30,6 +30,13 @@ public class TakenFlightsRelation {
         addDataToMaps();
     }
 
+    public Double getMilesByClass(String _class) {
+        //todo: un mock it
+        Map.Entry<String, Double> entry = byMilesMap.entrySet().iterator().next();
+        return entry.getValue();
+    }
+
+
     private void addDataToMaps() {
         List<String> separated = Arrays.asList(this.rawData.split(SEPARATOR_CON));
 

@@ -4,7 +4,7 @@ package miles.server.Entities.Goal;
  * Created by gadiel on 12/10/2016.
  */
 
-import miles.server.Utills.SabreHttpURLConnection;
+import miles.server.Entities.GoalCrawler.SabreCrawler;
 import org.json.JSONObject;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -77,18 +77,5 @@ public class Goal {
     public void setFrom(String from) {
         this.from = from;
     }
-
-    public List<Goal> getConcreteGoals()
-    {
-        SabreHttpURLConnection sabreHttpURLConnection = new SabreHttpURLConnection(this.from,this.to);
-        try {
-            JSONObject data = sabreHttpURLConnection.getData();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-
 
 }

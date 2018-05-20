@@ -1,22 +1,21 @@
-import miles.server.Entities.Airline.Airline;
-import miles.server.Entities.Airline.AirlineFactory;
-import miles.server.Entities.Destination.Destination;
-import miles.server.Entities.Destination.DestinationFactory;
-import miles.server.Entities.GoalMatrix.GoalMatrix;
-import miles.server.Entities.GoalMatrix.GoalsRelation;
+import miles.server.Entities.Goal.Goal;
+import miles.server.Entities.Recommender.Recommender;
+import miles.server.Entities.TakenFlight.TakenFlight;
 
 public class Sandbox {
     static public void main(String[] arg) {
         System.out.println("start sandbox");
 
-        Airline Brussels = AirlineFactory.getInstance().getAirline("Brussels Airlines");
-        Destination from = DestinationFactory.getInstance().getDestination("South America");
-        Destination to = DestinationFactory.getInstance().getDestination("Middle East / Caucasus /Central Africa");
+        Goal goal = new Goal("TLV", "NY", 1);
+        Recommender recommender = new Recommender(goal);
 
-        GoalsRelation gaolRelation = GoalMatrix.getInstance().getGaolRelation(Brussels, from, to);
+        TakenFlight t1 = new TakenFlight("tlv", "amsterdam", 1, "123LGD", "343254mdfg54", "ido", 234234L, 1000D);
+        TakenFlight t2 = new TakenFlight("tlv", "berlin", 1, "123LGD", "343254mdfg54", "ido", 234234L, 500D);
+        recommender.addTakenFlight(t1).addTakenFlight(t2);
 
+        String recommend = recommender.recommend();
+        System.out.println(recommend);
 
         System.out.println("end of sandbox");
-
     }
 }

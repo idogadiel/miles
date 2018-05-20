@@ -4,6 +4,8 @@ package miles.server.Entities.TakenFlight;
  * Created by gadiel on 12/10/2016.
  */
 
+import miles.server.Entities.Airline.Airline;
+import miles.server.Entities.Airline.AirlineFactory;
 import org.json.JSONObject;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -25,26 +27,29 @@ public class TakenFlight {
     String ticketNumber;
     String nameOnTicket;
     Long dateOfFlight;
-
+    Double cost;
+    Double miles;
+    Airline airline;
 
 
     public TakenFlight() {
     }
 
-    public TakenFlight(String to, String from, int seatType, String flightNumber , String ticketNumber, String nameOnTicket, Long date) {
+    public TakenFlight(String to, String from, int seatType, String flightNumber, String ticketNumber, String nameOnTicket, Long date, Double cost) {
         setFlightNumber(flightNumber);
         setNameOnTicket(nameOnTicket);
         setTicketNumber(ticketNumber);
         setDateOfFlight(date);
+        setCost(cost);
+        setMiles(1000D); // todo: get miles somehow -> user? crawler?
+        setAirline(AirlineFactory.getInstance().getAirline("delta"));   // todo: -> add a class translating ticket# to airline. maybe add it to airlineFactory
     }
 
     public TakenFlight(String jsonUser) {
-     //   super(jsonUser); maybe inheritance is not a good idea
         JSONObject jsonObject = new JSONObject(jsonUser);
         this.flightNumber = (String) jsonObject.get("flightNumber");
         this.nameOnTicket = (String) jsonObject.get("nameOnTicket");
         this.ticketNumber = (String) jsonObject.get("ticketNumber");
-     //   this.date = (Date) jsonObject.get("date"); // to be implemented later
         this.dateOfFlight = System.currentTimeMillis(); // mock
 
     }
@@ -104,6 +109,31 @@ public class TakenFlight {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
+    public Double getCost() {
+        return cost;
+    }
+
+    public void setCost(Double cost) {
+        this.cost = cost;
+    }
+
+    public Double getMiles() {
+        return miles;
+    }
+
+    public void setMiles(Double miles) {
+        this.miles = miles;
+    }
+
+    public Airline getAirline() {
+        return airline;
+    }
+
+    public void setAirline(Airline airline) {
+        this.airline = airline;
+    }
+
 
     @Override
     public String toString() {
