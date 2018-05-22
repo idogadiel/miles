@@ -42,7 +42,7 @@ public class TakenFlight {
         setTicketNumber(ticketNumber);
         setDateOfFlight(date);
         setCost(cost);
-        setMiles(Airports.getInstance().getDistanceBetweenAirports(to.toUpperCase(),from.toUpperCase()));
+        setMiles(Airports.getInstance().getDistanceBetweenAirports(to.toUpperCase(), from.toUpperCase()));
         setAirline(AirlineFactory.getInstance().getAirline(getAirlineFromFlightNumber(flightNumber)));
     }
 
@@ -54,8 +54,8 @@ public class TakenFlight {
         this.dateOfFlight = System.currentTimeMillis(); // mock
     }
 
-    private String getAirlineFromFlightNumber(String flightNumber){
-        return flightNumber.replaceAll("[0-9]","");
+    private String getAirlineFromFlightNumber(String flightNumber) {
+        return flightNumber.replaceAll("[0-9]", "");
     }
 
     public boolean isRedeemed() {
