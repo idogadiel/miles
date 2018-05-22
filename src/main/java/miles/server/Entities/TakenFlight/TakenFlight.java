@@ -36,14 +36,14 @@ public class TakenFlight {
     public TakenFlight() {
     }
 
-    public TakenFlight(String to, String from, int seatType, String flightNumber, String ticketNumber, String nameOnTicket, Long date, Double cost, String airline) {
+    public TakenFlight(String to, String from, int seatType, String flightNumber, String ticketNumber, String nameOnTicket, Long date, Double cost) {
         setFlightNumber(flightNumber);
         setNameOnTicket(nameOnTicket);
         setTicketNumber(ticketNumber);
         setDateOfFlight(date);
         setCost(cost);
-        setMiles(Airports.getInstance().getDistanceBetweenAirports(to,from));
-        setAirline(AirlineFactory.getInstance().getAirline(airline));   // todo: -> add a class translating ticket# to airline. maybe add it to airlineFactory
+        setMiles(Airports.getInstance().getDistanceBetweenAirports(to.toUpperCase(),from.toUpperCase()));
+        setAirline(AirlineFactory.getInstance().getAirline(getAirlineFromFlightNumber(flightNumber)));
     }
 
     public TakenFlight(String jsonUser) {
@@ -52,7 +52,10 @@ public class TakenFlight {
         this.nameOnTicket = (String) jsonObject.get("nameOnTicket");
         this.ticketNumber = (String) jsonObject.get("ticketNumber");
         this.dateOfFlight = System.currentTimeMillis(); // mock
+    }
 
+    private String getAirlineFromFlightNumber(String flightNumber){
+        return flightNumber.replaceAll("[0-9]","");
     }
 
     public boolean isRedeemed() {

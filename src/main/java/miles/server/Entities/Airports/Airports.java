@@ -20,7 +20,7 @@ public class Airports {
 
     private Double getLongitude(String airportName) {
         if (airportsJson.keySet().contains(airportName)) {
-            return Double.valueOf((String)((JSONObject) airportsJson.get(airportName)).get("longitude"));
+            return Double.valueOf((String) ((JSONObject) airportsJson.get(airportName)).get("longitude"));
         }
         return -1D;
     }
@@ -28,12 +28,12 @@ public class Airports {
 
     private Double getLatitude(String airportName) {
         if (airportsJson.keySet().contains(airportName)) {
-            return Double.valueOf((String)((JSONObject) airportsJson.get(airportName)).get("latitude"));
+            return Double.valueOf((String) ((JSONObject) airportsJson.get(airportName)).get("latitude"));
         }
         return -1D;
     }
 
-    public Double getDistanceBetweenAirports(String from, String to){
+    public Double getDistanceBetweenAirports(String from, String to) {
 
         double lat1 = Airports.getInstance().getLatitude(from);
         double lon1 = Airports.getInstance().getLongitude(from);
@@ -41,18 +41,12 @@ public class Airports {
         double lat2 = Airports.getInstance().getLatitude(to);
         double lon2 = Airports.getInstance().getLongitude(to);
 
-        char unit = 'K';
-
         double theta = lon1 - lon2;
         double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
         dist = Math.acos(dist);
         dist = rad2deg(dist);
         dist = dist * 60 * 1.1515;
-        if (unit == 'K') {
-            dist = dist * 1.609344;
-        } else if (unit == 'N') {
-            dist = dist * 0.8684;
-        }
+
         return (dist);
     }
 
