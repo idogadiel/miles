@@ -47,7 +47,7 @@ public class Airports {
         dist = rad2deg(dist);
         dist = dist * 60 * 1.1515;
 
-        return (dist);
+        return dist;
     }
 
     private double deg2rad(double deg) {

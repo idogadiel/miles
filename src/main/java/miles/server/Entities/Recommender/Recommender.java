@@ -33,6 +33,11 @@ public class Recommender {
         return this;
     }
 
+    public Recommender addTakenFlights(List<TakenFlight> takenFlights) {
+        takenFlights.addAll(takenFlights);
+        return this;
+    }
+
     public String recommend() {
 
         // foreach airline that do the flight -> find most beneficial
