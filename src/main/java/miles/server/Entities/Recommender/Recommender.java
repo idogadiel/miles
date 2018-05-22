@@ -46,12 +46,16 @@ public class Recommender {
                             .filter(tf -> friendsOfAirlineThatFlyTheGoal.keySet().contains(tf.getAirline()))
                             // map each one of the taken flights to the points/miles they are earning
                             .mapToDouble(tf -> {
-                                if (friendsOfAirlineThatFlyTheGoal.get(tf.getAirline()).getRelationType() == TakenFlightsRelation.RelationType.By_Miles) {
-                                    Double multiplierByMiles = friendsOfAirlineThatFlyTheGoal.get(tf.getAirline()).getMilesByClass("A");
+                                TakenFlightsRelation relation = friendsOfAirlineThatFlyTheGoal.get(tf.getAirline());
+                                if (relation.getRelationType() == TakenFlightsRelation.RelationType.By_Miles) {
+                                    Double multiplierByMiles = relation.getMilesByClass("A");       // tf.getClass()
                                     return tf.getMiles() * multiplierByMiles;
-                                } else {
-                                    Double multiplierByCost = friendsOfAirlineThatFlyTheGoal.get(tf.getAirline()).getMultiplier();
+                                } else if (relation.getRelationType() == TakenFlightsRelation.RelationType.By_Cost) {
+                                    Double multiplierByCost = relation.getMultiplier();
                                     return tf.getCost() * multiplierByCost;
+                                } else {
+                                    Double fixed = relation.getFixed();
+                                    return fixed;
                                 }
                             })
                             .sum();

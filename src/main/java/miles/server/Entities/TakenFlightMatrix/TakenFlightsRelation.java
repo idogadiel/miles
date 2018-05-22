@@ -14,6 +14,7 @@ public class TakenFlightsRelation {
     private RelationType relationType;
 
     private Double multiplier; // in case of By_Cost
+    private Double fixed;   // in case of By_Fixed
 
 
     public TakenFlightsRelation(String data) {
@@ -40,12 +41,20 @@ public class TakenFlightsRelation {
     private void addDataToMaps() {
         List<String> separated = Arrays.asList(this.rawData.split(SEPARATOR_CON));
 
-        separated.stream().filter(rawPair -> !rawPair.equals("")).forEach(rawPair -> {
-            if (rawPair.contains("[")) {  // its by cost
-                rawPair = rawPair.replace("[", "").replace("]", "");
-                multiplier = getMultiplierValue(rawPair);
-            } else {
-                byMilesMap.put(getKey(rawPair), getValue(rawPair));
+        separated.stream().filter(rawPair -> !rawPair.equals("")).forEach(rawValue -> {
+            if (rawValue.contains("[")) {  // its by cost
+                rawValue = rawValue.replace("[", "").replace("]", "");
+                multiplier = getValueAsDouble(rawValue);
+            }
+
+            else if (rawValue.contains("{")) {  // its by cost
+                rawValue = rawValue.replace("{", "").replace("}", "");
+                fixed = getValueAsDouble(rawValue);
+                relationType = RelationType.By_Fixed;
+            }
+
+            else {
+                byMilesMap.put(getKey(rawValue), getValue(rawValue));
                 relationType = RelationType.By_Miles;
             }
         });
@@ -72,7 +81,16 @@ public class TakenFlightsRelation {
         return multiplier;
     }
 
-    private Double getMultiplierValue(String rawPair) {
+
+    public Double getFixed() {
+        return fixed;
+    }
+
+    public void setFixed(Double fixed) {
+        this.fixed = fixed;
+    }
+
+    private Double getValueAsDouble(String rawPair) {
         try {
             return Double.valueOf(rawPair);
         } catch (Exception e) {
@@ -83,7 +101,8 @@ public class TakenFlightsRelation {
 
     public enum RelationType {
         By_Cost,
-        By_Miles
+        By_Miles,
+        By_Fixed
     }
 
 }

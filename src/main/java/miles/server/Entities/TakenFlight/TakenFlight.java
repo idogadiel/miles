@@ -6,6 +6,7 @@ package miles.server.Entities.TakenFlight;
 
 import miles.server.Entities.Airline.Airline;
 import miles.server.Entities.Airline.AirlineFactory;
+import miles.server.Entities.Airports.Airports;
 import org.json.JSONObject;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -35,13 +36,13 @@ public class TakenFlight {
     public TakenFlight() {
     }
 
-    public TakenFlight(String to, String from, int seatType, String flightNumber, String ticketNumber, String nameOnTicket, Long date, Double cost, String airline, Double miles) {
+    public TakenFlight(String to, String from, int seatType, String flightNumber, String ticketNumber, String nameOnTicket, Long date, Double cost, String airline) {
         setFlightNumber(flightNumber);
         setNameOnTicket(nameOnTicket);
         setTicketNumber(ticketNumber);
         setDateOfFlight(date);
         setCost(cost);
-        setMiles(miles); // todo: get miles somehow -> user? crawler?
+        setMiles(Airports.getInstance().getDistanceBetweenAirports(to,from));
         setAirline(AirlineFactory.getInstance().getAirline(airline));   // todo: -> add a class translating ticket# to airline. maybe add it to airlineFactory
     }
 
