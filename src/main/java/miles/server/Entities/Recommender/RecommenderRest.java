@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * Created by gadiel on 11/10/2016.
+ * Created by gadiel on 22/05/2018.
  */
 @RestController
 @RequestMapping("/recommender")
