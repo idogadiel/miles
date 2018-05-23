@@ -8,7 +8,7 @@ public class Airports {
     private static JSONObject airportsJson;
 
     private Airports() {
-        this.airportsJson = GlobalAirportDatabaseReader.getMatrixFromCSV();
+        this.airportsJson = GlobalAirportDatabaseReader.getDataFromTXT();
     }
 
     public static Airports getInstance() {
@@ -31,6 +31,13 @@ public class Airports {
             return Double.valueOf((String) ((JSONObject) airportsJson.get(airportName)).get("latitude"));
         }
         return -1D;
+    }
+
+    public String getCountry(String airportName) {
+        if (airportsJson.keySet().contains(airportName)) {
+            return ((String) ((JSONObject) airportsJson.get(airportName)).get("country"));
+        }
+        return "";
     }
 
     public Double getDistanceBetweenAirports(String from, String to) {

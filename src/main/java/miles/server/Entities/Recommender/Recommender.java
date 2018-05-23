@@ -2,6 +2,7 @@ package miles.server.Entities.Recommender;
 
 import miles.server.Entities.Airline.Airline;
 import miles.server.Entities.Destination.Destination;
+import miles.server.Entities.Destination.DestinationConvertor;
 import miles.server.Entities.Destination.DestinationFactory;
 import miles.server.Entities.Goal.Goal;
 import miles.server.Entities.GoalCrawler.GoalCrawler;
@@ -85,9 +86,12 @@ public class Recommender {
 
         airlines.forEach(airline -> {
 
-            //todo: conversion, from specific city to "Destination"
-            Destination fromDestination = DestinationFactory.getInstance().getDestination("europe");
-            Destination toDestination = DestinationFactory.getInstance().getDestination("north america");
+            String destFrom = DestinationConvertor.covertAirportToGeographicalArea(goal.getFrom());
+            String destTo = DestinationConvertor.covertAirportToGeographicalArea(goal.getTo());
+
+
+            Destination fromDestination = DestinationFactory.getInstance().getDestination(destFrom);
+            Destination toDestination = DestinationFactory.getInstance().getDestination(destTo);
 
             GoalsRelation gaolRelation = GoalMatrix.getInstance().getGaolRelation(airline, fromDestination, toDestination);
             if (gaolRelation != null) {

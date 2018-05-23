@@ -1,7 +1,5 @@
 package miles.server.Entities.Destination;
 
-import miles.server.Entities.Airline.Airline;
-
 public class Destination implements Comparable {
 
     protected Long id;

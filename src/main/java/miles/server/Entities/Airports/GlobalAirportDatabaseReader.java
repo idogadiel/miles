@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class GlobalAirportDatabaseReader {
 
-    public static JSONObject getMatrixFromCSV() {
+    public static JSONObject getDataFromTXT() {
 
         Resource resource = new ClassPathResource("GlobalAirportDatabase.txt");
         BufferedReader br = null;
