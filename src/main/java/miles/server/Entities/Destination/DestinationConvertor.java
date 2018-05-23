@@ -13,7 +13,7 @@ public class DestinationConvertor {
     private static String Hawaii = "hawaii";
     private static String Central_America_Caribbean = "Central America & Caribbean";
     private static String South_America = "South America";
-    private static String Middle_East = "Middle East";
+    private static String Middle_East = "Middle East / Caucasus /Central Africa";
     private static String Southern_Africa = "Southern Africa";
     private static String India = "India";
     private static String South_East_Asia = "South East Asia";
