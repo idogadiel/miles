@@ -6,8 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-//todo: complete
-
 public class DestinationConvertor {
 
     private static String EUROPE = "europe";
@@ -23,8 +21,6 @@ public class DestinationConvertor {
     private static String Australia_New_Zealand = "Australia / New Zealand";
     private static String NA = "n/a";
 
-
-    //todo: complete
     public static String covertAirportToGeographicalArea(String airport) {
 
         String currentCountry = Airports.getInstance().getCountry(airport);
@@ -33,10 +29,6 @@ public class DestinationConvertor {
         Optional<String> option1 = europeList.stream().filter(country -> country.equalsIgnoreCase(currentCountry)).findAny();
         if (option1.isPresent()) return EUROPE;
 
-        //north america
-        Optional<String> option2 = northAmericaList.stream().filter(country -> country.equalsIgnoreCase(currentCountry)).findAny();
-        if (option2.isPresent()) return NORTH_AMERICA;
-
         //Hawaii
         Optional<String> option3 = hawaiiList.stream().filter(country -> country.equalsIgnoreCase(currentCountry)).findAny();
         if (option3.isPresent()) return Hawaii;
@@ -44,6 +36,10 @@ public class DestinationConvertor {
         //Central America & Caribbean
         Optional<String> option4 = centralAmericaAndCaribbeanList.stream().filter(country -> country.equalsIgnoreCase(currentCountry)).findAny();
         if (option4.isPresent()) return Central_America_Caribbean;
+
+        //north america
+        Optional<String> option2 = northAmericaList.stream().filter(country -> country.equalsIgnoreCase(currentCountry)).findAny();
+        if (option2.isPresent()) return NORTH_AMERICA;
 
         //South America
         Optional<String> option5 = southAmericaList.stream().filter(country -> country.equalsIgnoreCase(currentCountry)).findAny();
@@ -77,18 +73,129 @@ public class DestinationConvertor {
     }
 
 
-    private static List<String> centralAsiaFarEastList = Arrays.asList();
-    private static List<String> southEastAsiaList = Arrays.asList();
-    private static List<String> centralAmericaAndCaribbeanList = Arrays.asList();
-    private static List<String> southAmericaList = Arrays.asList();
-    private static List<String> australiaNewZealandList = Arrays.asList();
-    private static List<String> middleEastList = Arrays.asList();
-    private static List<String> southernAfricaList = Arrays.asList();
-    private static List<String> hawaiiList = Arrays.asList();
-    private static List<String> northAmericaList = Arrays.asList();
+    private static List<String> southernAfricaList = Arrays.asList(
+            "Angola",
+            "Botswana",
+            "Democratic Republic of the Congo",
+            "Lesotho",
+            "Madagascar",
+            "Malawi",
+            "Mauritius",
+            "Mozambique",
+            "Namibia",
+            "Seychelles",
+            "South Africa",
+            "Swaziland",
+            "Tanzania",
+            "Zambia",
+            "Zimbabwe"
+    );
 
+    private static List<String> centralAsiaFarEastList = Arrays.asList(
+            "Mongolia",
+            "China",
+            "Japan",
+            "North Korea",
+            "South Korea",
+            "Taiwan",
+            "Hong Kong",
+            "Macau",
+            "Kazakhstan",
+            "Kyrgyzstan",
+            "Tajikistan",
+            "Turkmenistan",
+            "Uzbekistan"
+    );
 
-    private static List<String> IndiaList = Arrays.asList("India");
+    private static List<String> southEastAsiaList = Arrays.asList(
+            "Indonesia",
+            "Thailand",
+            "Philippines",
+            "Malaysia",
+            "Singapore",
+            "Vietnam",
+            "Myanmar",
+            "Cambodia",
+            "Laos",
+            "Brunei",
+            "Timor Leste"
+    );
+
+    private static List<String> centralAmericaAndCaribbeanList = Arrays.asList(
+            "Belize",
+            "Costa Rica",
+            "El Salvador",
+            "Guatemala",
+            "Honduras",
+            "Nicaragua",
+            "Panama"
+    );
+
+    private static List<String> southAmericaList = Arrays.asList(
+            "Argentina",
+            "Bolivia",
+            "Brazil",
+            "Chile",
+            "Colombia",
+            "Ecuador",
+            "Guyana",
+            "Paraguay",
+            "Peru",
+            "Suriname",
+            "Uruguay",
+            "Venezuela"
+    );
+
+    private static List<String> australiaNewZealandList = Arrays.asList(
+            "australia",
+            "New Zealand");
+
+    private static List<String> middleEastList = Arrays.asList(
+            "Bahrain",
+            "Cyprus",
+            "Egypt",
+            "Iran",
+            "Iraq",
+            "Israel",
+            "Jordan",
+            "Kuwait",
+            "Lebanon",
+            "Oman",
+            "Qatar",
+            "Saudi Arabia",
+            "Syria",
+            "Turkey",
+            "United Arab Emirates",
+            "Yemen"
+    );
+
+    private static List<String> northAmericaList = Arrays.asList(
+            "Antigua and Barbuda",
+            "Bahamas",
+            "Barbados",
+            "Bermuda",
+            "Canada",
+            "Cuba",
+            "Dominica",
+            "Dominican Republic",
+            "Grenada",
+            "Haiti",
+            "Jamaica",
+            "Mexico",
+            "St. Kitts and Nevis",
+            "St. Lucia",
+            "St. Vincent and The Grenadines",
+            "Trinidad and Tobago",
+            "United States"
+    );
+
+    private static List<String> hawaiiList = Arrays.asList(
+            "hawaii"
+    );
+
+    private static List<String> IndiaList = Arrays.asList(
+            "India"
+    );
 
     private static List<String> europeList = Arrays.asList(
             "Russia",
@@ -138,5 +245,4 @@ public class DestinationConvertor {
             "Gibraltar",
             "Vatican City"
     );
-
 }
