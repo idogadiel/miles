@@ -9,13 +9,12 @@ public class Sandbox {
         Goal goal = new Goal("JFK", "TLV", 1);
         Recommender recommender = new Recommender(goal);
 
-        TakenFlight t1 = new TakenFlight("tlv", "lax", 1, "EZY643", "343254mdfg54", "ido", 234234L, 1000D);
-        TakenFlight t2 = new TakenFlight("tlv", "jfk", 1, "EZY353", "343254mdfg54", "ido", 234234L, 500D);
+        TakenFlight t1 = new TakenFlight("tlv", "lax", "A", "EZY643", 234234L, 1000D);
+        TakenFlight t2 = new TakenFlight("tlv", "jfk", "B", "EZY353", 234234L, 500D);
         recommender.addTakenFlight(t1).addTakenFlight(t2);
 
         String recommend = recommender.recommend();
         System.out.println(recommend);
-
 
         System.out.println("end of sandbox");
     }

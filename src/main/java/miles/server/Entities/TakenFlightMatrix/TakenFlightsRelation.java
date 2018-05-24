@@ -1,5 +1,7 @@
 package miles.server.Entities.TakenFlightMatrix;
 
+import miles.server.Entities.TakenFlight.TakenFlight;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +11,7 @@ public class TakenFlightsRelation {
 
     private String SEPARATOR_CON = ";";
     private String rawData;
-    Map<String, Double> byMilesMap;
+    Map<TakenFlight.SeatType, Double> byMilesMap;
     Map<String, Double> byCostMap;
     private RelationType relationType;
 
@@ -31,10 +33,8 @@ public class TakenFlightsRelation {
         addDataToMaps();
     }
 
-    public Double getMilesByClass(String _class) {
-        //todo: un mock it
-        Map.Entry<String, Double> entry = byMilesMap.entrySet().iterator().next();
-        return entry.getValue();
+    public Double getMilesByClass(TakenFlight.SeatType seatType) {
+        return byMilesMap.get(seatType);
     }
 
 
@@ -54,7 +54,8 @@ public class TakenFlightsRelation {
             }
 
             else {
-                byMilesMap.put(getKey(rawValue), getValue(rawValue));
+                TakenFlight.SeatType seatType = TakenFlight.SeatType.fromString(getKey(rawValue));
+                byMilesMap.put(seatType, getValue(rawValue));
                 relationType = RelationType.By_Miles;
             }
         });

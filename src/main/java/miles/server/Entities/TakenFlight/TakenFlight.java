@@ -7,6 +7,7 @@ package miles.server.Entities.TakenFlight;
 import miles.server.Entities.Airline.Airline;
 import miles.server.Entities.Airline.AirlineFactory;
 import miles.server.Entities.Airports.Airports;
+import miles.server.Entities.GoalMatrix.GoalsRelation;
 import org.json.JSONObject;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -19,7 +20,7 @@ public class TakenFlight {
     private String id;
     String to;
     String from;
-    int seatType;
+    SeatType seatType;
     String userId;
     boolean redeemed;
     String redeemedTo;
@@ -36,7 +37,7 @@ public class TakenFlight {
     public TakenFlight() {
     }
 
-    public TakenFlight(String to, String from, int seatType, String flightNumber, String ticketNumber, String nameOnTicket, Long date, Double cost) {
+    public TakenFlight(String to, String from, String seatType, String flightNumber, String ticketNumber, String nameOnTicket, Long date, Double cost) {
         setFlightNumber(flightNumber);
         setNameOnTicket(nameOnTicket);
         setTicketNumber(ticketNumber);
@@ -44,6 +45,16 @@ public class TakenFlight {
         setCost(cost);
         setMiles(Airports.getInstance().getDistanceBetweenAirports(to.toUpperCase(), from.toUpperCase()));
         setAirline(AirlineFactory.getInstance().getAirline(getAirlineFromFlightNumber(flightNumber)));
+        setSeatType(SeatType.fromString(seatType));
+    }
+
+    public TakenFlight(String to, String from, String seatType, String flightNumber, Long date, Double cost) {
+        setFlightNumber(flightNumber);
+        setDateOfFlight(date);
+        setCost(cost);
+        setMiles(Airports.getInstance().getDistanceBetweenAirports(to.toUpperCase(), from.toUpperCase()));
+        setAirline(AirlineFactory.getInstance().getAirline(getAirlineFromFlightNumber(flightNumber)));
+        setSeatType(SeatType.fromString(seatType));
     }
 
     public TakenFlight(String jsonUser) {
@@ -56,6 +67,14 @@ public class TakenFlight {
 
     private String getAirlineFromFlightNumber(String flightNumber) {
         return flightNumber.replaceAll("[0-9]", "");
+    }
+
+    public SeatType getSeatType() {
+        return seatType;
+    }
+
+    public void setSeatType(SeatType seatType) {
+        this.seatType = seatType;
     }
 
     public boolean isRedeemed() {
@@ -136,6 +155,54 @@ public class TakenFlight {
 
     public void setAirline(Airline airline) {
         this.airline = airline;
+    }
+
+    public enum SeatType {
+        A("A"),
+        B("B"),
+        C("C"),
+        D("D"),
+        E("E"),
+        F("F"),
+        G("G"),
+        H("H"),
+        I("I"),
+        J("J"),
+        K("K"),
+        L("L"),
+        M("M"),
+        N("N"),
+        O("O"),
+        P("P"),
+        Q("Q"),
+        R("R"),
+        S("S"),
+        T("T"),
+        U("U"),
+        V("V"),
+        W("W"),
+        X("X"),
+        Y("Y"),
+        Z("Z");
+
+        private String text;
+
+        SeatType(String text) {
+            this.text = text;
+        }
+
+        public String getText() {
+            return this.text;
+        }
+
+        public static TakenFlight.SeatType fromString(String text) {
+            for (TakenFlight.SeatType b : TakenFlight.SeatType.values()) {
+                if (b.text.equalsIgnoreCase(text)) {
+                    return b;
+                }
+            }
+            return null;
+        }
     }
 
 

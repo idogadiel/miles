@@ -54,7 +54,7 @@ public class Recommender {
                             .mapToDouble(takenFlight -> {
                                 TakenFlightsRelation relation = friendsOfAirlineThatFlyTheGoal.get(takenFlight.getAirline());
                                 if (relation.getRelationType() == TakenFlightsRelation.RelationType.By_Miles) {
-                                    Double multiplierByMiles = relation.getMilesByClass("A");       // tf.getClass()
+                                    Double multiplierByMiles = relation.getMilesByClass(takenFlight.getSeatType());       // tf.getClass()
                                     return takenFlight.getMiles() * multiplierByMiles;
                                 } else if (relation.getRelationType() == TakenFlightsRelation.RelationType.By_Cost) {
                                     Double multiplierByCost = relation.getMultiplier();
