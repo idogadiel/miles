@@ -26,7 +26,7 @@ public class Recommender {
     public Recommender(Goal goal) {
         this.goal = goal;
         takenFlights = new ArrayList<>();
-        createGaolsMap();
+        createGoalsMap();
     }
 
     public Recommender addTakenFlight(TakenFlight takenFlight) {
@@ -66,14 +66,14 @@ public class Recommender {
                             })
                             .sum();
                     GoalsRelation goalsRelation = map.get(airlineThatFlyTheGoal);
-                    Double needed = goalsRelation.firstClass;   // need to be change according to the user will
+                    Double needed = goalsRelation.getValue(goal.getSeatType());
                     return (agg / needed);
                 }));
 
         return mostBeneficialAirline.get().getAirlineName();
     }
 
-    public void createGaolsMap() {
+    public void createGoalsMap() {
 
         map = new HashMap<>();
 
