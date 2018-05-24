@@ -6,6 +6,7 @@ import miles.server.Entities.Airline.Airline;
 import miles.server.Entities.Airline.AirlineFactory;
 import miles.server.Entities.Destination.Destination;
 import miles.server.Entities.Destination.DestinationFactory;
+import miles.server.Entities.Goal.Goal;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -41,19 +42,17 @@ public class GoalCSVReader {
                 if (linesCounter == 0) {
                     destinations = Arrays.asList(line.split(cvsSplitBy.toLowerCase()));
                 } else {
-
-
                     List<String> data = Arrays.asList(line.split(cvsSplitBy));
                     Airline rowAirline = AirlineFactory.getInstance().getAirline(data.get(0));
                     Destination rowDestination = DestinationFactory.getInstance().getDestination(data.get(1));
-                    GoalsRelation.GoalRelationType goalRelationType = GoalsRelation.GoalRelationType.fromString(data.get(14));
+                    Goal.SeatType seatType = Goal.SeatType.fromString(data.get(14));
 
 
                     if (!map.containsKey(rowAirline)) map.put(rowAirline, TreeBasedTable.create());
 
                     for (int i = 2; i < data.size() - 1; i++) {
                         Destination colDestination = DestinationFactory.getInstance().getDestination(destinations.get(i));
-                        addToMap(map, rowAirline, rowDestination, colDestination, data.get(i), goalRelationType);
+                        addToMap(map, rowAirline, rowDestination, colDestination, data.get(i), seatType);
                     }
                 }
 
@@ -77,7 +76,7 @@ public class GoalCSVReader {
     }
 
 
-    private static void addToMap(Map<Airline, RowSortedTable<Destination, Destination, GoalsRelation>> map, Airline rowAirline, Destination rowDestination, Destination colDestination, String val, GoalsRelation.GoalRelationType type) {
+    private static void addToMap(Map<Airline, RowSortedTable<Destination, Destination, GoalsRelation>> map, Airline rowAirline, Destination rowDestination, Destination colDestination, String val, Goal.SeatType type) {
         if (val.toLowerCase().equals("x")) return;
         if (!map.get(rowAirline).contains(rowDestination, colDestination)) {
             GoalsRelation relation = new GoalsRelation();
@@ -96,9 +95,6 @@ public class GoalCSVReader {
             case FIRST_CLASS: {
                 goalsRelation.firstClass = Double.valueOf(val);
             }
-
-
         }
-
     }
 }
