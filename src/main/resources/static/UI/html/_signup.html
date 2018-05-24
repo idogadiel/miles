@@ -12,10 +12,10 @@
                 <label for="pwd">Password:</label>
                 <input type="password" class="form-control" id="pwd" placeholder="Enter password" ng-model="password">
             </div>
-            <button type="submit" class="btn btn-default" ng-click="login()">Submit</button>
+            <button type="submit" class="btn btn-default" ng-click="signup()">Submit</button>
         </form>
-        <div ng-if="user.loggedin">Signed up successfully.</div>
-        <div ng-if="!user.loggedin && login_tries">Error. something went wrong.</div>
+        <div ng-if="user.signedin">Signed up successfully.</div>
+        <div ng-if="!user.signedin && login_tries">Error. something went wrong.</div>
         {{message}}
         <br>
         <img src="../images/loading_spinner.gif" ng-show="showLoader">

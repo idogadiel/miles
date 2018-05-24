@@ -14,12 +14,18 @@
 	<link rel="stylesheet" type="text/css" href="../plugins/OwlCarousel2-2.2.1/animate.css">
 	<link rel="stylesheet" type="text/css" href="../styles/main_styles.css">
 	<link rel="stylesheet" type="text/css" href="../styles/responsive.css">
+    <link rel="stylesheet" type="text/css" href="../styles/offers_styles.css">
+    <link rel="stylesheet" type="text/css" href="../styles/offers_responsive.css">
+
 	<!-- OUR -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
 	<script src="../js/index.js"></script>
+    <script src="../js/user_controller.js"></script>
+    <script src="../js/desired_controller.js"></script>
+    <script src="../js/visited_controller.js"></script>
 </head>
 
 <body>
@@ -48,12 +54,12 @@
 							</ul>
 						</div>
 						<div class="user_box ml-auto">
-							<div ng-show="!user.loggedin" class="user_box_login user_box_link"><a href="#signin"><i class="glyphicon glyphicon-log-in"> signin</i></a></div>
-							<div ng-show="!user.loggedin" class="user_box_register user_box_link"><a href="#signup"><i class="glyphicon glyphicon-pencil"></i>signup</a></div>
+							<div ng-show="!user.signedin" class="user_box_login user_box_link"><a href="#signin"><i class="glyphicon glyphicon-log-in"> signin</i></a></div>
+							<div ng-show="!user.signedin" class="user_box_register user_box_link"><a href="#signup"><i class="glyphicon glyphicon-pencil"></i>signup</a></div>
 
-                            <!--<div ng-show="user.loggedin" class="user_box_login user_box_link"><a href="#desired"><i class="glyphicon glyphicon-road"></i> Desired Destinations</a></div>-->
-                            <!--<div ng-show="user.loggedin" class="user_box_login user_box_link"><a href="#visited"><i class="glyphicon glyphicon-bookmark"></i> visited Destinations</a></div>-->
-                            <div ng-show="user.loggedin" class="user_box_register user_box_link"><a href="#signout"><i class="glyphicon glyphicon-log-out"></i> Sign-out {{ user.username }}</a></div>
+                            <!--<div ng-show="user.signedin" class="user_box_login user_box_link"><a href="#desired"><i class="glyphicon glyphicon-road"></i> Desired Destinations</a></div>-->
+                            <!--<div ng-show="user.signedin" class="user_box_login user_box_link"><a href="#visited"><i class="glyphicon glyphicon-bookmark"></i> visited Destinations</a></div>-->
+                            <div ng-show="user.signedin" class="user_box_register user_box_link"><a href="#signout"><i class="glyphicon glyphicon-log-out"></i> Sign-out {{ user.username }}</a></div>
 
 						</div>
 					</div>
@@ -73,8 +79,8 @@
                         <div class="main_nav_container ml-auto">
                             <ul class="main_nav_list">
                                 <li class="main_nav_item"><a href="#">home</a></li>
-                                <li ng-show="user.loggedin" class="main_nav_item"><a href="#desired">Desired Destinations</a></li>
-                                <li ng-show="user.loggedin" class="main_nav_item"><a href="#visited">visited Destinations</a></li>
+                                <li ng-show="user.signedin" class="main_nav_item"><a href="#desired">Desired Destinations</a></li>
+                                <li ng-show="user.signedin" class="main_nav_item"><a href="#visited">visited Destinations</a></li>
                                 <!--<li class="main_nav_item"><a href="blog.html">news</a></li>-->
                                 <!--<li class="main_nav_item"><a href="#">contact</a></li>-->
                             </ul>
@@ -286,6 +292,11 @@
 <script src="../plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
 <script src="../plugins/easing/easing.js"></script>
 <script src="../js/custom.js"></script>
+
+<!-- desired -->
+<script src="../plugins/Isotope/isotope.pkgd.min.js"></script>
+<script src="../plugins/parallax-js-master/parallax.min.js"></script>
+<script src="../js/offers_custom.js"></script>
 
 </body>
 

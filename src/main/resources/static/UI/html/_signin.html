@@ -13,11 +13,11 @@
             </div>
             <button type="submit" class="btn btn-default" ng-click="login()">Submit</button>
         </form>
-        <div ng-if="user.loggedin">You are now signed in.</div>
-        <div ng-if="!user.loggedin && login_tries">Wrong username and/or password.</div>
+        <div ng-if="user.signedin">You are now signed in.</div>
+        <div ng-if="!user.signedin && login_tries">Wrong username and/or password.</div>
         <br>
 
-        <a style="cursor:pointer;"  ng-show="!user.loggedin && login_tries" ng-click="sendForgotPasswordLink()">Forgot your password?</a><br>
+        <a style="cursor:pointer;"  ng-show="!user.signedin && login_tries" ng-click="sendForgotPasswordLink()">Forgot your password?</a><br>
         <img src="../images/loading_spinner.gif" ng-show="showLoader">
     </div>
 
