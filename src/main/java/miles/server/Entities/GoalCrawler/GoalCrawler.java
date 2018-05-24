@@ -18,8 +18,5 @@ public class GoalCrawler {
         // create concrete goals
         List<Airline> goals = this.crawl.getData(from, to);
         return goals;
-
     }
-
-
 }

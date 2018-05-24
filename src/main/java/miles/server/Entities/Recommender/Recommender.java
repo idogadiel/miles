@@ -77,6 +77,7 @@ public class Recommender {
 
         map = new HashMap<>();
 
+        // todo: add more crawlers
         // create new goal crawler with specific crawler: sabre [some shitty API]
         GoalCrawler goalCrawler = new GoalCrawler(new SabreCrawler());
 
