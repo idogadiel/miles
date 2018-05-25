@@ -1,10 +1,14 @@
-scotchApp.controller('userController', function ($rootScope, $scope, $http, $location) {
+scotchApp.controller('userController', function ($rootScope, $scope, $http, $location, UserService) {
     console.log($location);
     console.log($location.url());
     console.log($rootScope.user);
     console.log($rootScope.showLoader);
+    console.log(["/signin","/signup"].indexOf($location.url()),$location.url())
 
-    getUser()
+    // pages on which we want to skip the user check
+    if (["/signin","/signup"].indexOf($location.url()) < 0){
+        UserService.getUser();
+    }
 
     $scope.login_tries = 0
 
@@ -47,7 +51,7 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
 
     };
 
-    $scope.signin = function () {
+    $scope.signIn = function () {
         $scope.showLoader = true;
         var jsonObj = "username=" + $scope.username + "&password=" + $scope.password;
         $http({
@@ -67,10 +71,7 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
             $rootScope.user.signedin = true;
             $rootScope.user.username = $scope.username;
 
-            console.log($rootScope)
-            setUser($rootScope.user)
-//            alert("SuccessFully Signed in")
-//            $location.path("");
+            UserService.setUser($rootScope.user)
         }).error(function (data, status, headers, config) {
             $scope.showLoader = false;
             $scope.login_tries += 1
@@ -78,8 +79,8 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
         });
     };
 
-    $scope.signout = function () {
-        clearUser()
+    $scope.signOut = function () {
+        UserService.clearUser()
         $http({
             method: 'GET',
             withCredentials: true,
@@ -135,36 +136,4 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
            $scope.message = "Error changing password";
        });
    }
-
-    function setUser(user){
-       //  Checking for Support
-       if (window.localStorage) {
-           // localStorage supported
-           localStorage.setItem("user", JSON.stringify(user));
-           console.log("setUser",user)
-       }
-    }
-
-    function getUser(){
-       //  Checking for Support
-       if (window.localStorage) {
-           // localStorage supported
-
-           // Read item:
-           let user = JSON.parse(localStorage.getItem("user"));
-           console.log("getUser",user)
-       }
-    }
-
-    function clearUser(){
-        $rootScope.user = {};
-       //  Checking for Support
-       if (window.localStorage) {
-           // localStorage supported
-
-           localStorage.removeItem("user");
-//           localStorage.clear();
-
-       }
-    }
 });

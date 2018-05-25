@@ -1,4 +1,7 @@
-scotchApp.controller('desiredController', function ($scope, $rootScope, $http) {
+scotchApp.controller('desiredController', function ($scope, $rootScope, $http, UserService) {
+
+    UserService.getUser()
+
     // get all destinations
     $http({
         method: 'GET',

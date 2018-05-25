@@ -1,5 +1,7 @@
 var scotchApp = angular.module('scotchApp', ['ngRoute']);
 
+scotchApp.run(function ($rootScope) {});
+
 scotchApp.config(function ($routeProvider) {
     $routeProvider
         .when('/', {
@@ -38,9 +40,8 @@ scotchApp.config(function ($routeProvider) {
         });
 });
 
-scotchApp.run(function ($rootScope) {});
-
-scotchApp.controller('mainController', function ($scope, $rootScope, $http) {
+scotchApp.controller('mainController', function ($scope, $rootScope, $http, UserService) {
+    $rootScope.showLoader = false;
 
     $http({
         method: 'GET',
@@ -50,14 +51,14 @@ scotchApp.controller('mainController', function ($scope, $rootScope, $http) {
         console.log("issignedin",response.data);
         var answer = angular.fromJson(response.data);
         if (answer.result){
-            if (!$rootScope.user){
-                $rootScope.user = {};
-                $rootScope.user.signedin = true;
-            }
-            $rootScope.user.username = answer.reason;
+            var user = {}
+            user.signedin = true;
+            user.username = answer.reason;
+
+            UserService.setUser(user);
         }
     }, function errorCallback(response) {
-        $rootScope.user.signedin = false;
+        UserService.clearUser();
     });
 });
 

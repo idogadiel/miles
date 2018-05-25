@@ -59,11 +59,14 @@ public class TakenFlight {
 
     public TakenFlight(String jsonUser) {
         JSONObject jsonObject = new JSONObject(jsonUser);
+        this.from         = (String) jsonObject.get("from");
+        this.to           = (String) jsonObject.get("to");
         this.flightNumber = (String) jsonObject.get("flightNumber");
         this.nameOnTicket = (String) jsonObject.get("nameOnTicket");
         this.ticketNumber = (String) jsonObject.get("ticketNumber");
         this.dateOfFlight = System.currentTimeMillis(); // mock
-        this.seatType = SeatType.A;     // to fix according to the json -> dandan
+        this.seatType = SeatType.fromString(((String) jsonObject.get("seatType")).toUpperCase());
+//        this.seatType = SeatType.A;     // to fix according to the json -> dandan
     }
 
     private String getAirlineFromFlightNumber(String flightNumber) {

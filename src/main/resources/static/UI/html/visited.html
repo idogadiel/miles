@@ -24,13 +24,22 @@
 						<table border="1">
 							<tr>
 								<th>Remove</th>
+                                <th>From</th>
+                                <th>To</th>
 								<th>Flight number</th>
 								<th>Ticket number</th>
 								<th>Name on ticket</th>
 								<th>Date of flight</th>
+                                <th>Seat Type</th>
 							</tr>
 							<tr>
 								<td><button type="submit" class="button search_button" ng-click="addDestination()">[+] Add<span></span><span></span><span></span></button></td>
+								<td class="search_item">
+									<input type="text" class="destination search_input" id="from" placeholder="From:" ng-model="from" required="required">
+								</td>
+								<td class="search_item">
+									<input type="text" class="destination search_input" id="to" placeholder="To:" ng-model="to" required="required">
+								</td>
 								<td class="search_item">
 									<input type="text" class="destination search_input" id="flightNumber" placeholder="Flight number:" ng-model="flightNumber" required="required">
 								</td>
@@ -43,13 +52,19 @@
 								<td class="search_item">
 									<input type="text" class="destination search_input" id="dateOfFlight" placeholder="Date Of Flight" ng-model="dateOfFlight" required="required">
 								</td>
+								<td class="search_item">
+									<input type="text" class="destination search_input" id="seatType" placeholder="Seat Type:" ng-model="seatType" required="required">
+								</td>
 							</tr>
 							<tr ng-repeat="x in allTakenFlights">
 								<td>[X]</td>
+                                <td>{{x.from}}</td>
+                                <td>{{x.to}}</td>
 								<td>{{x.flightNumber}}</td>
 								<td>{{x.ticketNumber}}</td>
 								<td>{{x.nameOnTicket}}</td>
 								<td>{{x.dateOfFlight}}</td>
+                                <td>{{x.seatType}}</td>
 							</tr>
 						</table>
 					</div>
