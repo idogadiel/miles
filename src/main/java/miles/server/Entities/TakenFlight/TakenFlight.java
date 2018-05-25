@@ -63,6 +63,7 @@ public class TakenFlight {
         this.nameOnTicket = (String) jsonObject.get("nameOnTicket");
         this.ticketNumber = (String) jsonObject.get("ticketNumber");
         this.dateOfFlight = System.currentTimeMillis(); // mock
+        this.seatType = SeatType.A;     // to fix according to the json -> dandan
     }
 
     private String getAirlineFromFlightNumber(String flightNumber) {
