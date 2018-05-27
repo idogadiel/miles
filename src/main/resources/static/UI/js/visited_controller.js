@@ -22,6 +22,7 @@ scotchApp.controller('visitedController', function ($scope, $rootScope, $http, U
         url: 'http://127.0.0.1:8080/recommender/recommend'
     }).then(function successCallback(response) {
         console.log("recommend","successCallback",response);
+        $scope.mostBeneficialAirline = response.data.mostBeneficialAirline;
     }, function errorCallback(response) {
         console.log("recommend","errorCallback",response);
     });

@@ -3,10 +3,10 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
     console.log($location.url());
     console.log($rootScope.user);
     console.log($rootScope.showLoader);
-    console.log(["/signin","/signup"].indexOf($location.url()),$location.url())
+    console.log(["/signin","/signup","/forgotpassword"].indexOf($location.url()),$location.url())
 
     // pages on which we want to skip the user check
-    if (["/signin","/signup"].indexOf($location.url()) < 0){
+    if (["/signin","/signup","/forgotpassword"].indexOf($location.path()) < 0){
         UserService.getUser();
     }
 
@@ -116,6 +116,7 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
     }
 
     $scope.changePassword = function () {
+        $rootScope.showLoader = true;
        var body = {
            "code": window.location.href.split('key=')[1],
            "password": $scope.password1
@@ -126,6 +127,7 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
            data: body,
            url: 'http://127.0.0.1:8080/user/changePassword'
        }).then(function successCallback(response) {
+            $rootScope.showLoader = false;
            if (response.data.result) {
                $scope.message = "Password changed Successfully";
            }
@@ -133,6 +135,7 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
                $scope.message = "Error changing password.";
            }
        }, function errorCallback(response) {
+            $rootScope.showLoader = false;
            $scope.message = "Error changing password";
        });
    }

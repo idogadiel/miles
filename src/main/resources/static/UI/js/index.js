@@ -10,7 +10,7 @@ scotchApp.config(function ($routeProvider) {
         })
 
         .when('/forgotpassword', {
-            templateUrl: '_forgotpassword.html',
+            templateUrl: 'forgotpassword.html',
             controller: 'userController'
         })
 
