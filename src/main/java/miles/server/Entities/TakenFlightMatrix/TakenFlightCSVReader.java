@@ -32,10 +32,8 @@ public class TakenFlightCSVReader {
             br = new BufferedReader(new FileReader(resource.getFile()));
             while ((line = br.readLine()) != null) {
 
-                // use comma as separator
                 if (linesCounter == 0) {
                     airlines = Arrays.asList(line.split(cvsSplitBy));
-
                 } else {
                     List<String> data = Arrays.asList(line.split(cvsSplitBy));
                     Airline rowAirline = AirlineFactory.getInstance().getAirline(data.get(0));
@@ -43,7 +41,6 @@ public class TakenFlightCSVReader {
                         Airline colAirline = AirlineFactory.getInstance().getAirline(airlines.get(i));
                         TakenFlightsRelation relation = new TakenFlightsRelation(data.get(i));
                         matrix.put(rowAirline, colAirline, relation);
-
                     }
                 }
 

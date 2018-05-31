@@ -69,7 +69,7 @@ public class TakenFlightsRelation {
         try {
             return Double.valueOf(rawPair.split(":")[1]);
         } catch (Exception e) {
-            System.out.println("error on guy excel: " + rawPair + "  expected pattern: a:1.3");
+            System.out.println("warning: error on guy excel: " + rawPair + "  expected pattern: a:1.3");
         }
         return -1D;
     }
@@ -95,7 +95,7 @@ public class TakenFlightsRelation {
         try {
             return Double.valueOf(rawPair);
         } catch (Exception e) {
-            System.out.println("error on guy excel: " + rawPair + "  expected pattern: 3  maybe forgot [] ?");
+            System.out.println("warning: error on guy excel: " + rawPair + "  expected pattern: 3  maybe forgot [] ?");
         }
         return -1D;
     }

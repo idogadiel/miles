@@ -6,6 +6,7 @@ import miles.server.Entities.Destination.DestinationConvertor;
 import miles.server.Entities.Destination.DestinationFactory;
 import miles.server.Entities.Goal.Goal;
 import miles.server.Entities.GoalCrawler.GoalCrawler;
+import miles.server.Entities.GoalCrawler.OpenFlightOrgCrawler;
 import miles.server.Entities.GoalCrawler.SabreCrawler;
 import miles.server.Entities.GoalMatrix.GoalMatrix;
 import miles.server.Entities.GoalMatrix.GoalsRelation;
@@ -83,6 +84,10 @@ public class Recommender {
 
         // preform the actual crawl, get all the airline that fly from "tlv" to "ny"
         List<Airline> airlines = goalCrawler.doCrawl(goal.getFrom(), goal.getTo());
+        if (airlines.size() < 10) {
+            goalCrawler = new GoalCrawler(new OpenFlightOrgCrawler());
+            airlines = goalCrawler.doCrawl(goal.getFrom(), goal.getTo());
+        }
 
 
         airlines.forEach(airline -> {
