@@ -1,4 +1,4 @@
-var scotchApp = angular.module('scotchApp', ['ngRoute','ngAnimate']);
+var scotchApp = angular.module('scotchApp', ['ngRoute']);
 
 scotchApp.run(function ($rootScope) {});
 
@@ -7,8 +7,6 @@ scotchApp.config(function ($routeProvider) {
         .when('/', {
             templateUrl: 'home.html',
             controller: 'mainController'
-            css: 'style.css'
-
         })
 
         .when('/forgotpassword', {
@@ -20,6 +18,11 @@ scotchApp.config(function ($routeProvider) {
             templateUrl: 'desired.html',
             controller: 'desiredController'
         })
+
+         .when('/about', {
+                    templateUrl: 'about.html',
+                   // controller: 'desiredController'
+                })
 
          .when('/visited', {
              templateUrl: 'visited.html',
