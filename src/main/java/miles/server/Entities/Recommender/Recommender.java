@@ -31,12 +31,12 @@ public class Recommender {
     }
 
     public Recommender addTakenFlight(TakenFlight takenFlight) {
-        takenFlights.add(takenFlight);
+        this.takenFlights.add(takenFlight);
         return this;
     }
 
     public Recommender addTakenFlights(List<TakenFlight> takenFlights) {
-        takenFlights.addAll(takenFlights);
+        this.takenFlights.addAll(takenFlights);
         return this;
     }
 
@@ -68,7 +68,9 @@ public class Recommender {
                             .sum();
                     GoalsRelation goalsRelation = map.get(airlineThatFlyTheGoal);
                     Double needed = goalsRelation.getValue(goal.getSeatType());
+                    System.out.println(agg / needed);
                     return (agg / needed);
+
                 }));
 
         return mostBeneficialAirline.get().getAirlineName();
@@ -92,10 +94,11 @@ public class Recommender {
 
         airlines.forEach(airline -> {
 
+            // get raw DESTINATION from convertor => as string
             String destFrom = DestinationConvertor.covertAirportToGeographicalArea(goal.getFrom());
             String destTo = DestinationConvertor.covertAirportToGeographicalArea(goal.getTo());
 
-
+            // get Destination object from factory
             Destination fromDestination = DestinationFactory.getInstance().getDestination(destFrom);
             Destination toDestination = DestinationFactory.getInstance().getDestination(destTo);
 

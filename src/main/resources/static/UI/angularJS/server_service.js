@@ -1,7 +1,7 @@
 scotchApp.factory('serverHttp', function ($http, $q, $log) {
 
     var session = undefined;
-    var API_URL = 'http://127.0.0.1:8080/'
+    var API_URL = 'http://127.0.0.1:8080/';
 
     var req = function (url, jsonObj, method) {
         var deferred = $q.defer();

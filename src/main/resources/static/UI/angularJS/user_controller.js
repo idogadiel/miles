@@ -3,10 +3,9 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
     console.log($location.url());
     console.log($rootScope.user);
     console.log($rootScope.showLoader);
-    console.log(["/signin","/signup","/forgotpassword"].indexOf($location.url()),$location.url())
 
     // pages on which we want to skip the user check
-    if (["/signin","/signup","/forgotpassword"].indexOf($location.path()) < 0){
+    if (["/signin","/register","/forgotpassword"].indexOf($location.path()) < 0){
         UserService.getUser();
     }
 
@@ -63,10 +62,7 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
             },
             data: jsonObj
         }).success(function (data, status, headers, config) {
-//            console.log(data)
-
             $scope.showLoader = false;
-
             $rootScope.user = {}
             $rootScope.user.signedin = true;
             $rootScope.user.username = $scope.username;

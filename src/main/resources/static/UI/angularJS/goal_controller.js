@@ -1,4 +1,4 @@
-scotchApp.controller('goalController', function ($scope, $rootScope, $http, UserService) {
+scotchApp.controller('goalController', function ($scope, $rootScope, $http, UserService, serverHttp) {
 
     UserService.getUser()
 
@@ -12,6 +12,13 @@ scotchApp.controller('goalController', function ($scope, $rootScope, $http, User
     }, function errorCallback(response) {
             $scope.allDesiredDestinations = "error";
     });
+
+        $scope.getRecommendation = function() {
+        serverHttp.GET("recommender/recommend",{}).then(function(data){
+                $scope.mostBeneficialAirline = data.mostBeneficialAirline;
+                alert("We recommend you to redeem it with: "+$scope.mostBeneficialAirline );
+            })
+        };
 
     // add destination func :
     $scope.addDestination = function () {

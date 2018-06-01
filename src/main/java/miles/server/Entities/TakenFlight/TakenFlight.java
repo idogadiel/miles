@@ -37,18 +37,10 @@ public class TakenFlight {
     public TakenFlight() {
     }
 
-    public TakenFlight(String to, String from, String seatType, String flightNumber, String ticketNumber, String nameOnTicket, Long date, Double cost) {
-        setFlightNumber(flightNumber);
-        setNameOnTicket(nameOnTicket);
-        setTicketNumber(ticketNumber);
-        setDateOfFlight(date);
-        setCost(cost);
-        setMiles(Airports.getInstance().getDistanceBetweenAirports(to.toUpperCase(), from.toUpperCase()));
-        setAirline(AirlineFactory.getInstance().getAirline(getAirlineFromFlightNumber(flightNumber)));
-        setSeatType(SeatType.fromString(seatType));
-    }
 
     public TakenFlight(String to, String from, String seatType, String flightNumber, Long date, Double cost) {
+        this.from = to;
+        this.to = from;
         setFlightNumber(flightNumber);
         setDateOfFlight(date);
         setCost(cost);
@@ -59,14 +51,14 @@ public class TakenFlight {
 
     public TakenFlight(String jsonUser) {
         JSONObject jsonObject = new JSONObject(jsonUser);
-        this.from         = (String) jsonObject.get("from");
-        this.to           = (String) jsonObject.get("to");
+        this.from = (String) jsonObject.get("from");
+        this.to = (String) jsonObject.get("to");
         this.flightNumber = (String) jsonObject.get("flightNumber");
-        this.nameOnTicket = (String) jsonObject.get("nameOnTicket");
-        this.ticketNumber = (String) jsonObject.get("ticketNumber");
+        setMiles(Airports.getInstance().getDistanceBetweenAirports(to.toUpperCase(), from.toUpperCase()));
+        setAirline(AirlineFactory.getInstance().getAirline(getAirlineFromFlightNumber(flightNumber)));
+        this.cost = Double.valueOf((String) jsonObject.get("cost"));
         this.dateOfFlight = System.currentTimeMillis(); // mock
         this.seatType = SeatType.fromString(((String) jsonObject.get("seatType")).toUpperCase());
-//        this.seatType = SeatType.A;     // to fix according to the json -> dandan
     }
 
     private String getAirlineFromFlightNumber(String flightNumber) {
@@ -216,10 +208,8 @@ public class TakenFlight {
         jsonObject.put("to", to);
         jsonObject.put("from", from);
         jsonObject.put("seatType", seatType);
-
         jsonObject.put("flightNumber", flightNumber);
-        jsonObject.put("ticketNumber", ticketNumber);
-        jsonObject.put("nameOnTicket", nameOnTicket);
+        jsonObject.put("cost", cost);
         jsonObject.put("dateOfFlight", dateOfFlight);
         return jsonObject.toString();
     }

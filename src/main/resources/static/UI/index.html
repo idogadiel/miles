@@ -32,14 +32,13 @@
     <!-- OUR -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
-    <script src="js/index.js"></script>
-    <!--<script src="js/user_controller.js"></script>-->
-    <!--<script src="js/user_service.js"></script>-->
-    <!--<script src="js/server_service.js"></script>-->
-    <!--<script src="js/goal_controller.js"></script>-->
-    <!--<script src="js/takenFlights_controller.js"></script>-->
+    <script src="angularJS/index.js"></script>
+    <script src="angularJS/user_controller.js"></script>
+    <script src="angularJS/user_service.js"></script>
+    <script src="angularJS/server_service.js"></script>
+    <script src="angularJS/goal_controller.js"></script>
+    <script src="angularJS/takenFlights_controller.js"></script>
     <!--<script src="js/about.js"></script>-->
-
 
 
 </head>
@@ -62,11 +61,12 @@
                     <ul>
                         <li class="active"><a href="index.html">Home</a></li>
                         <li><a href="#about">About</a></li>
-                        <li><a href="#takenFlights">Your recent flights</a></li>
-                        <li><a href="#goal">Your Goal</a></li>
+                        <li ng-show="user.signedin"><a href="#takenFlights">Your recent flights</a></li>
+                        <li ng-show="user.signedin"><a href="#goal">Your Goal</a></li>
+                        <li ng-show="user.signedin"><a ng-click="signOut()" href="#signout">Sign out</a></li>
+                        <li ng-show="!user.signedin"><a href="#signin">Sign In</a></li>
+                        <li ng-show="!user.signedin"><a href="#register">Register</a></li>
                         <li><a href="#contact">Contact us</a></li>
-                        <li><a href="#signout.html">Sign out</a></li>
-
                     </ul>
                 </div>
             </div>
@@ -74,21 +74,7 @@
     </nav>
 
 
-
-
-
-
-
-
-        <div ng-view></div>
-
-
-
-
-
-
-
-
+    <div ng-view></div>
 
 
     <footer id="gtco-footer" class="gtco-section" role="contentinfo">

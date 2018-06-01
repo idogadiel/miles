@@ -11,7 +11,7 @@ scotchApp.config(function ($routeProvider) {
 
         .when('/forgotpassword', {
             templateUrl: 'forgotpassword.html',
-            controller: 'userController'
+         //   controller: 'userController'
         })
 
         .when('/goal', {
@@ -41,11 +41,11 @@ scotchApp.config(function ($routeProvider) {
 
         .when('/signout', {
             templateUrl: 'signout.html',
-            controller: 'userController'
+           controller: 'userController'
         })
 
-        .when('/signup', {
-            templateUrl: 'signup.html',
+        .when('/register', {
+            templateUrl: 'register.html',
             controller: 'userController'
         });
 });
@@ -70,6 +70,8 @@ scotchApp.controller('mainController', function ($scope, $rootScope, $http, User
     }, function errorCallback(response) {
         UserService.clearUser();
     });
+
+
 });
 
 function isValidEmail(email) {
