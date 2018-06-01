@@ -18,7 +18,7 @@ import java.util.Set;
 public class OpenFlightOrgCrawler implements Crawl {
 
     public List<Airline> getData(String from, String to) {
-        Resource resource = new ClassPathResource("routes.txt");
+        Resource resource = new ClassPathResource("files/routes.txt");
         BufferedReader br = null;
         String line = "";
 

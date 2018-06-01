@@ -50,28 +50,18 @@ scotchApp.config(function ($routeProvider) {
         });
 });
 
-scotchApp.controller('mainController', function ($scope, $rootScope, $http, UserService) {
+scotchApp.controller('mainController', function ($scope, $rootScope, $http, UserService, serverHttp) {
     $rootScope.showLoader = false;
 
-    $http({
-        method: 'GET',
-        withCredentials: true,
-        url: 'http://18.188.243.239:8080/user/isloggedin'
-    }).then(function successCallback(response) {
-        console.log("issignedin",response.data);
-        var answer = angular.fromJson(response.data);
-        if (answer.result){
-            var user = {}
-            user.signedin = true;
-            user.username = answer.reason;
-
-            UserService.setUser(user);
-        }
-    }, function errorCallback(response) {
-        UserService.clearUser();
-    });
-
-
+   serverHttp.GET("user/isloggedin",{}).then(function(data){
+                    var answer = angular.fromJson(data);
+                            if (answer.result){
+                                var user = {}
+                                user.signedin = true;
+                                user.username = answer.reason;
+                                UserService.setUser(user);
+                            }
+                })
 });
 
 function isValidEmail(email) {

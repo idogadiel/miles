@@ -4,22 +4,19 @@ import org.json.JSONObject;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class GlobalAirportDatabaseReader {
 
     public static JSONObject getDataFromTXT() {
 
-        Resource resource = new ClassPathResource("GlobalAirportDatabase.txt");
         BufferedReader br = null;
         String line = "";
+        InputStream in = GlobalAirportDatabaseReader.class.getResourceAsStream("GlobalAirportDatabase.txt");
 
         String stringJson = "";
         try {
-            br = new BufferedReader(new FileReader(resource.getFile()));
+            br = new BufferedReader(new InputStreamReader(in));
             while ((line = br.readLine()) != null) {
                 stringJson = stringJson.concat(line);
             }
