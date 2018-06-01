@@ -1,4 +1,4 @@
-scotchApp.controller('desiredController', function ($scope, $rootScope, $http, UserService) {
+scotchApp.controller('goalController', function ($scope, $rootScope, $http, UserService) {
 
     UserService.getUser()
 

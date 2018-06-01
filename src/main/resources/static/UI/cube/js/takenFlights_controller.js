@@ -1,4 +1,4 @@
-scotchApp.controller('visitedController', function ($scope, $rootScope, $http, UserService, serverHttp) {
+scotchApp.controller('takenFlightsController', function ($scope, $rootScope, $http, UserService, serverHttp) {
 
     UserService.getUser()
 

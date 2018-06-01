@@ -14,19 +14,24 @@ scotchApp.config(function ($routeProvider) {
             controller: 'userController'
         })
 
-        .when('/desired', {
-            templateUrl: 'desired.html',
-            controller: 'desiredController'
+        .when('/goal', {
+            templateUrl: 'goal.html',
+            controller: 'goalController'
         })
 
          .when('/about', {
-                    templateUrl: 'about.html',
-                   // controller: 'desiredController'
-                })
+             templateUrl: 'about.html',
+             // controller: 'desiredController'
+          })
 
-         .when('/visited', {
-             templateUrl: 'visited.html',
-             controller: 'visitedController'
+           .when('/contact', {
+              templateUrl: 'contact.html',
+              // controller: 'desiredController'
+         })
+
+         .when('/takenFlights', {
+             templateUrl: 'takenFlights.html',
+             controller: 'takenFlightsController'
          })
 
         .when('/signin', {
