@@ -30,7 +30,7 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
             "birthdate": "1.1.2001"
         };
         $http({
-            url: "http://127.0.0.1:8080/user/signup/",
+            url: "http://18.188.243.239:8080/user/signup/",
             method: "POST",
             data: jsonObj
         }).success(function (data, status, headers, config) {
@@ -47,14 +47,13 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
         }).error(function (data, status, headers, config) {
             $scope.showLoader = false;
         });
-
     };
 
     $scope.signIn = function () {
         $scope.showLoader = true;
         var jsonObj = "username=" + $scope.username + "&password=" + $scope.password;
         $http({
-            url: "http://127.0.0.1:8080/user/login",
+            url: "http://18.188.243.239:8080/user/login",
             withCredentials: true,
             method: "POST",
             headers: {
@@ -80,7 +79,7 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
         $http({
             method: 'GET',
             withCredentials: true,
-            url: 'http://127.0.0.1:8080/user/logout'
+            url: 'http://18.188.243.239:8080/user/logout'
         }).then(function successCallback(response) {
 //            alert("SuccessFully Logged out")
             $scope.message = "Logged out Successfully";
@@ -98,7 +97,7 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
         $http({
             method: 'GET',
             withCredentials: true,
-            url: 'http://127.0.0.1:8080/user/forgotPassword/' + $scope.username
+            url: 'http://18.188.243.239:8080/user/forgotPassword/' + $scope.username
         }).then(function successCallback(response) {
             $scope.showForgotPassowrdLink = true;
             $scope.message = "Check your email for instructions";
@@ -121,7 +120,7 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
            method: 'POST',
            withCredentials: true,
            data: body,
-           url: 'http://127.0.0.1:8080/user/changePassword'
+           url: 'http://18.188.243.239:8080/user/changePassword'
        }).then(function successCallback(response) {
             $rootScope.showLoader = false;
            if (response.data.result) {

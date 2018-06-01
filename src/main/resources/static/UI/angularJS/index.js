@@ -56,7 +56,7 @@ scotchApp.controller('mainController', function ($scope, $rootScope, $http, User
     $http({
         method: 'GET',
         withCredentials: true,
-        url: 'http://127.0.0.1:8080/user/isloggedin'
+        url: 'http://18.188.243.239:8080/user/isloggedin'
     }).then(function successCallback(response) {
         console.log("issignedin",response.data);
         var answer = angular.fromJson(response.data);

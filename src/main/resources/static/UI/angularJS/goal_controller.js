@@ -6,7 +6,7 @@ scotchApp.controller('goalController', function ($scope, $rootScope, $http, User
     $http({
         method: 'GET',
         withCredentials: true,
-        url: 'http://127.0.0.1:8080/goal/getAllGoals'
+        url: 'http://18.188.243.239:8080/goal/getAllGoals'
     }).then(function successCallback(response) {
             $scope.allDesiredDestinations = response.data;
     }, function errorCallback(response) {
@@ -30,7 +30,7 @@ scotchApp.controller('goalController', function ($scope, $rootScope, $http, User
                 "seatType": $scope.seatType
             };
             $http({
-                url: "http://127.0.0.1:8080/goal/addGoal/",
+                url: "http://18.188.243.239:8080/goal/addGoal/",
                 method: "POST",
                 withCredentials: true,
                 data: jsonObj
