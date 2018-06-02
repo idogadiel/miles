@@ -63,12 +63,12 @@
                     <ul>
                         <li class="active"><a href="index.html">Home</a></li>
                         <li><a href="#about">About</a></li>
-                        <li ng-show="user.signedin"><a href="#takenFlights">Your recent flights</a></li>
-                        <li ng-show="user.signedin"><a href="#goal">Your Goal</a></li>
-                        <li ng-show="user.signedin"><a ng-click="signOut()" href="#signout">Sign out</a></li>
-                        <li ng-show="!user.signedin"><a href="#signin">Sign In</a></li>
-                        <li ng-show="!user.signedin"><a href="#register">Register</a></li>
+                        <li ng-if="user.signedin"><a href="#takenFlights">Your recent flights</a></li>
+                        <li ng-if="user.signedin"><a href="#goal">Your Goal</a></li>
+                        <li ng-if="!user.signedin"><a href="#signin">Sign In</a></li>
+                        <li ng-if="!user.signedin"><a href="#register">Register</a></li>
                         <li><a href="#contact">Contact us</a></li>
+                        <li ng-if="user.signedin"><a ng-click="signOut()" href="#signout">Sign out</a></li>
                     </ul>
                 </div>
             </div>

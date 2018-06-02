@@ -46,10 +46,10 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
 
              serverHttp.POST_LOGIN("user/login", jsonObj ).then(function(data){
                                           $scope.showLoader = false;
-                                           $rootScope.user = {}
-                                           $rootScope.user.signedin = true;
-                                           $rootScope.user.username = $scope.username;
-                                            UserService.setUser($rootScope.user)
+                                           var user = {}
+                                           user.signedin = true;
+                                           user.username = $scope.username;
+                                           UserService.setUser(user)
                         });
     };
 
