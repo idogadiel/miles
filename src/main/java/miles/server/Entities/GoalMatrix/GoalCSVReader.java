@@ -19,7 +19,7 @@ public class GoalCSVReader {
     public static Map<Airline, RowSortedTable<Destination, Destination, GoalsRelation>> getMatrixFromCSV() {
 
 
-        InputStream in = GoalCSVReader.class.getResourceAsStream("GoalMatrixCSV.csv");
+        InputStream in = GoalCSVReader.class.getClassLoader().getResourceAsStream("GoalMatrixCSV.csv");
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";

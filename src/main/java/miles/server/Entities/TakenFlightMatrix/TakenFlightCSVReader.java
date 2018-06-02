@@ -15,7 +15,7 @@ public class TakenFlightCSVReader {
 
     public static RowSortedTable<Airline, Airline, TakenFlightsRelation> getMatrixFromCSV() {
 
-        InputStream in = TakenFlightCSVReader.class.getResourceAsStream("TakenFlightMatrixCSV.csv");
+        InputStream in = TakenFlightCSVReader.class.getClassLoader().getResourceAsStream("TakenFlightMatrixCSV.csv");
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";

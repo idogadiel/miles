@@ -12,7 +12,7 @@ public class GlobalAirportDatabaseReader {
 
         BufferedReader br = null;
         String line = "";
-        InputStream in = GlobalAirportDatabaseReader.class.getResourceAsStream("GlobalAirportDatabase.txt");
+        InputStream in = GlobalAirportDatabaseReader.class.getClassLoader().getResourceAsStream("GlobalAirportDatabase.txt");
 
         String stringJson = "";
         try {
