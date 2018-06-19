@@ -15,29 +15,46 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
     $scope.message = "";
 
     $scope.signup = function () {
-         if (!isValidEmail($scope.username)) {
-            $scope.message = "Please add valid email address";
+         if (!isValidEmail($scope.email)) {
+            $scope.signupForm.email.$setValidity("isValidEmail", false);
             return;
         }
-        $scope.message = "";
+        $scope.signupForm.email.$setValidity("isValidEmail", true);
+
+        if (!checkStrongPassword($scope.password)){
+            $scope.signupForm.password.$setValidity("checkStrongPassword", false);
+            return
+        }
+        $scope.signupForm.password.$setValidity("checkStrongPassword", true);
+
+        if ($scope.signupForm.password.$modelValue != $scope.signupForm.confPassword.$modelValue){
+            $scope.signupForm.confPassword.$setValidity("mismatch", false);
+            return
+        }
+        $scope.signupForm.confPassword.$setValidity("mismatch", true);
+
+        console.log($scope.signupForm.$error)
+
         $rootScope.showLoader = true;
         console.log($rootScope.showLoader);
         var jsonObj =
         {
-            "email": $scope.username,
+            "username": $scope.username,
+            "email": $scope.email,
             "password": $scope.password,
-            "birthdate": "1.1.2001"
+            "birthdate": $scope.bday
+//            "birthdate": "1.1.2001"
         };
          serverHttp.POST("user/signup/", jsonObj ).then(function(data){
-                    $scope.showLoader = false;
-                                console.log(data)
-                                if (data) {
-                                    $rootScope.user = {}
-                                    $rootScope.user.signedin = true;
-                                    $rootScope.user.username = data.username;
-                                    UserService.setUser($rootScope.user)
-                                }
-                });
+            $rootScope.showLoader = false;
+                console.log(data)
+                if (data) {
+                    $rootScope.user = {}
+                    $rootScope.user.signedin = true;
+                    $rootScope.user.username = data.username;
+                    UserService.setUser($rootScope.user)
+                }
+            });
     };
 
     $scope.signIn = function () {

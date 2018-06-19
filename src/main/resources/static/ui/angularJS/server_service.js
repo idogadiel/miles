@@ -6,15 +6,15 @@ scotchApp.factory('serverHttp', function ($http, $q, $log) {
     var req = function (url, jsonObj, method) {
         var deferred = $q.defer();
         $http({
-          method: method,
-          withCredentials: true,
-          url: API_URL + url,
-          data: JSON.stringify(jsonObj)
+            method: method,
+            withCredentials: true,
+            url: API_URL + url,
+            data: JSON.stringify(jsonObj)
         }).then(function (respond) {
-          deferred.resolve(respond.data);
+            deferred.resolve(respond.data);
         }, function (error, code) {
-          deferred.reject(error);
-          $log.error(error, code);
+            $log.error(error, code);
+            deferred.reject(error);
         });
 
         return deferred.promise;
@@ -23,24 +23,22 @@ scotchApp.factory('serverHttp', function ($http, $q, $log) {
 
 
     var reqForLogin = function (url, jsonObj, method) {
-            var deferred = $q.defer();
-            $http({
-              method: method,
-               headers: {
-                              "Content-Type": "application/x-www-form-urlencoded"
-                          },
-              withCredentials: true,
-              url: API_URL + url,
-              data: jsonObj
-            }).then(function (respond) {
-              deferred.resolve(respond.data);
-            }, function (error, code) {
-              deferred.reject(error);
-              $log.error(error, code);
-            });
+        var deferred = $q.defer();
+        $http({
+            method: method,
+            headers: {"Content-Type": "application/x-www-form-urlencoded"},
+            withCredentials: true,
+            url: API_URL + url,
+            data: jsonObj
+        }).then(function (respond) {
+            deferred.resolve(respond.data);
+        }, function (error, code) {
+            deferred.reject(error);
+            $log.error(error, code);
+        });
 
-            return deferred.promise;
-        }
+        return deferred.promise;
+    }
 
     return {
         GET: function (url, jsonObj = {}) {

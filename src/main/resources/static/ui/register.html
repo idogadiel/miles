@@ -1,54 +1,78 @@
-
-
-		
-
-
-		<header id="gtco-header" class="gtco-cover gtco-cover-xs gtco-inner" role="banner">
-			<div class="gtco-container">
-				<div class="row">
-					<div class="col-md-12 col-md-offset-0 text-left">
-						<div class="display-t">
-							<div class="display-tc">
-								<div class="row">
-									<div class="col-md-8">
-										<h1 class="no-margin">Register</h1>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia facilis, accusamus iusto animi.</p>
-									</div>
-								</div>
+<header id="gtco-header" class="gtco-cover gtco-cover-xs gtco-inner" role="banner">
+	<div class="gtco-container">
+		<div class="row">
+			<div class="col-md-12 col-md-offset-0 text-left">
+				<div class="display-t">
+					<div class="display-tc">
+						<div class="row">
+							<div class="col-md-8">
+								<h1 class="no-margin">Register</h1>
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia facilis, accusamus iusto animi.</p>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</header>
-		<!-- END #gtco-header -->
+		</div>
+	</div>
+</header>
+<!-- END #gtco-header -->
 
 
-		<div class="gtco-section">
-			<div class="gtco-container">
-				<div class="row">
-					<div class="col-md-6">
-						<form>
-							<div class="form-group">
-								<label for="email">Email</label>
-								<input type="text" class="form-control" id="email" ng-model="username" required="required" data-error="Email is required.">
-							</div>
-							<div class="form-group">
-								<label for="pwd">Password</label>
-								<input type="password" class="form-control" id="pwd" ng-model="password" required="required" data-error="Password is required.">
-							</div>
-							<div class="form-group">
-								<input class="btn btn btn-special" value="Register" ng-click="signup()">
-							</div>
-						</form>
+<div class="gtco-section">
+	<div class="gtco-container">
+		<div class="row">
+			<div class="col-md-6">
+				<form ng-submit="signup()" name="signupForm">
+					<div class="form-group">
+						<label for="username">Username</label>
+						<input type="text" ng-model="username" id="username" name="username" class="form-control" required>
+						<span style="color:red" ng-show="signupForm.username.$dirty && signupForm.username.$invalid">
+							<span ng-show="signupForm.username.$error.required">Username is required.</span>
+						</span>
 					</div>
-				</div>
+					<div class="form-group">
+						<label for="email">Email</label>
+						<input type="email" ng-model="email" id="email" name="email" class="form-control" required>
+						<span style="color:red" ng-show="signupForm.email.$dirty && signupForm.email.$invalid">
+							<span ng-show="signupForm.email.$error.required">Email is required.</span>
+							<span ng-show="signupForm.email.$error.isValidEmail">Email is not valid.</span>
+						</span>
+					</div>
+					<div class="form-group">
+						<label for="bday">Birthday</label>
+						<input type="date" ng-model="bday" id="bday" name="bday" class="form-control" required>
+						<span style="color:red" ng-show="signupForm.bday.$dirty && signupForm.bday.$invalid">
+							<span ng-show="signupForm.bday.$error.required">Birthday is required.</span>
+						</span>
+					</div>
+					<div class="form-group">
+						<label for="password">Password</label>
+						<input type="password" ng-model="password" id="password" name="password" class="form-control" required>
+						<span style="color:red" ng-show="signupForm.password.$dirty && signupForm.password.$invalid">
+							<span ng-show="signupForm.password.$error.required">Password is required.</span>
+							<span ng-show="signupForm.password.$error.checkStrongPassword">
+								The password must contain lowercase, uppercase, numeric and special character and be at least 8 characters long.
+							</span>
+						</span>
+					</div>
+					<div class="form-group">
+						<label for="confPassword">Confirm Password</label>
+						<input type="password" ng-model="confPassword" id="confPassword" name="confPassword" class="form-control" required>
+						<span style="color:red" ng-show="signupForm.confPassword.$dirty && signupForm.confPassword.$invalid">
+							<span ng-show="signupForm.confPassword.$error.required">Confirmation password is required.</span>
+							<span ng-show="signupForm.confPassword.$error.mismatch">Passwords do not match.</span>
+						</span>
+					</div>
+					<span style="color:red" ng-show="signupForm.confPassword.$dirty && signupForm.confPassword.$invalid">
+						<span ng-show="signupForm.confPassword.$error.required">Confirmation password is required.</span>
+					</span>
+					<div class="form-group">
+						<input type="submit" class="btn btn btn-special" value="Register">
+					</div>
+				</form>
 			</div>
 		</div>
-		<!-- END .gtco-services -->
-
-		
-
-
-
-
+	</div>
+</div>
+<!-- END .gtco-services -->

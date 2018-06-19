@@ -64,17 +64,17 @@ scotchApp.config(function ($routeProvider) {
 
 scotchApp.controller('mainController', function ($scope, $rootScope, $http, UserService, serverHttp) {
     $rootScope.showLoader = false;
+    console.log($rootScope.showLoader);
     $rootScope.ido = "ido";
-   serverHttp.GET("user/isloggedin",{}).then(function(data){
-                    var answer = angular.fromJson(data);
-                            if (answer.result){
-                                var user = {}
-                                user.signedin = true;
-                                user.username = answer.reason;
-                                UserService.setUser(user);
-                            }
-
-                })
+    serverHttp.GET("user/isloggedin",{}).then(function(data){
+        var answer = angular.fromJson(data);
+            if (answer.result){
+                var user = {}
+                user.signedin = true;
+                user.username = answer.reason;
+                UserService.setUser(user);
+            }
+        })
 });
 
 function isValidEmail(email) {
@@ -82,6 +82,10 @@ function isValidEmail(email) {
         return re.test(email);
 }
 
+function checkStrongPassword(password) {
+        var strongPasswordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+        return strongPasswordRegex.test(password);
+}
 
 // ui function for jQuery
 //need to be moved to outer file
