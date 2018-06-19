@@ -48,7 +48,7 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
          serverHttp.POST("user/signup/", jsonObj ).then(function(data){
             $rootScope.showLoader = false;
                 console.log(data)
-                if (data) {
+                if (data.username) {
                     $rootScope.user = {}
                     $rootScope.user.signedin = true;
                     $rootScope.user.username = data.username;
