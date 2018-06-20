@@ -1,4 +1,8 @@
-var scotchApp = angular.module('scotchApp', ['ngRoute']);
+var scotchApp = angular.module('scotchApp', ['ngRoute','ngMaterial', 'ngMessages', 'material.svgAssetsCache']);
+
+scotchApp.config(['$locationProvider', function($locationProvider) {
+  $locationProvider.hashPrefix('');
+}]);
 
 scotchApp.run(function ($rootScope) {
 mobileMenuOutsideClick();
@@ -68,13 +72,13 @@ scotchApp.controller('mainController', function ($scope, $rootScope, $http, User
     $rootScope.ido = "ido";
     serverHttp.GET("user/isloggedin",{}).then(function(data){
         var answer = angular.fromJson(data);
-            if (answer.result){
-                var user = {}
-                user.signedin = true;
-                user.username = answer.reason;
-                UserService.setUser(user);
-            }
-        })
+        if (answer.result){
+            var user = {}
+            user.signedin = true;
+            user.username = answer.reason;
+            UserService.setUser(user);
+        }
+    })
 });
 
 function isValidEmail(email) {
@@ -91,342 +95,332 @@ function checkStrongPassword(password) {
 //need to be moved to outer file
 
 var mobileMenuOutsideClick = function() {
-		$(document).click(function (e) {
-	    var container = $("#gtco-offcanvas, .js-gtco-nav-toggle");
-	    if (!container.is(e.target) && container.has(e.target).length === 0) {
-	    	$('.js-gtco-nav-toggle').addClass('');
+    $(document).click(function (e) {
+    var container = $("#gtco-offcanvas, .js-gtco-nav-toggle");
+    if (!container.is(e.target) && container.has(e.target).length === 0) {
+        $('.js-gtco-nav-toggle').addClass('');
 
-	    	if ( $('body').hasClass('offcanvas') ) {
+        if ( $('body').hasClass('offcanvas') ) {
 
-    			$('body').removeClass('offcanvas');
-    			$('.js-gtco-nav-toggle').removeClass('active');
+            $('body').removeClass('offcanvas');
+            $('.js-gtco-nav-toggle').removeClass('active');
 
-	    	}
+        }
 
 
-	    }
-		});
+    }
+    });
 
-	};
+};
 
+var offcanvasMenu = function() {
+    $('#page').prepend('<div id="gtco-offcanvas" />');
+    $('#page').prepend('<a href="#" class="js-gtco-nav-toggle gtco-nav-toggle "><i></i></a>');
+    var clone1 = $('.menu-1 > ul').clone();
+    $('#gtco-offcanvas').append(clone1);
+    var clone2 = $('.menu-2 > ul').clone();
+    $('#gtco-offcanvas').append(clone2);
 
-	var offcanvasMenu = function() {
-		$('#page').prepend('<div id="gtco-offcanvas" />');
-		$('#page').prepend('<a href="#" class="js-gtco-nav-toggle gtco-nav-toggle "><i></i></a>');
-		var clone1 = $('.menu-1 > ul').clone();
-		$('#gtco-offcanvas').append(clone1);
-		var clone2 = $('.menu-2 > ul').clone();
-		$('#gtco-offcanvas').append(clone2);
+    $('#gtco-offcanvas .has-dropdown').addClass('offcanvas-has-dropdown');
+    $('#gtco-offcanvas')
+        .find('li')
+        .removeClass('has-dropdown');
 
-		$('#gtco-offcanvas .has-dropdown').addClass('offcanvas-has-dropdown');
-		$('#gtco-offcanvas')
-			.find('li')
-			.removeClass('has-dropdown');
+    // Hover dropdown menu on mobile
+    $('.offcanvas-has-dropdown').mouseenter(function(){
+        var $this = $(this);
 
-		// Hover dropdown menu on mobile
-		$('.offcanvas-has-dropdown').mouseenter(function(){
-			var $this = $(this);
+        $this
+            .addClass('active')
+            .find('ul')
+            .slideDown(500, 'easeOutExpo');
+    }).mouseleave(function(){
 
-			$this
-				.addClass('active')
-				.find('ul')
-				.slideDown(500, 'easeOutExpo');
-		}).mouseleave(function(){
+        var $this = $(this);
+        $this
+            .removeClass('active')
+            .find('ul')
+            .slideUp(500, 'easeOutExpo');
+    });
 
-			var $this = $(this);
-			$this
-				.removeClass('active')
-				.find('ul')
-				.slideUp(500, 'easeOutExpo');
-		});
 
+    $(window).resize(function(){
 
-		$(window).resize(function(){
+        if ( $('body').hasClass('offcanvas') ) {
 
-			if ( $('body').hasClass('offcanvas') ) {
+            $('body').removeClass('offcanvas');
+            $('.js-gtco-nav-toggle').removeClass('active');
 
-    			$('body').removeClass('offcanvas');
-    			$('.js-gtco-nav-toggle').removeClass('active');
+        }
+    });
+};
 
-	    	}
-		});
-	};
+var burgerMenu = function() {
 
+    $('body').on('click', '.js-gtco-nav-toggle', function(event){
+        var $this = $(this);
 
-	var burgerMenu = function() {
 
-		$('body').on('click', '.js-gtco-nav-toggle', function(event){
-			var $this = $(this);
+        if ( $('body').hasClass('overflow offcanvas') ) {
+            $('body').removeClass('overflow offcanvas');
+        } else {
+            $('body').addClass('overflow offcanvas');
+        }
+        $this.toggleClass('active');
+        event.preventDefault();
 
+    });
+};
 
-			if ( $('body').hasClass('overflow offcanvas') ) {
-				$('body').removeClass('overflow offcanvas');
-			} else {
-				$('body').addClass('overflow offcanvas');
-			}
-			$this.toggleClass('active');
-			event.preventDefault();
+var contentWayPoint = function() {
+    var i = 0;
 
-		});
-	};
+    // $('.gtco-section').waypoint( function( direction ) {
 
 
+        $('.animate-box').waypoint( function( direction ) {
 
-	var contentWayPoint = function() {
-		var i = 0;
+            if( direction === 'down' && !$(this.element).hasClass('animated-fast') ) {
 
-		// $('.gtco-section').waypoint( function( direction ) {
+                i++;
 
+                $(this.element).addClass('item-animate');
+                setTimeout(function(){
 
-			$('.animate-box').waypoint( function( direction ) {
+                    $('body .animate-box.item-animate').each(function(k){
+                        var el = $(this);
+                        setTimeout( function () {
+                            var effect = el.data('animate-effect');
+                            if ( effect === 'fadeIn') {
+                                el.addClass('fadeIn animated-fast');
+                            } else if ( effect === 'fadeInLeft') {
+                                el.addClass('fadeInLeft animated-fast');
+                            } else if ( effect === 'fadeInRight') {
+                                el.addClass('fadeInRight animated-fast');
+                            } else {
+                                el.addClass('fadeInUp animated-fast');
+                            }
+
+                            el.removeClass('item-animate');
+                        },  k * 50, 'easeInOutExpo' );
+                    });
+
+                }, 100);
+
+            }
+
+        } , { offset: '85%' } );
+    // }, { offset: '90%'} );
+};
 
-				if( direction === 'down' && !$(this.element).hasClass('animated-fast') ) {
+var changeWayPoint = function() {
+    var i = 0;
 
-					i++;
+    // $('.gtco-section').waypoint( function( direction ) {
 
-					$(this.element).addClass('item-animate');
-					setTimeout(function(){
 
-						$('body .animate-box.item-animate').each(function(k){
-							var el = $(this);
-							setTimeout( function () {
-								var effect = el.data('animate-effect');
-								if ( effect === 'fadeIn') {
-									el.addClass('fadeIn animated-fast');
-								} else if ( effect === 'fadeInLeft') {
-									el.addClass('fadeInLeft animated-fast');
-								} else if ( effect === 'fadeInRight') {
-									el.addClass('fadeInRight animated-fast');
-								} else {
-									el.addClass('fadeInUp animated-fast');
-								}
+        $('.animate-change').waypoint( function( direction ) {
 
-								el.removeClass('item-animate');
-							},  k * 50, 'easeInOutExpo' );
-						});
+            if( direction === 'down' && !$(this.element).hasClass('animated-fast') ) {
 
-					}, 100);
+                i++;
 
-				}
-
-			} , { offset: '85%' } );
-		// }, { offset: '90%'} );
-	};
+                $(this.element).addClass('item-animate');
+                setTimeout(function(){
 
+                    $('body .animate-change.item-animate').each(function(k){
+                        var el = $(this);
+                        setTimeout( function () {
+                            el.addClass('changed animated-fast');
+                            el.removeClass('item-animate');
+                        },  k * 100, 'easeInOutExpo' );
+                    });
 
+                }, 100);
 
-	var changeWayPoint = function() {
-		var i = 0;
+            }
 
-		// $('.gtco-section').waypoint( function( direction ) {
+        } , { offset: '85%' } );
+    // }, { offset: '90%'} );
+};
 
+var dropdown = function() {
 
-			$('.animate-change').waypoint( function( direction ) {
+    $('.has-dropdown').mouseenter(function(){
 
-				if( direction === 'down' && !$(this.element).hasClass('animated-fast') ) {
+        var $this = $(this);
+        $this
+            .find('.dropdown')
+            .css('display', 'block')
+            .addClass('animated-fast fadeInUpMenu');
 
-					i++;
+    }).mouseleave(function(){
+        var $this = $(this);
 
-					$(this.element).addClass('item-animate');
-					setTimeout(function(){
+        $this
+            .find('.dropdown')
+            .css('display', 'none')
+            .removeClass('animated-fast fadeInUpMenu');
+    });
 
-						$('body .animate-change.item-animate').each(function(k){
-							var el = $(this);
-							setTimeout( function () {
-								el.addClass('changed animated-fast');
-								el.removeClass('item-animate');
-							},  k * 100, 'easeInOutExpo' );
-						});
+};
 
-					}, 100);
+var owlCarousel = function(){
 
-				}
+    var owl = $('.owl-carousel-carousel');
+    owl.owlCarousel({
+        items: 3,
+        loop: true,
+        margin: 40,
+        nav: true,
+        dots: true,
+        navText: [
+          "<i class='ti-arrow-left owl-direction'></i>",
+          "<i class='ti-arrow-right owl-direction'></i>"
+        ],
+        responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:2
+        },
+        1000:{
+            items:3
+        }
+        }
+    });
 
-			} , { offset: '85%' } );
-		// }, { offset: '90%'} );
-	};
 
+    var owl = $('.owl-carousel-fullwidth');
+    owl.owlCarousel({
+        items: 1,
+        loop: true,
+        margin: 20,
+        nav: true,
+        dots: true,
+        smartSpeed: 800,
+        autoHeight: true,
+        navText: [
+          "<i class='ti-arrow-left owl-direction'></i>",
+          "<i class='ti-arrow-right owl-direction'></i>"
+        ]
+    });
 
-	var dropdown = function() {
 
-		$('.has-dropdown').mouseenter(function(){
 
-			var $this = $(this);
-			$this
-				.find('.dropdown')
-				.css('display', 'block')
-				.addClass('animated-fast fadeInUpMenu');
 
-		}).mouseleave(function(){
-			var $this = $(this);
+};
 
-			$this
-				.find('.dropdown')
-				.css('display', 'none')
-				.removeClass('animated-fast fadeInUpMenu');
-		});
+var tabs = function() {
 
-	};
+    // Auto adjust height
+    $('.gtco-tab-content-wrap').css('height', 0);
+    var autoHeight = function() {
 
+        setTimeout(function(){
 
-	var owlCarousel = function(){
+            var tabContentWrap = $('.gtco-tab-content-wrap'),
+                tabHeight = $('.gtco-tab-nav').outerHeight(),
+                formActiveHeight = $('.tab-content.active').outerHeight(),
+                totalHeight = parseInt(tabHeight + formActiveHeight + 90);
 
-		var owl = $('.owl-carousel-carousel');
-		owl.owlCarousel({
-			items: 3,
-			loop: true,
-			margin: 40,
-			nav: true,
-			dots: true,
-			navText: [
-		      "<i class='ti-arrow-left owl-direction'></i>",
-		      "<i class='ti-arrow-right owl-direction'></i>"
-	     	],
-	     	responsive:{
-	        0:{
-	            items:1
-	        },
-	        600:{
-	            items:2
-	        },
-	        1000:{
-	            items:3
-	        }
-	    	}
-		});
+                tabContentWrap.css('height', totalHeight );
 
+            $(window).resize(function(){
+                var tabContentWrap = $('.gtco-tab-content-wrap'),
+                    tabHeight = $('.gtco-tab-nav').outerHeight(),
+                    formActiveHeight = $('.tab-content.active').outerHeight(),
+                    totalHeight = parseInt(tabHeight + formActiveHeight + 90);
 
-		var owl = $('.owl-carousel-fullwidth');
-		owl.owlCarousel({
-			items: 1,
-			loop: true,
-			margin: 20,
-			nav: true,
-			dots: true,
-			smartSpeed: 800,
-			autoHeight: true,
-			navText: [
-		      "<i class='ti-arrow-left owl-direction'></i>",
-		      "<i class='ti-arrow-right owl-direction'></i>"
-	     	]
-		});
+                    tabContentWrap.css('height', totalHeight );
+            });
 
+        }, 100);
 
+    };
 
+    autoHeight();
 
-	};
 
-	var tabs = function() {
+    // Click tab menu
+    $('.gtco-tab-nav a').on('click', function(event){
 
-		// Auto adjust height
-		$('.gtco-tab-content-wrap').css('height', 0);
-		var autoHeight = function() {
+        var $this = $(this),
+            tab = $this.data('tab');
 
-			setTimeout(function(){
+        $('.tab-content')
+            .addClass('animated-fast fadeOutDown');
 
-				var tabContentWrap = $('.gtco-tab-content-wrap'),
-					tabHeight = $('.gtco-tab-nav').outerHeight(),
-					formActiveHeight = $('.tab-content.active').outerHeight(),
-					totalHeight = parseInt(tabHeight + formActiveHeight + 90);
+        $('.tab-content')
+            .removeClass('active');
 
-					tabContentWrap.css('height', totalHeight );
+        $('.gtco-tab-nav li').removeClass('active');
 
-				$(window).resize(function(){
-					var tabContentWrap = $('.gtco-tab-content-wrap'),
-						tabHeight = $('.gtco-tab-nav').outerHeight(),
-						formActiveHeight = $('.tab-content.active').outerHeight(),
-						totalHeight = parseInt(tabHeight + formActiveHeight + 90);
+        $this
+            .closest('li')
+                .addClass('active')
 
-						tabContentWrap.css('height', totalHeight );
-				});
+        $this
+            .closest('.gtco-tabs')
+                .find('.tab-content[data-tab-content="'+tab+'"]')
+                .removeClass('animated-fast fadeOutDown')
+                .addClass('animated-fast active fadeIn');
 
-			}, 100);
 
-		};
+        autoHeight();
+        event.preventDefault();
 
-		autoHeight();
+    });
+};
 
+var goToTop = function() {
 
-		// Click tab menu
-		$('.gtco-tab-nav a').on('click', function(event){
+    $('.js-gotop').on('click', function(event){
 
-			var $this = $(this),
-				tab = $this.data('tab');
+        event.preventDefault();
 
-			$('.tab-content')
-				.addClass('animated-fast fadeOutDown');
+        $('html, body').animate({
+            scrollTop: $('html').offset().top
+        }, 500, 'easeInOutExpo');
 
-			$('.tab-content')
-				.removeClass('active');
+        return false;
+    });
 
-			$('.gtco-tab-nav li').removeClass('active');
+    $(window).scroll(function(){
 
-			$this
-				.closest('li')
-					.addClass('active')
+        var $win = $(window);
+        if ($win.scrollTop() > 200) {
+            $('.js-top').addClass('active');
+        } else {
+            $('.js-top').removeClass('active');
+        }
 
-			$this
-				.closest('.gtco-tabs')
-					.find('.tab-content[data-tab-content="'+tab+'"]')
-					.removeClass('animated-fast fadeOutDown')
-					.addClass('animated-fast active fadeIn');
+    });
 
+};
 
-			autoHeight();
-			event.preventDefault();
+// Loading page
+var loaderPage = function() {
+    $(".gtco-loader").fadeOut("slow");
+};
 
-		});
-	};
+var counter = function() {
+    $('.js-counter').countTo({
+         formatter: function (value, options) {
+      return value.toFixed(options.decimals);
+    },
+    });
+};
 
+var counterWayPoint = function() {
+    if ($('#gtco-counter').length > 0 ) {
+        $('#gtco-counter').waypoint( function( direction ) {
 
-	var goToTop = function() {
-
-		$('.js-gotop').on('click', function(event){
-
-			event.preventDefault();
-
-			$('html, body').animate({
-				scrollTop: $('html').offset().top
-			}, 500, 'easeInOutExpo');
-
-			return false;
-		});
-
-		$(window).scroll(function(){
-
-			var $win = $(window);
-			if ($win.scrollTop() > 200) {
-				$('.js-top').addClass('active');
-			} else {
-				$('.js-top').removeClass('active');
-			}
-
-		});
-
-	};
-
-
-	// Loading page
-	var loaderPage = function() {
-		$(".gtco-loader").fadeOut("slow");
-	};
-
-	var counter = function() {
-		$('.js-counter').countTo({
-			 formatter: function (value, options) {
-	      return value.toFixed(options.decimals);
-	    },
-		});
-	};
-
-	var counterWayPoint = function() {
-		if ($('#gtco-counter').length > 0 ) {
-			$('#gtco-counter').waypoint( function( direction ) {
-
-				if( direction === 'down' && !$(this.element).hasClass('animated') ) {
-					setTimeout( counter , 400);
-					$(this.element).addClass('animated');
-				}
-			} , { offset: '90%' } );
-		}
-	}
+            if( direction === 'down' && !$(this.element).hasClass('animated') ) {
+                setTimeout( counter , 400);
+                $(this.element).addClass('animated');
+            }
+        } , { offset: '90%' } );
+    }
+}
