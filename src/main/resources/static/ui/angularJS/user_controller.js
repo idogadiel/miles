@@ -10,7 +10,7 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
 
     $scope.signup = function () {
         if ($scope.$signupForm.$invalid){
-            console.log($scope.$signupForm.$error)ף
+            console.log($scope.$signupForm.$error)
             return
         }
 

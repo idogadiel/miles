@@ -17,13 +17,13 @@ scotchApp.controller('goalController', function ($log, $q, $timeout, $scope, $ro
 
     // add destination func :
     $scope.addDestination = function () {
-        console.log($scope.from)
-        return
         var jsonObj ={
-            "to": $scope.to,
-            "from": $scope.from,
+            "to": $scope.to.iata,
+            "from": $scope.from.iata,
             "seatType": $scope.seatType
         };
+
+        console.log(jsonObj)
 
         serverHttp.POST("goal/addGoal",jsonObj).then(function(data){
             $log.info(data)
@@ -68,7 +68,7 @@ scotchApp.controller('goalController', function ($log, $q, $timeout, $scope, $ro
 
     var airports_formated = airports.map(function(airport){
         return {
-//            Name:airport.name,
+            iata    :airport.iata,
             name    :airport.name.toLowerCase(),
             city    :airport.city.toLowerCase(),
             country :airport.country.toLowerCase()
