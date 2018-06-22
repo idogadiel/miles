@@ -11,12 +11,9 @@
 									From {{x.from}}
 									To {{x.to}}
 									 - {{x.seatType}}  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<input type="submit" class="btn btn btn-special" value="Find out"  ng-click="getRecommendation()">
+									<input type="submit" class="btn btn btn-special" value="Find out" ng-click="getRecommendation()">
 								</p>
 							</div>
-
-
-
 						</div>
 					</div>
 				</div>
@@ -25,8 +22,6 @@
 	</div>
 </header>
 <!-- END #gtco-header -->
-
-
 
 <div class="gtco-section">
 	<div class="gtco-container">
@@ -40,30 +35,32 @@
 			<div class="col-md-6">
 				<form ng-submit="addDestination()">
 					<md-content class="md-padding">
-						<form ng-submit="$event.preventDefault()">
-							<md-autocomplete placeholder="from" md-selected-item="from" md-item-text="item.name" md-search-text-change="searchTextChange(searchText)" md-search-text="searchText" md-selected-item-change="selectedItemChange(item)" md-items="item in querySearch(searchText)" md-min-length="0" md-delay="100">
-								<md-item-template >
-									<p md-highlight-text="searchText" md-highlight-flags="^i">
-										{{item.country | uppercase}} - {{item.city}} - {{item.name}}
-									</p>
-								</md-item-template>
-								<md-not-found>
-									No states matching "{{searchText}}" were found.
-								</md-not-found>
-							</md-autocomplete>
-						</form>
+                        <md-autocomplete placeholder="From" md-selected-item="from" md-item-text="item.name" md-search-text-change="searchTextChange(searchTextFrom)" md-search-text="searchTextFrom" md-selected-item-change="selectedItemChange(item)" md-items="item in querySearch(searchTextFrom)" md-min-length="0" md-delay="100">
+                            <md-item-template >
+                                <p md-highlight-text="searchTextFrom" md-highlight-flags="^i">
+                                    {{item.country | uppercase}} - {{item.city}} - {{item.name}}
+                                </p>
+                            </md-item-template>
+                            <md-not-found>
+                                No states matching "{{searchTextFrom}}" were found.
+                            </md-not-found>
+                        </md-autocomplete>
 					</md-content>
-					<!--<div class="form-group">-->
-						<!--<label for="fromCities">From</label>-->
-						<!--<input type="text" class="form-control" ng-model="from" name="fromCities" id="fromCities">-->
-					<!--</div>-->
-					<!--<div class="form-group">-->
-						<!--<label for="toCities">To</label>-->
-						<!--<input type="text" class="form-control"  ng-model="to" name="toCities" id="toCities" >-->
-					<!--</div>-->
+                    <md-content class="md-padding">
+                        <md-autocomplete placeholder="To" md-selected-item="to" md-item-text="item.name" md-search-text-change="searchTextChange(searchTextTo)" md-search-text="searchTextTo" md-selected-item-change="selectedItemChange(item)" md-items="item in querySearch(searchTextTo)" md-min-length="0" md-delay="100">
+                            <md-item-template >
+                                <p md-highlight-text="searchTextTo" md-highlight-flags="^i">
+                                    {{item.country | uppercase}} - {{item.city}} - {{item.name}}
+                                </p>
+                            </md-item-template>
+                            <md-not-found>
+                                No states matching "{{searchTextTo}}" were found.
+                            </md-not-found>
+                        </md-autocomplete>
+                    </md-content>
 
 					<div class="form-group">
-						<label for="seatTypes">Seay type</label>
+						<label for="seatTypes">Seat type</label>
 						<select ng-model="seatType" name="seatTypes" id="seatTypes" class="dropdown_item_select search_input">
 							<option value=1>ECONOMY</option>
 							<option value=2>Business</option>
