@@ -38,7 +38,7 @@
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				<form>
+				<form ng-submit="addDestination()">
 					<md-content class="md-padding">
 						<form ng-submit="$event.preventDefault()">
 							<md-autocomplete placeholder="from" md-selected-item="from" md-item-text="item.name" md-search-text-change="searchTextChange(searchText)" md-search-text="searchText" md-selected-item-change="selectedItemChange(item)" md-items="item in querySearch(searchText)" md-min-length="0" md-delay="100">
@@ -71,7 +71,7 @@
 					</div>
 
 					<div class="form-group">
-						<input type="submit" class="btn btn btn-special" value="Add goal" ng-click="addDestination()">
+						<input type="submit" class="btn btn btn-special" value="Add goal">
 					</div>
 				</form>
 			</div>

@@ -24,51 +24,52 @@
 		<div class="row">
 			<div class="col-md-6">
 				<form ng-submit="signup()" name="signupForm">
-					<div class="form-group">
+					<div class="form-group" ng-class="{ 'has-error' : signupForm.username.$invalid && signupForm.username.$touched}">
 						<label for="username">Username</label>
 						<input type="text" ng-model="username" id="username" name="username" class="form-control" required>
-						<span style="color:red" ng-show="signupForm.username.$dirty && signupForm.username.$invalid">
+						<span style="color:red" ng-show="signupForm.username.$touched && signupForm.username.$invalid">
 							<span ng-show="signupForm.username.$error.required">Username is required.</span>
 						</span>
 					</div>
-					<div class="form-group">
+					<div class="form-group" ng-class="{ 'has-error' : signupForm.email.$invalid && signupForm.email.$touched}">
 						<label for="email">Email</label>
-						<input type="email" ng-model="email" id="email" name="email" class="form-control" required>
-						<span style="color:red" ng-show="signupForm.email.$dirty && signupForm.email.$invalid">
+						<input type="email" ng-model="email" id="email" name="email" ng-pattern="EMAIL_REGEXP" ng-model-options="{ debounce: 200 }" class="form-control" required>
+						<span style="color:red" ng-show="signupForm.email.$touched && signupForm.email.$invalid">
 							<span ng-show="signupForm.email.$error.required">Email is required.</span>
-							<span ng-show="signupForm.email.$error.isValidEmail">Email is not valid.</span>
+							<span ng-show="signupForm.email.$error.pattern">Email is not valid.</span>
 						</span>
 					</div>
-					<div class="form-group">
+					<div class="form-group" ng-class="{ 'has-error' : signupForm.bday.$invalid && signupForm.bday.$touched}">
 						<label for="bday">Birthday</label>
 						<input type="date" ng-model="bday" id="bday" name="bday" class="form-control" required>
-						<span style="color:red" ng-show="signupForm.bday.$dirty && signupForm.bday.$invalid">
+						<span style="color:red" ng-show="signupForm.bday.$touched && signupForm.bday.$invalid">
 							<span ng-show="signupForm.bday.$error.required">Birthday is required.</span>
 						</span>
 					</div>
-					<div class="form-group">
+					<div class="form-group" ng-class="{ 'has-error' : signupForm.password.$invalid && signupForm.password.$touched}">
 						<label for="password">Password</label>
-						<input type="password" ng-model="password" id="password" name="password" class="form-control" required>
-						<span style="color:red" ng-show="signupForm.password.$dirty && signupForm.password.$invalid">
+						<input type="password" ng-model="password" id="password" name="password" class="form-control" ng-pattern="STRONG_PASS_REGEXP" ng-model-options="{ updateOn: 'blur' }" required>
+						<span style="color:red" ng-show="signupForm.password.$touched && signupForm.password.$invalid">
 							<span ng-show="signupForm.password.$error.required">Password is required.</span>
-							<span ng-show="signupForm.password.$error.checkStrongPassword">
+							<span ng-show="signupForm.password.$error.pattern">
 								The password must contain lowercase, uppercase, numeric and special character and be at least 8 characters long.
 							</span>
 						</span>
 					</div>
-					<div class="form-group">
+					<div class="form-group" ng-class="{ 'has-error' : signupForm.confPassword.$invalid && signupForm.confPassword.$touched}">
 						<label for="confPassword">Confirm Password</label>
-						<input type="password" ng-model="confPassword" id="confPassword" name="confPassword" class="form-control" required>
-						<span style="color:red" ng-show="signupForm.confPassword.$dirty && signupForm.confPassword.$invalid">
-							<span ng-show="signupForm.confPassword.$error.required">Confirmation password is required.</span>
-							<span ng-show="signupForm.confPassword.$error.mismatch">Passwords do not match.</span>
+						<input type="password" ng-model="confPassword" id="confPassword" name="confPassword" ng-model-options="{ updateOn: 'blur' }" class="form-control" required>
+						<span style="color:red" ng-show="signupForm.confPassword.$touched">
+							<span ng-show="signupForm.confPassword.$error.required && signupForm.confPassword.$invalid">
+								Confirmation password is required.
+							</span>
+							<span ng-show="confPassword != password">Passwords do not match.</span>
 						</span>
 					</div>
-					<span style="color:red" ng-show="signupForm.confPassword.$dirty && signupForm.confPassword.$invalid">
-						<span ng-show="signupForm.confPassword.$error.required">Confirmation password is required.</span>
-					</span>
+					<span style="color:red" ng-show="signupErrorMessage">{{signupErrorMessage}}</span>
 					<div class="form-group">
-						<input type="submit" class="btn btn btn-special" value="Register">
+						<input type="submit" class="btn btn btn-special" value="Register" ng-disabled="showLoader">
+						<img src="images/loader.gif" ng-show="showLoader">
 					</div>
 				</form>
 			</div>

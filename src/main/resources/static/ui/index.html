@@ -77,7 +77,7 @@
                         <li ng-if="!user.signedin"><a href="#signin">Sign In</a></li>
                         <li ng-if="!user.signedin"><a href="#register">Register</a></li>
                         <li><a href="#contact">Contact us</a></li>
-                        <li ng-if="user.signedin"><a ng-click="signOut()" href="#signout">Sign out</a></li>
+                        <li ng-if="user.signedin"><a href="#signout">Sign out {{user.username}}</a></li>
                     </ul>
                 </div>
             </div>
