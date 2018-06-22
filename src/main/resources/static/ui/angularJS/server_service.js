@@ -1,40 +1,29 @@
-scotchApp.factory('serverHttp', function ($http, $q, $log) {
+scotchApp.factory('serverHttp', function ($http, $q, $log, $rootScope) {
 
     var session = undefined;
     var API_URL = 'http://127.0.0.1:8080/';
 
-    var req = function (url, jsonObj, method) {
+    var req = function (url, jsonObj, method, urlencoded=false) {
+        $rootScope.showLoader = true;
         var deferred = $q.defer();
-        $http({
-            method: method,
-            withCredentials: true,
-            url: API_URL + url,
-            data: JSON.stringify(jsonObj)
-        }).then(function (respond) {
+        headers_data = {
+           method: method,
+           withCredentials: true,
+           url: API_URL + url,
+           data: JSON.stringify(jsonObj)
+        }
+        if(urlencoded){
+            headers_data.headers = {"Content-Type": "application/x-www-form-urlencoded"};
+            headers_data.data = jsonObj
+        }
+        $http(headers_data).then(function (respond) {
+            $rootScope.showLoader = false;
             deferred.resolve(respond.data);
         }, function (error, code) {
-            $log.error(error, code);
-            deferred.reject(error);
-        });
-
-        return deferred.promise;
-    }
-
-
-
-    var reqForLogin = function (url, jsonObj, method) {
-        var deferred = $q.defer();
-        $http({
-            method: method,
-            headers: {"Content-Type": "application/x-www-form-urlencoded"},
-            withCredentials: true,
-            url: API_URL + url,
-            data: jsonObj
-        }).then(function (respond) {
-            deferred.resolve(respond.data);
-        }, function (error, code) {
-            deferred.reject(error);
-            $log.error(error, code);
+            $rootScope.showLoader = false;
+            console.log("Error: { URL:",url,"}, {Code: ",code,"}, {Error: ",error,"}, {Data: ",error.data,"}");
+//            $log.error(error, code);
+            deferred.reject(error.data);
         });
 
         return deferred.promise;
@@ -48,7 +37,7 @@ scotchApp.factory('serverHttp', function ($http, $q, $log) {
             return req(url,jsonObj,"POST");
         },
         POST_LOGIN: function (url, jsonObj = {}) {
-            return reqForLogin(url,jsonObj,"POST");
+            return req(url,jsonObj,"POST",true);
         }
 
     };
