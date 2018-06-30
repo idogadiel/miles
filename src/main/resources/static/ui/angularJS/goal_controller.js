@@ -3,9 +3,12 @@ scotchApp.controller('goalController', function ($log, $q, $timeout, $scope, $ro
     UserService.getUser()
 
     // get all destinations
-    serverHttp.GET("goal/getAllGoals",{}).then(function(data){
-        $scope.allDesiredDestinations = data;
-    })
+    if(!$rootScope.allDesiredDestinations){
+        serverHttp.GET("goal/getAllGoals",{}).then(function(data){
+            $rootScope.allDesiredDestinations = data;
+            console.log("allDesiredDestinations",data);
+        });
+    }
 
 
     $scope.getRecommendation = function() {
@@ -27,6 +30,12 @@ scotchApp.controller('goalController', function ($log, $q, $timeout, $scope, $ro
 
         serverHttp.POST("goal/addGoal",jsonObj).then(function(data){
             $log.info(data)
+
+            $rootScope.allDesiredDestinations.push(jsonObj)
+
+            $scope.from = "";
+            $scope.to = "";
+            $scope.seatType = "";
         })
     };
 });

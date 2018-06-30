@@ -30,8 +30,8 @@ scotchApp.directive('airports', function () {
             };
         })
 
-        $log.info(airports)
-        $log.info(airports_formated)
+//        $log.info(airports)
+//        $log.info(airports_formated)
 
         $scope.searchTextChange = function(text) {
             $log.info('Text changed to ' + text);

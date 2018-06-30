@@ -2,10 +2,12 @@ scotchApp.controller('takenFlightsController', function ($scope, $rootScope, $ht
 
     UserService.getUser()
 
-    serverHttp.GET("takenflight/getAllTakenFlights",{}).then(function(data){
-        $rootScope.allTakenFlights = data;
-        console.log("getAllTakenFlights",data);
-    })
+    if(!$rootScope.allTakenFlights){
+        serverHttp.GET("takenflight/getAllTakenFlights",{}).then(function(data){
+            $rootScope.allTakenFlights = data;
+            console.log("getAllTakenFlights",data);
+        })
+    }
 
 
     // add destination func :
