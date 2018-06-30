@@ -3,7 +3,7 @@ scotchApp.controller('takenFlightsController', function ($scope, $rootScope, $ht
     UserService.getUser()
 
     serverHttp.GET("takenflight/getAllTakenFlights",{}).then(function(data){
-        $scope.allTakenFlights = data;
+        $rootScope.allTakenFlights = data;
         console.log("getAllTakenFlights",data);
     })
 
@@ -23,7 +23,15 @@ scotchApp.controller('takenFlightsController', function ($scope, $rootScope, $ht
 
         serverHttp.POST("takenflight/addTakenFlight/", jsonObj ).then(function(data){
             $scope.showLoader = false;
-            $scope.allTakenFlights.push(jsonObj)
+            $rootScope.allTakenFlights.push(jsonObj)
+
+            $scope.from = "";
+            $scope.to = "";
+            $scope.flightNumber = "";
+            $scope.cost = "";
+            $scope.dateOfFlight = "";
+            $scope.seatType = "";
+
             console.log("addTakenFlight",data);
         });
     };

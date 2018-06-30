@@ -36,14 +36,16 @@
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				<form>
+				<form name="takenFlightForm">
 					<div class="form-group">
-						<label for="from">From</label>
-						<input type="text" class="form-control" id="from" ng-model="from" required="required">
+						<label>From</label>
+						<airports placeholder="From" ng-model="from"></airports>
+						<!--<input type="text" class="form-control" id="from" ng-model="from" required="required">-->
 					</div>
 					<div class="form-group">
-						<label for="to">To</label>
-						<input type="text" class="form-control" id="to"  ng-model="to" required="required">
+						<label>To</label>
+						<airports placeholder="To" ng-model="to"></airports>
+						<!--<input type="text" class="form-control" id="to"  ng-model="to" required="required">-->
 					</div>
 					<div class="form-group">
 						<label for="flightNumber">Flight Number</label>

@@ -18,8 +18,8 @@ scotchApp.controller('goalController', function ($log, $q, $timeout, $scope, $ro
     // add destination func :
     $scope.addDestination = function () {
         var jsonObj ={
-            "to": $scope.to.iata,
-            "from": $scope.from.iata,
+            "to": $scope.to,
+            "from": $scope.from,
             "seatType": $scope.seatType
         };
 
@@ -29,60 +29,4 @@ scotchApp.controller('goalController', function ($log, $q, $timeout, $scope, $ro
             $log.info(data)
         })
     };
-
-//    var states = function() {
-//      var allStates = 'Alabama, Alaska, Arizona, Arkansas, California, Colorado, Connecticut, Delaware,\
-//              Florida, Georgia, Hawaii, Idaho, Illinois, Indiana, Iowa, Kansas, Kentucky, Louisiana,\
-//              Maine, Maryland, Massachusetts, Michigan, Minnesota, Mississippi, Missouri, Montana,\
-//              Nebraska, Nevada, New Hampshire, New Jersey, New Mexico, New York, North Carolina,\
-//              North Dakota, Ohio, Oklahoma, Oregon, Pennsylvania, Rhode Island, South Carolina,\
-//              South Dakota, Tennessee, Texas, Utah, Vermont, Virginia, Washington, West Virginia,\
-//              Wisconsin, Wyoming';
-//
-//      return allStates.split(/, +/g).map( function (state) {
-//        return {
-//          value: state.toLowerCase(),
-//          display: state
-//        };
-//      });
-//    }
-
-    $scope.querySearch = function (query) {
-        var results = query ? airports_formated.filter( createFilterFor(query) ) : airports_formated,deferred;
-        results = results.slice(0, 5);
-
-        deferred = $q.defer();
-        deferred.resolve(results);
-
-        return deferred.promise;
-    }
-
-    function createFilterFor(query) {
-      var lowercaseQuery = angular.lowercase(query);
-      return function filterFn(airport) {
-        return ((airport.name.indexOf(lowercaseQuery) === 0)
-            || (airport.city.indexOf(lowercaseQuery) === 0)
-            || (airport.country.indexOf(lowercaseQuery) === 0)) ;
-      };
-    }
-
-    var airports_formated = airports.map(function(airport){
-        return {
-            iata    :airport.iata,
-            name    :airport.name.toLowerCase(),
-            city    :airport.city.toLowerCase(),
-            country :airport.country.toLowerCase()
-        };
-    })
-
-    $log.info(airports)
-    $log.info(airports_formated)
-
-    $scope.searchTextChange = function(text) {
-      $log.info('Text changed to ' + text);
-    }
-
-    $scope.selectedItemChange = function(item) {
-      $log.info('Item changed to ' + JSON.stringify(item));
-    }
 });

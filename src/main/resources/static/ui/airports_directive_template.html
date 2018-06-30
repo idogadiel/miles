@@ -1,0 +1,10 @@
+<md-autocomplete placeholder="{{placeholder}}" md-selected-item="selectedItem" md-item-text="item.name" md-search-text-change="searchTextChange(searchText)" md-search-text="searchText" md-selected-item-change="selectedItemChange(item)" md-items="item in querySearch(searchText)" md-min-length="0" md-delay="100">
+	<md-item-template >
+		<p md-highlight-text="searchText" md-highlight-flags="^i">
+			{{item.country | uppercase}} - {{item.city}} - {{item.name}}
+		</p>
+	</md-item-template>
+	<md-not-found>
+		No states matching "{{searchText}}" were found.
+	</md-not-found>
+</md-autocomplete>

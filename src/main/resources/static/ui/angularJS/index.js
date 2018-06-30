@@ -70,15 +70,8 @@ scotchApp.controller('mainController', function ($scope, $rootScope, $http, User
     $rootScope.showLoader = false;
     console.log($rootScope.showLoader);
     $rootScope.ido = "ido";
-    serverHttp.GET("user/isloggedin",{}).then(function(data){
-        var answer = angular.fromJson(data);
-        if (answer.result){
-            var user = {}
-            user.signedin = true;
-            user.username = answer.reason;
-            UserService.setUser(user);
-        }
-    })
+
+    UserService.getUser();
 });
 
 var EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

@@ -9,8 +9,8 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
     $scope.STRONG_PASS_REGEXP = STRONG_PASS_REGEXP
 
     $scope.signup = function () {
-        if ($scope.$signupForm.$invalid){
-            console.log($scope.$signupForm.$error)
+        if ($scope.signupForm.$invalid){
+            console.log($scope.signupForm.$error)
             return
         }
 
@@ -29,7 +29,7 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
                 $rootScope.user.signedin = true;
                 $rootScope.user.username = data.username;
                 UserService.setUser($rootScope.user)
-                $location.path("/goal");
+                $location.path("/takenFlights");
             }
             else{
                 $scope.signupErrorMessage = data.reason
@@ -51,7 +51,7 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
             user.signedin = true;
             user.username = $scope.username;
             UserService.setUser(user)
-            $location.path("/goal");
+            $location.path("/takenFlights");
         }, function(error){
             $scope.signinErrorMessage = error.reason
             $scope.login_tries += 1

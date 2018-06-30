@@ -34,30 +34,14 @@
 		<div class="row">
 			<div class="col-md-6">
 				<form ng-submit="addDestination()">
-					<md-content class="md-padding">
-                        <md-autocomplete placeholder="From" md-selected-item="from" md-item-text="item.name" md-search-text-change="searchTextChange(searchTextFrom)" md-search-text="searchTextFrom" md-selected-item-change="selectedItemChange(item)" md-items="item in querySearch(searchTextFrom)" md-min-length="0" md-delay="100">
-                            <md-item-template >
-                                <p md-highlight-text="searchTextFrom" md-highlight-flags="^i">
-                                    {{item.country | uppercase}} - {{item.city}} - {{item.name}}
-                                </p>
-                            </md-item-template>
-                            <md-not-found>
-                                No states matching "{{searchTextFrom}}" were found.
-                            </md-not-found>
-                        </md-autocomplete>
-					</md-content>
-                    <md-content class="md-padding">
-                        <md-autocomplete placeholder="To" md-selected-item="to" md-item-text="item.name" md-search-text-change="searchTextChange(searchTextTo)" md-search-text="searchTextTo" md-selected-item-change="selectedItemChange(item)" md-items="item in querySearch(searchTextTo)" md-min-length="0" md-delay="100">
-                            <md-item-template >
-                                <p md-highlight-text="searchTextTo" md-highlight-flags="^i">
-                                    {{item.country | uppercase}} - {{item.city}} - {{item.name}}
-                                </p>
-                            </md-item-template>
-                            <md-not-found>
-                                No states matching "{{searchTextTo}}" were found.
-                            </md-not-found>
-                        </md-autocomplete>
-                    </md-content>
+					<div class="form-group">
+						<label>From</label>
+						<airports placeholder="From" ng-model="from"></airports>
+					</div>
+					<div class="form-group">
+						<label>To</label>
+						<airports placeholder="To" ng-model="to"></airports>
+					</div>
 
 					<div class="form-group">
 						<label for="seatTypes">Seat type</label>
