@@ -2,20 +2,6 @@ scotchApp.directive('airports', function () {
 
     var controller = ['$scope','$log','$q', function ($scope,$log,$q) {
 
-        function init() {
-            console.log("directive init");
-            $scope.customer = {
-                name: 'Naomi',
-                address: '1600 Amphitheatre'
-            };
-//              $scope.items = angular.copy($scope.datasource);
-        }
-        init();
-//        console.log($scope.placeholder)
-        console.log($scope)
-        console.log($scope.placeholder)
-        console.log($scope.ngModel)
-
         $scope.querySearch = function   (query) {
             var results = query ? airports_formated.filter( createFilterFor(query) ) : airports_formated,deferred;
             results = results.slice(0, 5);
