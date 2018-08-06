@@ -7,13 +7,8 @@ import miles.server.Entities.Airline.AirlineFactory;
 import miles.server.Entities.Destination.Destination;
 import miles.server.Entities.Destination.DestinationFactory;
 import miles.server.Entities.Goal.Goal;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +18,8 @@ public class GoalCSVReader {
 
     public static Map<Airline, RowSortedTable<Destination, Destination, GoalsRelation>> getMatrixFromCSV() {
 
-        Resource resource = new ClassPathResource("GoalMatrixCSV.csv");
+
+        InputStream in = GoalCSVReader.class.getClassLoader().getResourceAsStream("GoalMatrixCSV.csv");
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
@@ -35,7 +31,7 @@ public class GoalCSVReader {
         Map<Airline, RowSortedTable<Destination, Destination, GoalsRelation>> map = new HashMap<>();
 
         try {
-            br = new BufferedReader(new FileReader(resource.getFile()));
+            br = new BufferedReader(new InputStreamReader(in));
             while ((line = br.readLine()) != null) {
 
                 // use comma as separator

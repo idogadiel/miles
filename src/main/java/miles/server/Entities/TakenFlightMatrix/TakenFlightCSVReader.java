@@ -7,10 +7,7 @@ import miles.server.Entities.Airline.AirlineFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,7 +15,7 @@ public class TakenFlightCSVReader {
 
     public static RowSortedTable<Airline, Airline, TakenFlightsRelation> getMatrixFromCSV() {
 
-        Resource resource = new ClassPathResource("TakenFlightMatrixCSV.csv");
+        InputStream in = TakenFlightCSVReader.class.getClassLoader().getResourceAsStream("TakenFlightMatrixCSV.csv");
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
@@ -29,7 +26,7 @@ public class TakenFlightCSVReader {
         RowSortedTable<Airline, Airline, TakenFlightsRelation> matrix = TreeBasedTable.create();
 
         try {
-            br = new BufferedReader(new FileReader(resource.getFile()));
+            br = new BufferedReader(new InputStreamReader(in));
             while ((line = br.readLine()) != null) {
 
                 if (linesCounter == 0) {
