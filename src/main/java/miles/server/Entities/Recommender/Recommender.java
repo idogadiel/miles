@@ -92,7 +92,7 @@ public class Recommender {
         List<Airline> airlines = goalCrawler.doCrawl(goal.getFrom(), goal.getTo());
         if (airlines.size() < 10) {
             goalCrawler = new GoalCrawler(new OpenFlightOrgCrawler());
-            airlines = goalCrawler.doCrawl(goal.getFrom(), goal.getTo());
+            airlines.addAll(goalCrawler.doCrawl(goal.getFrom(), goal.getTo()));
         }
 
 
