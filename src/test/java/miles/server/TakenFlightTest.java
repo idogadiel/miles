@@ -2,7 +2,7 @@ package miles.server;
 import org.junit.Test;
 
 
-public class TakenFlightsMatrixTest {
+public class TakenFlightTest {
 
     @Test
     public void happyFlow() {

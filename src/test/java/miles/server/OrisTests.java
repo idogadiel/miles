@@ -18,9 +18,6 @@ public class OrisTests {
         assert t1.getCost() > 0 && t1.getCost() < 1000000000000L;
         assert t1.getDateOfFlight() > 0;
         assert t1.getFlightNumber() != null;
-//        assert t1.getRedeemedTo() != null;
-//        assert t1.getTicketNumber() != null;
-//        assert t1.getUserId() != null;
         assert t1.getSeatType() != null;
     }
 
@@ -42,10 +39,7 @@ public class OrisTests {
     @Test
     public void testForDistance() {
         TakenFlight t1 = new TakenFlight("tlv", "lax", "A", "EZY643", 234234L, 1000D);
-
-
         Double dist = Airports.getInstance().getDistanceBetweenAirports(t1.getTo().toUpperCase(), t1.getFrom().toUpperCase());
-
         assert dist > 0;
     }
 
