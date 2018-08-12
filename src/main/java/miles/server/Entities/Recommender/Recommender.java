@@ -25,7 +25,7 @@ public class Recommender {
     Map<Airline, GoalsRelation> map;
 
     public Recommender(Goal goal) {
-        this.goal = goal;
+        setGoal(goal);
         takenFlights = new ArrayList<>();
         createGoalsMap();
     }
@@ -38,6 +38,10 @@ public class Recommender {
     public Recommender addTakenFlights(List<TakenFlight> takenFlights) {
         this.takenFlights.addAll(takenFlights);
         return this;
+    }
+
+    public void setGoal(Goal goal){
+        this.goal = goal;
     }
 
     public String recommend() {

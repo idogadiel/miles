@@ -1,6 +1,7 @@
 package miles.server;
 
 
+import miles.server.Entities.Airports.Airports;
 import miles.server.Entities.Destination.Destination;
 import miles.server.Entities.Goal.Goal;
 import miles.server.Entities.Recommender.Recommender;
@@ -39,8 +40,13 @@ public class OrisTests {
     }
 
     @Test
-    public void testFor() {
+    public void testForDistance() {
+        TakenFlight t1 = new TakenFlight("tlv", "lax", "A", "EZY643", 234234L, 1000D);
 
+
+        Double dist = Airports.getInstance().getDistanceBetweenAirports(t1.getTo().toUpperCase(), t1.getFrom().toUpperCase());
+
+        assert dist > 0;
     }
 
 }
