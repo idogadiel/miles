@@ -1,11 +1,6 @@
-import miles.server.Entities.Airports.GlobalAirportDatabaseReader;
 import miles.server.Entities.Goal.Goal;
 import miles.server.Entities.Recommender.Recommender;
 import miles.server.Entities.TakenFlight.TakenFlight;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-
-import java.io.*;
 
 public class Sandbox {
     static public void main(String[] arg) {

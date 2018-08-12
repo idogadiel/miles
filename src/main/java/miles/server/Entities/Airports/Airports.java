@@ -19,23 +19,23 @@ public class Airports {
     }
 
     private Double getLongitude(String airportName) {
-        if (airportsJson.keySet().contains(airportName)) {
-            return Double.valueOf((String) ((JSONObject) airportsJson.get(airportName)).get("longitude"));
+        if (airportsJson.keySet().contains(airportName.toUpperCase())) {
+            return Double.valueOf((String) ((JSONObject) airportsJson.get(airportName.toUpperCase())).get("longitude"));
         }
         return -1D;
     }
 
 
     private Double getLatitude(String airportName) {
-        if (airportsJson.keySet().contains(airportName)) {
-            return Double.valueOf((String) ((JSONObject) airportsJson.get(airportName)).get("latitude"));
+        if (airportsJson.keySet().contains(airportName.toUpperCase())) {
+            return Double.valueOf((String) ((JSONObject) airportsJson.get(airportName.toUpperCase())).get("latitude"));
         }
         return -1D;
     }
 
     public String getCountry(String airportName) {
-        if (airportsJson.keySet().contains(airportName)) {
-            return ((String) ((JSONObject) airportsJson.get(airportName)).get("country"));
+        if (airportsJson.keySet().contains(airportName.toUpperCase())) {
+            return ((String) ((JSONObject) airportsJson.get(airportName.toUpperCase())).get("country"));
         }
         return "";
     }

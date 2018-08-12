@@ -2,7 +2,6 @@ package miles.server.Entities.Recommender;
 
 import miles.server.Entities.Airline.Airline;
 import miles.server.Entities.Destination.Destination;
-import miles.server.Entities.Destination.DestinationConvertor;
 import miles.server.Entities.Destination.DestinationFactory;
 import miles.server.Entities.Goal.Goal;
 import miles.server.Entities.GoalCrawler.GoalCrawler;

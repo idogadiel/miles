@@ -7,7 +7,6 @@ package miles.server.Entities.TakenFlight;
 import miles.server.Entities.Airline.Airline;
 import miles.server.Entities.Airline.AirlineFactory;
 import miles.server.Entities.Airports.Airports;
-import miles.server.Entities.GoalMatrix.GoalsRelation;
 import org.json.JSONObject;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
