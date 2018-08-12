@@ -17,12 +17,10 @@ public class Sandbox {
         TakenFlight t1 = new TakenFlight("tlv", "lax", "A", "EZY643", 234234L, 1000D);
         TakenFlight t2 = new TakenFlight("tlv", "jfk", "B", "EZY353", 234234L, 500D);
 
-        System.out.println("Adding Flights");
         recommender.addTakenFlight(t1).addTakenFlight(t2);
 
         String recommend = recommender.recommend();
         System.out.println("Recommend: "+recommend);
-
 
         System.out.println("end of sandbox");
     }
