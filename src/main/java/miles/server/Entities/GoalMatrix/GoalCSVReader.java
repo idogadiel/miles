@@ -40,14 +40,14 @@ public class GoalCSVReader {
                 } else {
                     List<String> data = Arrays.asList(line.split(cvsSplitBy));
                     Airline rowAirline = AirlineFactory.getInstance().getAirline(data.get(0));
-                    Destination rowDestination = DestinationFactory.getInstance().getDestination(data.get(1));
+                    Destination rowDestination = DestinationFactory.getInstance().getDestinationFromString(data.get(1));
                     Goal.SeatType seatType = Goal.SeatType.fromString(data.get(14));
 
 
                     if (!map.containsKey(rowAirline)) map.put(rowAirline, TreeBasedTable.create());
 
                     for (int i = 2; i < data.size() - 1; i++) {
-                        Destination colDestination = DestinationFactory.getInstance().getDestination(destinations.get(i));
+                        Destination colDestination = DestinationFactory.getInstance().getDestinationFromString(destinations.get(i));
                         addToMap(map, rowAirline, rowDestination, colDestination, data.get(i), seatType);
                     }
                 }

@@ -2,7 +2,6 @@ package miles.server.Entities.Recommender;
 
 import miles.server.Entities.Airline.Airline;
 import miles.server.Entities.Destination.Destination;
-import miles.server.Entities.Destination.DestinationConvertor;
 import miles.server.Entities.Destination.DestinationFactory;
 import miles.server.Entities.Goal.Goal;
 import miles.server.Entities.GoalCrawler.GoalCrawler;
@@ -15,6 +14,7 @@ import miles.server.Entities.TakenFlightMatrix.TakenFlightMatrix;
 import miles.server.Entities.TakenFlightMatrix.TakenFlightsRelation;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Recommender {
 
@@ -25,7 +25,7 @@ public class Recommender {
     Map<Airline, GoalsRelation> map;
 
     public Recommender(Goal goal) {
-        this.goal = goal;
+        setGoal(goal);
         takenFlights = new ArrayList<>();
         createGoalsMap();
     }
@@ -38,6 +38,10 @@ public class Recommender {
     public Recommender addTakenFlights(List<TakenFlight> takenFlights) {
         this.takenFlights.addAll(takenFlights);
         return this;
+    }
+
+    public void setGoal(Goal goal) {
+        this.goal = goal;
     }
 
     public String recommend() {
@@ -68,9 +72,8 @@ public class Recommender {
                             .sum();
                     GoalsRelation goalsRelation = map.get(airlineThatFlyTheGoal);
                     Double needed = goalsRelation.getValue(goal.getSeatType());
-                    System.out.println(agg / needed);
+                    System.out.println(airlineThatFlyTheGoal.getAirlineName()+" - agg / needed:  " + agg / needed);
                     return (agg / needed);
-
                 }));
 
         return mostBeneficialAirline.get().getAirlineName();
@@ -88,28 +91,22 @@ public class Recommender {
         List<Airline> airlines = goalCrawler.doCrawl(goal.getFrom(), goal.getTo());
         if (airlines.size() < 10) {
             goalCrawler = new GoalCrawler(new OpenFlightOrgCrawler());
-            airlines = goalCrawler.doCrawl(goal.getFrom(), goal.getTo());
+            airlines.addAll(goalCrawler.doCrawl(goal.getFrom(), goal.getTo()));
         }
 
+        // remove duplicates
+        airlines = airlines.stream().distinct().collect(Collectors.toList());
 
         airlines.forEach(airline -> {
 
-            // get raw DESTINATION from convertor => as string
-            String destFrom = DestinationConvertor.covertAirportToGeographicalArea(goal.getFrom());
-            String destTo = DestinationConvertor.covertAirportToGeographicalArea(goal.getTo());
-
             // get Destination object from factory
-            Destination fromDestination = DestinationFactory.getInstance().getDestination(destFrom);
-            Destination toDestination = DestinationFactory.getInstance().getDestination(destTo);
+            Destination fromDestination = DestinationFactory.getInstance().getDestinationByAirPort(goal.getFrom());
+            Destination toDestination = DestinationFactory.getInstance().getDestinationByAirPort(goal.getTo());
 
             GoalsRelation gaolRelation = GoalMatrix.getInstance().getGaolRelation(airline, fromDestination, toDestination);
             if (gaolRelation != null) {
                 map.put(airline, gaolRelation);
             }
         });
-
-
     }
-
-
 }

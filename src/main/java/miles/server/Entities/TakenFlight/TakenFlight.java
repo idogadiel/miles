@@ -7,7 +7,6 @@ package miles.server.Entities.TakenFlight;
 import miles.server.Entities.Airline.Airline;
 import miles.server.Entities.Airline.AirlineFactory;
 import miles.server.Entities.Airports.Airports;
-import miles.server.Entities.GoalMatrix.GoalsRelation;
 import org.json.JSONObject;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -39,8 +38,8 @@ public class TakenFlight {
 
 
     public TakenFlight(String to, String from, String seatType, String flightNumber, Long date, Double cost) {
-        this.from = to;
-        this.to = from;
+        setFrom(from);
+        setTo(to);
         setFlightNumber(flightNumber);
         setDateOfFlight(date);
         setCost(cost);
@@ -51,14 +50,14 @@ public class TakenFlight {
 
     public TakenFlight(String jsonUser) {
         JSONObject jsonObject = new JSONObject(jsonUser);
-        this.from = (String) jsonObject.get("from");
-        this.to = (String) jsonObject.get("to");
-        this.flightNumber = (String) jsonObject.get("flightNumber");
+        setFrom((String) jsonObject.get("from"));
+        setTo((String) jsonObject.get("to"));
+        setFlightNumber((String) jsonObject.get("to"));
         setMiles(Airports.getInstance().getDistanceBetweenAirports(to.toUpperCase(), from.toUpperCase()));
         setAirline(AirlineFactory.getInstance().getAirline(getAirlineFromFlightNumber(flightNumber)));
-        this.cost = Double.valueOf((String) jsonObject.get("cost"));
-        this.dateOfFlight = System.currentTimeMillis(); // mock
-        this.seatType = SeatType.fromString(((String) jsonObject.get("seatType")).toUpperCase());
+        setCost(Double.valueOf((String) jsonObject.get("cost")));
+        setDateOfFlight(System.currentTimeMillis()); // mock
+        setSeatType(SeatType.fromString(((String) jsonObject.get("seatType")).toUpperCase()));
     }
 
     private String getAirlineFromFlightNumber(String flightNumber) {
@@ -97,6 +96,14 @@ public class TakenFlight {
         this.flightNumber = flightNumber;
     }
 
+    public void setFrom (String from){
+        this.from = from;
+    }
+
+    public void setTo (String to){
+        this.to = to;
+    }
+
     public String getTicketNumber() {
         return ticketNumber;
     }
@@ -120,6 +127,10 @@ public class TakenFlight {
     public void setDateOfFlight(Long dateOfFlight) {
         this.dateOfFlight = dateOfFlight;
     }
+
+    public String getTo() { return to; }
+
+    public String getFrom () { return from; }
 
     public String getUserId() {
         return userId;
