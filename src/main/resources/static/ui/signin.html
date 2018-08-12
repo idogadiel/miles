@@ -46,8 +46,9 @@
 						<img src="images/loader.gif" ng-show="showLoader">
 					</div>
 				</form>
-				<div ng-show="login_tries || signinForm.password.$error.pattern" ng-click="sendForgotPasswordLink()">
+				<div ng-click="sendForgotPasswordLink()">
 					<u>Forgot Your password?</u>
+					<span ng-show="showForgotPasswordSentMessage">Check your email for instructions.</span>
 				</div>
 			</div>
 	</div>

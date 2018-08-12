@@ -63,6 +63,10 @@ scotchApp.config(function ($routeProvider) {
         .when('/register', {
             templateUrl: 'register.html',
             controller: 'userController'
+        })
+
+        .otherwise({
+            redirectTo: '/'
         });
 });
 

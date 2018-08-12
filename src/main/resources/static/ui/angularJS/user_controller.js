@@ -4,6 +4,9 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
     if (["/signin","/register","/forgotpassword"].indexOf($location.path()) < 0){
         UserService.getUser();
     }
+    else if ($rootScope.user.signedin){
+        $location.path("");
+    }
 
     $scope.EMAIL_REGEXP = EMAIL_REGEXP
     $scope.STRONG_PASS_REGEXP = STRONG_PASS_REGEXP
@@ -66,14 +69,12 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
      }
 
     $scope.sendForgotPasswordLink = function () {
-        if (!isValidEmail($scope.username)) {
+        if (!isValidEmail($scope.email)) {
             $scope.message = "Please add valid email address";
             return;
         }
-        serverHttp.GET("user/forgotPassword",{}).then(function(data){
-            $scope.showForgotPassowrdLink = true;
-            $scope.message = "Check your email for instructions";
-            $rootScope.user.signedin = false;
+        serverHttp.GET("user/forgotPassword/" + $scope.email, {}).then(function(data){
+            $scope.showForgotPasswordSentMessage = true;
         });
     }
 

@@ -43,8 +43,8 @@ public class UserRest {
         return JSONUtills.getFailedJSON();
     }
 
-    @RequestMapping(value = "forgotPassword/{email:.+}", method = RequestMethod.GET)
-    String forgotPassword(@PathVariable String email) {
+    @RequestMapping(value = "/forgotPassword/{email}", method = RequestMethod.GET)
+    public String forgotPassword(@PathVariable String email) {
         User user = UserDAO.changeActivationKey(email);
         if (user != null) {
             EmailUtills.sendForgotPasswordEmail(user);
