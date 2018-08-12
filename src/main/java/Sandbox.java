@@ -9,8 +9,8 @@ public class Sandbox {
         Goal goal = new Goal("JFK", "TLV", 1);
         Recommender recommender = new Recommender(goal);
 
-        TakenFlight t1 = new TakenFlight("tlv", "lax", "A", "EZY643", 234234L, 1000D);
-        TakenFlight t2 = new TakenFlight("tlv", "jfk", "B", "EZY353", 234234L, 500D);
+        TakenFlight t1 = new TakenFlight("tlv", "lax", "A", "AZ643", 234234L, 1000D);
+        TakenFlight t2 = new TakenFlight("tlv", "jfk", "B", "AZ353", 234234L, 500D);
 
         recommender.addTakenFlight(t1).addTakenFlight(t2);
 

@@ -14,6 +14,7 @@ import miles.server.Entities.TakenFlightMatrix.TakenFlightMatrix;
 import miles.server.Entities.TakenFlightMatrix.TakenFlightsRelation;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Recommender {
 
@@ -39,7 +40,7 @@ public class Recommender {
         return this;
     }
 
-    public void setGoal(Goal goal){
+    public void setGoal(Goal goal) {
         this.goal = goal;
     }
 
@@ -71,9 +72,8 @@ public class Recommender {
                             .sum();
                     GoalsRelation goalsRelation = map.get(airlineThatFlyTheGoal);
                     Double needed = goalsRelation.getValue(goal.getSeatType());
-                    System.out.println(agg / needed);
+                    System.out.println(airlineThatFlyTheGoal.getAirlineName()+" - agg / needed:  " + agg / needed);
                     return (agg / needed);
-
                 }));
 
         return mostBeneficialAirline.get().getAirlineName();
@@ -93,6 +93,9 @@ public class Recommender {
             goalCrawler = new GoalCrawler(new OpenFlightOrgCrawler());
             airlines.addAll(goalCrawler.doCrawl(goal.getFrom(), goal.getTo()));
         }
+
+        // remove duplicates
+        airlines = airlines.stream().distinct().collect(Collectors.toList());
 
         airlines.forEach(airline -> {
 
