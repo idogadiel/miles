@@ -1,4 +1,4 @@
-﻿Airline,from / to,europe,north america,Hawaii,Central America & Caribbean,South America,Notrth Africa,Middle East / Caucasus /Central Africa,Southern Africa,India,South East Asia,Central Asia / For East,Australia / New Zealand / Oceania,ticket_type
+﻿Airline,from / to,europe,north america,Hawaii,Central America & Caribbean,South America,North Africa,Middle East / Caucasus /Central Africa,Southern Africa,India,South East Asia,Central Asia / For East,Australia / New Zealand / Oceania,ticket_type
 dl,europe,300000,60000,100000,70000,80000,40000,40000,60000,60000,80000,80000,100000,Economy
 dl,north america,60000,30000,40000,35000,60000,80000,80000,100000,100000,80000,80000,80000,Economy
 dl,Hawaii,100000,40000,X,60000,80000,100000,100000,100000,100000,60000,40000,40000,Economy

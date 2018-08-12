@@ -97,8 +97,8 @@ public class Recommender {
         airlines.forEach(airline -> {
 
             // get Destination object from factory
-            Destination fromDestination = DestinationFactory.getInstance().getDestination(goal.getFrom());
-            Destination toDestination = DestinationFactory.getInstance().getDestination(goal.getTo());
+            Destination fromDestination = DestinationFactory.getInstance().getDestinationByAirPort(goal.getFrom());
+            Destination toDestination = DestinationFactory.getInstance().getDestinationByAirPort(goal.getTo());
 
             GoalsRelation gaolRelation = GoalMatrix.getInstance().getGaolRelation(airline, fromDestination, toDestination);
             if (gaolRelation != null) {
