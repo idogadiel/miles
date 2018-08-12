@@ -19,7 +19,8 @@ public class DestinationFactory {
         map = new HashMap();
     }
 
-    public Destination getDestination(String rawDestinationString) {
+    public Destination getDestination(String rawAirport) {
+        String rawDestinationString = DestinationConvertor.covertAirportToGeographicalArea(rawAirport);
         String destination = rawDestinationString.toLowerCase();
         if (!map.containsKey(destination)) {
             map.put(destination, new Destination(destination));

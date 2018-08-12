@@ -95,25 +95,16 @@ public class Recommender {
             airlines.addAll(goalCrawler.doCrawl(goal.getFrom(), goal.getTo()));
         }
 
-
         airlines.forEach(airline -> {
 
-            // get raw DESTINATION from convertor => as string
-            String destFrom = DestinationConvertor.covertAirportToGeographicalArea(goal.getFrom());
-            String destTo = DestinationConvertor.covertAirportToGeographicalArea(goal.getTo());
-
             // get Destination object from factory
-            Destination fromDestination = DestinationFactory.getInstance().getDestination(destFrom);
-            Destination toDestination = DestinationFactory.getInstance().getDestination(destTo);
+            Destination fromDestination = DestinationFactory.getInstance().getDestination(goal.getFrom());
+            Destination toDestination = DestinationFactory.getInstance().getDestination(goal.getTo());
 
             GoalsRelation gaolRelation = GoalMatrix.getInstance().getGaolRelation(airline, fromDestination, toDestination);
             if (gaolRelation != null) {
                 map.put(airline, gaolRelation);
             }
         });
-
-
     }
-
-
 }
