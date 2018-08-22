@@ -21,7 +21,7 @@ public class UserDAO {
         MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
         Query searchUserQuery = new Query(Criteria.where("email").is(email));
         User savedUser = mongoOperation.findOne(searchUserQuery, User.class);
-        if (savedUser != null ) {
+        if (savedUser != null) {
             return savedUser;
         }
         return null;
@@ -32,19 +32,19 @@ public class UserDAO {
         MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
         Query searchUserQuery = new Query(Criteria.where("email").is(email));
         User savedUser = mongoOperation.findOne(searchUserQuery, User.class);
-        if (savedUser != null ) {
+        if (savedUser != null) {
             return true;
         }
         return false;
     }
 
-    public static void insertUserByEntity(User user){
+    public static void insertUserByEntity(User user) {
         ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringMongoConfig.class);
         MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
         mongoOperation.save(user);
     }
 
-    public static boolean activateUser(String code){
+    public static boolean activateUser(String code) {
         ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringMongoConfig.class);
         MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
         Query searchUserQuery = new Query(Criteria.where("activationKey").is(code));
@@ -58,7 +58,7 @@ public class UserDAO {
         return false;
     }
 
-    public static User changeActivationKey(String email){
+    public static User changeActivationKey(String email) {
         ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringMongoConfig.class);
         MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
         Query searchUserQuery = new Query(Criteria.where("email").is(email));
@@ -71,15 +71,14 @@ public class UserDAO {
         return null;
     }
 
-    public static boolean changeUserPassword(String body){
-        String code="";
-        String password="";
+    public static boolean changeUserPassword(String body) {
+        String code = "";
+        String password = "";
         try {
             JSONObject jsonObject = new JSONObject(body);
-            code = (String)jsonObject.get("code");
-            password = (String)jsonObject.get("password");
-        }
-        catch (JSONException e){
+            code = (String) jsonObject.get("code");
+            password = (String) jsonObject.get("password");
+        } catch (JSONException e) {
             return false;
         }
         ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringMongoConfig.class);
@@ -94,22 +93,4 @@ public class UserDAO {
         }
         return false;
     }
-
-    //public static boolean isVlidate(String username, String password){
-//    ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringMongoConfig.class);
-//    MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
-//    Query searchUserQuery = new Query(Criteria.where("username").is(username));
-//    TakenFlight savedUser = mongoOperation.findOne(searchUserQuery, TakenFlight.class);
-//    if(savedUser!= null && savedUser.getPassword().equals(password)){
-//        return true;
-//    }
-//    return false;
-//}
-
-//    public static void insertUserByStrings(String username, String password, String email, Date birthday){
-//        ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringMongoConfig.class);
-//        MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
-//        TakenFlight user = new TakenFlight(password,email,birthday);
-//        mongoOperation.save(user);
-//    }
 }

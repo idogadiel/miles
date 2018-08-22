@@ -66,12 +66,15 @@ public class UserRest {
         try {
             NuvolaUserDetails user = (NuvolaUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             if (user != null) {
-                return JSONUtills.getCustomizedReasonJSON(true, user.getUsername());
+                if (user.isEnabled()) {
+                    return JSONUtills.getCustomizedReasonJSON(true, user.getUsername());
+                } else {
+                    return JSONUtills.getUserNotActivatedJSON();
+                }
             }
             return JSONUtills.getFailedJSON();
-        }
-        catch (Exception e){
-           return  JSONUtills.getFailedJSON();
+        } catch (Exception e) {
+            return JSONUtills.getFailedJSON();
         }
     }
 

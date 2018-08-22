@@ -1,6 +1,7 @@
 package miles.server.Security.Handlers;
 
 import miles.server.Utills.JSONUtills;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
@@ -19,7 +20,12 @@ public class AuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
         PrintWriter writer = response.getWriter();
-        writer.write(JSONUtills.getBadCredentialsJSON());
+        String responseJson = JSONUtills.getBadCredentialsJSON();
+        if (exception instanceof DisabledException) {
+            responseJson = JSONUtills.getUserNotActivatedJSON();
+        }
+        writer.write(responseJson);
+
         writer.flush();
     }
 }

@@ -8,38 +8,45 @@ import org.json.JSONObject;
  */
 public class JSONUtills {
 
+    static String USER_NOT_ACTIVATED = "user not activated";
 
-    public static String getSuccessJSON(){
+    public static String getSuccessJSON() {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("result",true);
+        jsonObject.put("result", true);
         return jsonObject.toString();
     }
 
-    public static String getFailedJSON(){
+    public static String getFailedJSON() {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("result",false);
+        jsonObject.put("result", false);
         return jsonObject.toString();
     }
 
-    public static String getBadCredentialsJSON(){
+    public static String getUserNotActivatedJSON() {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("result",false);
-        jsonObject.put("reason","Wrong username and/or password");
+        jsonObject.put("result", false);
+        jsonObject.put("reason", USER_NOT_ACTIVATED);
         return jsonObject.toString();
     }
 
-    public static String getCustomizedReasonJSON(boolean result ,String reason){
+    public static String getBadCredentialsJSON() {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("result",result);
-        jsonObject.put("reason",reason);
+        jsonObject.put("result", false);
+        jsonObject.put("reason", "Wrong username and/or password");
         return jsonObject.toString();
     }
 
-    public static String getExceptionJson(Exception e)
-    {
+    public static String getCustomizedReasonJSON(boolean result, String reason) {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("result",false);
-        jsonObject.put("exception",e.toString());
+        jsonObject.put("result", result);
+        jsonObject.put("reason", reason);
+        return jsonObject.toString();
+    }
+
+    public static String getExceptionJson(Exception e) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("result", false);
+        jsonObject.put("exception", e.toString());
         return jsonObject.toString();
     }
 }
