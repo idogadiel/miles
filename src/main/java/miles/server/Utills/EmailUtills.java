@@ -11,35 +11,34 @@ import org.springframework.core.io.Resource;
  */
 public class EmailUtills {
 
-    public static void sendGenericEmail(String receiver, String title, String body)
-    {
-        Resource r=new ClassPathResource("mail-bean.xml");
-        BeanFactory b=new XmlBeanFactory(r);
-        MailClient m=(MailClient)b.getBean("mailClient");
-        String sender="sendergmailid@gmail.com";
-        m.sendMail(sender,receiver,title,body);
+    public static void sendGenericEmail(String receiver, String title, String body) {
+        Resource r = new ClassPathResource("mail-bean.xml");
+        BeanFactory b = new XmlBeanFactory(r);
+        MailClient m = (MailClient) b.getBean("mailClient");
+        String sender = "sendergmailid@gmail.com";
+        m.sendMail(sender, receiver, title, body);
     }
 
-    public static void sendConfirmationEmail(User user){
-        String receiver=user.getEmail();
+    public static void sendConfirmationEmail(User user) {
+        String receiver = user.getEmail();
         String title = "Signup successfully";
-        String body = Params.UI.PREFIX_PATH+"/"+"/activateAccount/" + user.getActivationKey();
+        String body = Params.UI.PREFIX_PATH + "/" + "/activateAccount/" + user.getActivationKey();
         sendGenericEmail(receiver, title, wrapWithHREF(body));
     }
 
-    public static void sendForgotPasswordEmail(User user){
-        String receiver=user.getEmail();
+    public static void sendForgotPasswordEmail(User user) {
+        String receiver = user.getEmail();
         String title = "Change your password";
-        String link = Params.UI.PREFIX_PATH+"/"+ Params.UI.FORGOT_PASSWORD +"?key="+ user.getActivationKey();
-        String body = "Did you forget your password? "+getBR()+"Use this "+wrapWithHREF(link);
+        String link = Params.UI.PREFIX_PATH + "/" + Params.UI.FORGOT_PASSWORD + "?key=" + user.getActivationKey();
+        String body = "Did you forget your password? " + getBR() + "Use this " + wrapWithHREF(link);
         sendGenericEmail(receiver, title, body);
     }
 
-    private static String wrapWithHREF(String cleanLink){
-        return "<a href='"+cleanLink+"'>Link</a>";
+    private static String wrapWithHREF(String cleanLink) {
+        return "<a href='" + cleanLink + "'>Link</a>";
     }
 
-    private static String getBR(){
+    private static String getBR() {
         return "<br/>";
     }
 }
