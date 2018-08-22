@@ -8,13 +8,13 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
         $location.path("");
     }
 
-    $scope.EMAIL_REGEXP = EMAIL_REGEXP
-    $scope.STRONG_PASS_REGEXP = STRONG_PASS_REGEXP
+    $scope.EMAIL_REGEXP = EMAIL_REGEXP;
+    $scope.STRONG_PASS_REGEXP = STRONG_PASS_REGEXP;
 
     $scope.signup = function () {
         if ($scope.signupForm.$invalid){
-            console.log($scope.signupForm.$error)
-            return
+            console.log($scope.signupForm.$error);
+            return;
         }
 
         var jsonObj =
@@ -26,47 +26,47 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
 //            "birthdate": "1.1.2001"
         };
         serverHttp.POST("user/signup/", jsonObj ).then(function(data){
-            console.log(data)
+            console.log(data);
             if (data.result) {
-                $rootScope.user = {}
+                $rootScope.user = {};
                 $rootScope.user.signedin = true;
                 $rootScope.user.username = data.username;
-                UserService.setUser($rootScope.user)
+                UserService.setUser($rootScope.user);
                 $location.path("/takenFlights");
             }
             else{
-                $scope.signupErrorMessage = data.reason
+                $scope.signupErrorMessage = data.reason;
             }
         });
     };
 
-    $scope.login_tries = 0
+    $scope.login_tries = 0;
     $scope.signIn = function () {
 //        $scope.signinForm.$setUntouched();
 //        $scope.signinForm.$setPristine();
         if ($scope.signinForm.$invalid){
-            console.log($scope.signinForm.$error)
-            return
+            console.log($scope.signinForm.$error);
+            return;
         }
         var jsonObj = "username=" + $scope.email + "&password=" + $scope.password;
         serverHttp.POST_LOGIN("user/login", jsonObj ).then(function(data){
-            var user = {}
+            var user = {};
             user.signedin = true;
             user.username = $scope.username;
-            UserService.setUser(user)
+            UserService.setUser(user);
             $location.path("/takenFlights");
         }, function(error){
-            $scope.signinErrorMessage = error.reason
+            $scope.signinErrorMessage = error.reason;
             $scope.login_tries += 1
         });
     };
 
     $scope.signOut = function () {
-        UserService.clearUser()
+        UserService.clearUser();
         serverHttp.GET("user/logout",{}).then(function(data){
             $scope.message = "Logged out Successfully";
         });
-     }
+     };
 
     $scope.sendForgotPasswordLink = function () {
         if (!isValidEmail($scope.email)) {
@@ -76,7 +76,7 @@ scotchApp.controller('userController', function ($rootScope, $scope, $http, $loc
         serverHttp.GET("user/forgotPassword/" + $scope.email, {}).then(function(data){
             $scope.showForgotPasswordSentMessage = true;
         });
-    }
+    };
 
     $scope.changePassword = function () {
         var jsonObj = {
