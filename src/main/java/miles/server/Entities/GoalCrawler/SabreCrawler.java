@@ -17,7 +17,7 @@ import java.util.Set;
 public class SabreCrawler implements Crawl {
 
     private final String USER_AGENT = "Mozilla/5.0";
-    private final String authorization = "Bearer T1RLAQJ8vDv3gedmtZvQb6UBRgmz6Ru1EhB8cmanJ8uk/arJN9nGE6V4AADAHWAfLmR2QlwIFieaNWc9FF3gRoPGav5G1wamzikftUV+0W+GWAggXy5UEqfUzVKSQKySSSKB8N5tBGP6IyTucsyEHUtVWoMdXSrC1LNCKumLcvAqEtVPEf7u6A29QKueGnrGYpbAszW2Lg5Kk0Ww3Ec5PoxTRZiz2YOpgCxil3yWEoC/pZZXXPJ/inyNkJeASbhv2QjBsyE8MJ1P1Sta1ZwyYb3is/Tp7JtNVPOdO2bTHYpwS/bheV4KldDd3GBD";
+    private final String authorization = "Bearer T1RLAQLsPqEEm+2jNMDvlZAYYdL/O0u0FxBKfS19ptaJ8TP75eO897xgAADAurjApDzl/LE1vXxDC9CC4xxJCbMMx/pXyZQPd16x0Sd8IU0qfWntezVei38PQYK4hXNcQTnXx24KMX7iUmZH55n4HPTyOU/t27mlCsevQ0qNsJ0kAljNR0es2lXPDue9qOALVXgS33zHBztryid5FImguEko8DDfD63/r7Rcx0Mjh8gDZsQ4nMM6ugqc+R0XwQq5TYC9XrmQco4IyPUpU2bgv0Epxd/MscenYTrWCm2kzPL78eBYXGuFvJdsizwJ";
 
     public List<Airline> getData(String from, String to) {
         try {
